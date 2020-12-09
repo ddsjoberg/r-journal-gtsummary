@@ -1,0 +1,98 @@
+---
+title: "gtsummary"
+author: "Daniel D. Sjoberg, Karissa Whiting, Margaret Hannum, Emily C. Zabor, Michael Curry"
+output:
+  pdf_document:
+    keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(gtsummary)
+library(tidyverse)
+library(gt)
+
+theme_gtsummary_compact()
+```
+
+## Introduction
+
+## Data Summaries
+
+The most common summary needed for research projects are simple summaries of data sets.
+To show use of gtsummary functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
+The data set has label attributes (using the labelled package) for column names.
+
+```{r}
+trial %>%
+  imap_dfr(
+    ~tibble(
+      colname = .y, 
+      label = attr(.x, "label"), 
+      class = class(.x), 
+      values = trial %>% select(.y) %>% distinct() %>% 
+        arrange(!!rlang::sym(.y)) %>% slice(1:4) %>% pull(.y) %>% 
+        na.omit() %>% {paste("`", ., "`", collapse = ", ")}
+    ) %>%
+      mutate(
+        values = ifelse(length(unique(na.omit(trial[[.y]]))) > 4,
+                        paste(values, ", ..."),
+                        values) 
+      )
+  ) %>%
+  knitr::kable(caption = "Example data frame, `trial`")
+```
+
+### `tbl_summary()`
+
+The `tbl_summary()` function can be used to easily create a basic summary statistic table.
+This is often the first table of clinical manuscripts and describes characteristics of the cohort under study.
+A simple example is shown below with some basic customizations using the function’s main arguments.
+Notably, by specifying the “by” argument, you can divide your summary statistic into comparator groups.
+In this case, we will split the table by treatment arms.
+
+```{r, echo=TRUE}
+tbl_summary_1 <-
+  trial %>%
+  select(age, grade, response, trt) %>%
+  tbl_summary(by = trt)
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_summary_1 %>% 
+  as_gt() %>%
+  gtsave(file = "tbl_summary_1.png")
+```
+
+
+
+\begin{figure}[h!]
+  \caption{Simple `tbl\_summary()` example}
+  \label{fig:summary_basic}
+  \includegraphics[height=5cm]{tbl_summary_1.png}
+  \centering
+\end{figure}
+
+Figure \ref{fig:summary_basic} is the most bsaic table created with `tbl_summary()`
+
+### `tbl_svysummary()`
+
+### `tbl_cross()`
+
+### `tbl_survfit()`
+
+### Customization
+
+## Model Summaries
+
+### `tbl_regression()`
+
+### `tbl_uvregression()`
+
+## In-line Reporting
+
+## Merging and Stacking
+
+## Themes
+
+## Print Engines

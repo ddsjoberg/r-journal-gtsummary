@@ -1,0 +1,16 @@
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{llll}
+\toprule
+colname & label & class & values \\ 
+\midrule
+trt & Chemotherapy Treatment & character & \texttt{Drug A}, \texttt{Drug B} \\ 
+age & Age & numeric & \texttt{6}, \texttt{9}, \texttt{10}, \texttt{17} , ... \\ 
+marker & Marker Level (ng/mL) & numeric & \texttt{0.003}, \texttt{0.005}, \texttt{0.013}, \texttt{0.015} , ... \\ 
+stage & T Stage & factor & \texttt{T1}, \texttt{T2}, \texttt{T3}, \texttt{T4} \\ 
+grade & Grade & factor & \texttt{I}, \texttt{II}, \texttt{III} \\ 
+response & Tumor Response & integer & \texttt{0}, \texttt{1} \\ 
+death & Patient Died & integer & \texttt{0}, \texttt{1} \\ 
+ttdeath & Months to Death/Censor & numeric & \texttt{3.53}, \texttt{5.33}, \texttt{6.32}, \texttt{7.27} , ... \\ 
+\bottomrule
+\end{longtable}
+
