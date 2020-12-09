@@ -13,15 +13,14 @@ library(tidyverse)
 library(gt)
 
 theme_gtsummary_compact()
+set_gtsummary_theme(list(
+  "as_gt-lst:addl_cmds" = list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino")))
+))
 ```
 
-## Introduction
+# Introduction
 
-## Data Summaries
-
-The most common summary needed for research projects are simple summaries of data sets.
-To show use of gtsummary functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
-The data set has label attributes (using the labelled package) for column names.
+# Data Summaries
 
 ```{r}
 trial %>%
@@ -40,16 +39,10 @@ trial %>%
                         values) 
       )
   ) %>%
-  knitr::kable(caption = "Example data frame, `trial`")
+  knitr::kable(caption = "Example data frame, `trial`") 
 ```
 
-### `tbl_summary()`
-
-The `tbl_summary()` function can be used to easily create a basic summary statistic table.
-This is often the first table of clinical manuscripts and describes characteristics of the cohort under study.
-A simple example is shown below with some basic customizations using the function’s main arguments.
-Notably, by specifying the “by” argument, you can divide your summary statistic into comparator groups.
-In this case, we will split the table by treatment arms.
+## `tbl_summary()`
 
 ```{r, echo=TRUE}
 tbl_summary_1 <-
@@ -61,38 +54,83 @@ tbl_summary_1 <-
 ```{r, echo=FALSE, include = FALSE}
 tbl_summary_1 %>% 
   as_gt() %>%
-  gtsave(file = "tbl_summary_1.png")
+  gtsave(file = "summary_basic.png")
 ```
 
+```{r}
+tibble::tribble(
+  ~Argument,       ~Description,
+  "`label`",       "specify the variable labels printed in table",
+  "`type`",        "specify the variable type (e.g. continuous, categorical, etc.)",
+  "`statistic`",   "change the summary statistics presented",
+  "`digits`",      "number of digits the summary statistics will be rounded to",
+  "`missing`",     "whether to display a row with the number of missing observations",
+  "`missing_text`","text label for the missing number row",
+  "`sort`",        "change the sorting of categorical levels by frequency",
+  "`percent`",     "print column, row, or cell percentages"
+) %>%
+  knitr::kable(caption = "`tbl_summary()` function arguments") 
+```
+
+```{r, echo=TRUE}
+tbl_summary_2 <-
+  trial %>%
+  select(age, grade, response, trt) %>%
+  tbl_summary(by = trt,
+              label = age ~ "Patient Age",
+              statistic = list(all_continuous() ~ "{mean} ({sd})",
+                               all_categorical() ~ "{n} / {N} ({p}%)"),
+              digits = list(age ~ 2, 
+                            all_categorical() ~ c(0, 0, 1)),
+              missing = "no")
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_summary_2 %>% 
+  as_gt() %>%
+  gtsave(file = "summary_plus.png")
+```
+
+```{r}
+tibble::tribble(
+  ~Function,             ~Description,
+  "`add_p()`",           "add p-values to the output comparing values across groups",   
+  "`add_overall()`",     "add a column with overall summary statistics",   
+  "`add_n()`",           "add a column with N (or N missing) for each variable",
+  "`add_difference()`",  "add column for difference between two group, confidemce interval, and p-value",
+  "`add_stat_label()`",  "add label for the summary statistics shown in each row",   
+  "`add_stat()`",        "generic function to add a column with user-defined values",
+  "`add_q()`",           "add a column of q values to control for multiple comparisons"   
+) %>%
+  knitr::kable(caption = "`tbl_summary()` function arguments") 
+```
 
 
 \begin{figure}[h!]
   \caption{Simple `tbl\_summary()` example}
   \label{fig:summary_basic}
-  \includegraphics[height=5cm]{tbl_summary_1.png}
+  \includegraphics[height=5cm]{summary_basic.png}
   \centering
 \end{figure}
 
-Figure \ref{fig:summary_basic} is the most bsaic table created with `tbl_summary()`
+## `tbl_svysummary()`
 
-### `tbl_svysummary()`
+## `tbl_cross()`
 
-### `tbl_cross()`
+## `tbl_survfit()`
 
-### `tbl_survfit()`
+## Customization
 
-### Customization
+# Model Summaries
 
-## Model Summaries
+## `tbl_regression()`
 
-### `tbl_regression()`
+## `tbl_uvregression()`
 
-### `tbl_uvregression()`
+# In-line Reporting
 
-## In-line Reporting
+# Merging and Stacking
 
-## Merging and Stacking
+# Themes
 
-## Themes
-
-## Print Engines
+# Print Engines

@@ -118,17 +118,10 @@ Zabor, Michael Curry}
 \maketitle
 
 \hypertarget{introduction}{%
-\subsection{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}}
 
 \hypertarget{data-summaries}{%
-\subsection{Data Summaries}\label{data-summaries}}
-
-The most common summary needed for research projects are simple
-summaries of data sets. To show use of gtsummary functions, we will use
-a simulated clinical trial data set containing baseline characteristics
-of 200 patients who received Drug A or Drug B as well as the outcome of
-tumor response to the treatment. The data set has label attributes
-(using the labelled package) for column names.
+\section{Data Summaries}\label{data-summaries}}
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{Example data frame, \texttt{trial}}\tabularnewline
@@ -159,15 +152,7 @@ ttdeath & Months to Death/Censor & numeric & \texttt{3.53},
 \end{longtable}
 
 \hypertarget{tbl_summary}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}\label{tbl_summary}}
-
-The \texttt{tbl\_summary()} function can be used to easily create a
-basic summary statistic table. This is often the first table of clinical
-manuscripts and describes characteristics of the cohort under study. A
-simple example is shown below with some basic customizations using the
-function's main arguments. Notably, by specifying the ``by'' argument,
-you can divide your summary statistic into comparator groups. In this
-case, we will split the table by treatment arms.
+\subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}\label{tbl_summary}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -178,46 +163,144 @@ case, we will split the table by treatment arms.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{longtable}[]{@{}ll@{}}
+\caption{\texttt{tbl\_summary()} function arguments}\tabularnewline
+\toprule
+Argument & Description\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Argument & Description\tabularnewline
+\midrule
+\endhead
+\texttt{label} & specify the variable labels printed in
+table\tabularnewline
+\texttt{type} & specify the variable type (e.g.~continuous, categorical,
+etc.)\tabularnewline
+\texttt{statistic} & change the summary statistics
+presented\tabularnewline
+\texttt{digits} & number of digits the summary statistics will be
+rounded to\tabularnewline
+\texttt{missing} & whether to display a row with the number of missing
+observations\tabularnewline
+\texttt{missing\_text} & text label for the missing number
+row\tabularnewline
+\texttt{sort} & change the sorting of categorical levels by
+frequency\tabularnewline
+\texttt{percent} & print column, row, or cell percentages\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tbl\_summary\_}\DecValTok{2}\NormalTok{ <{-}}
+\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt,}
+              \DataTypeTok{label =}\NormalTok{ age }\OperatorTok{\textasciitilde{}}\StringTok{ "Patient Age"}\NormalTok{,}
+              \DataTypeTok{statistic =} \KeywordTok{list}\NormalTok{(}\KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "\{mean\} (\{sd\})"}\NormalTok{,}
+                               \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "\{n\} / \{N\} (\{p\}\%)"}\NormalTok{),}
+              \DataTypeTok{digits =} \KeywordTok{list}\NormalTok{(age }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{2}\NormalTok{, }
+                            \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)),}
+              \DataTypeTok{missing =} \StringTok{"no"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{\texttt{tbl\_summary()} function arguments}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.18\columnwidth}\raggedright
+Function\strut
+\end{minipage} & \begin{minipage}[b]{0.76\columnwidth}\raggedright
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.18\columnwidth}\raggedright
+Function\strut
+\end{minipage} & \begin{minipage}[b]{0.76\columnwidth}\raggedright
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_p()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add p-values to the output comparing values across groups\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_overall()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add a column with overall summary statistics\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_n()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add a column with N (or N missing) for each variable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_difference()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add column for difference between two group, confidemce interval, and
+p-value\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_stat\_label()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add label for the summary statistics shown in each row\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_stat()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+generic function to add a column with user-defined values\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.18\columnwidth}\raggedright
+\texttt{add\_q()}\strut
+\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
+add a column of q values to control for multiple comparisons\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
 \begin{figure}[h!]
-  \caption{Basic `tbl\_summary()` example}
+  \caption{Simple `tbl\_summary()` example}
   \label{fig:summary_basic}
-  \includegraphics[height=5cm]{tbl_summary_1.png}
+  \includegraphics[height=5cm]{summary_basic.png}
   \centering
 \end{figure}
 
-\ref{fig:summary_basic} is basic
-
 \hypertarget{tbl_svysummary}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}\label{tbl_svysummary}}
+\subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}\label{tbl_svysummary}}
 
 \hypertarget{tbl_cross}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}\label{tbl_cross}}
+\subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}\label{tbl_cross}}
 
 \hypertarget{tbl_survfit}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}\label{tbl_survfit}}
+\subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}\label{tbl_survfit}}
 
 \hypertarget{customization}{%
-\subsubsection{Customization}\label{customization}}
+\subsection{Customization}\label{customization}}
 
 \hypertarget{model-summaries}{%
-\subsection{Model Summaries}\label{model-summaries}}
+\section{Model Summaries}\label{model-summaries}}
 
 \hypertarget{tbl_regression}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}\label{tbl_regression}}
+\subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}\label{tbl_regression}}
 
 \hypertarget{tbl_uvregression}{%
-\subsubsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}\label{tbl_uvregression}}
+\subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}\label{tbl_uvregression}}
 
 \hypertarget{in-line-reporting}{%
-\subsection{In-line Reporting}\label{in-line-reporting}}
+\section{In-line Reporting}\label{in-line-reporting}}
 
 \hypertarget{merging-and-stacking}{%
-\subsection{Merging and Stacking}\label{merging-and-stacking}}
+\section{Merging and Stacking}\label{merging-and-stacking}}
 
 \hypertarget{themes}{%
-\subsection{Themes}\label{themes}}
+\section{Themes}\label{themes}}
 
 \hypertarget{print-engines}{%
-\subsection{Print Engines}\label{print-engines}}
+\section{Print Engines}\label{print-engines}}
 
 \end{document}
