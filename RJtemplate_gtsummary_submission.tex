@@ -17,6 +17,51 @@ An abstract of less than 150 words.
 % adding table describing trial dataset
 \input{tbl_trial_desc.tex}
 
+\hypertarget{tbl_summary}{%
+\subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}\label{tbl_summary}}
+
+% code for basic tbl_summary()
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tbl\_summary\_}\DecValTok{1}\NormalTok{ <{-}}
+\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tbl_svysummary}{%
+\subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}\label{tbl_svysummary}}
+
+\hypertarget{tbl_cross}{%
+\subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}\label{tbl_cross}}
+
+\hypertarget{tbl_survfit}{%
+\subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}\label{tbl_survfit}}
+
+\hypertarget{customization}{%
+\subsection{Customization}\label{customization}}
+
+\hypertarget{model-summaries}{%
+\section{Model Summaries}\label{model-summaries}}
+
+\hypertarget{tbl_regression}{%
+\subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}\label{tbl_regression}}
+
+\hypertarget{tbl_uvregression}{%
+\subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}\label{tbl_uvregression}}
+
+\hypertarget{in-line-reporting}{%
+\section{In-line Reporting}\label{in-line-reporting}}
+
+\hypertarget{merging-and-stacking}{%
+\section{Merging and Stacking}\label{merging-and-stacking}}
+
+\hypertarget{themes}{%
+\section{Themes}\label{themes}}
+
+\hypertarget{print-engines}{%
+\section{Print Engines}\label{print-engines}}
 
 \bibliography{RJreferences}
 
