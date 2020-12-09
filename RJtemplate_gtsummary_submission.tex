@@ -8,45 +8,35 @@
 An abstract of less than 150 words.
 }
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}
 
-\hypertarget{data-summaries}{%
-\section{Data Summaries}\label{data-summaries}}
+\section{Data Summaries}
 
 % adding table describing trial dataset
 \input{tbl_trial_desc.tex}
 
-\hypertarget{tbl_summary}{%
-\subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}\label{tbl_summary}}
+
+\subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}
 
 % code for basic tbl_summary()
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{tbl\_summary\_}\DecValTok{1}\NormalTok{ <{-}}
-\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
-\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt)}
-\end{Highlighting}
-\end{Shaded}
+\begin{example}
+tbl_summary_1 <-
+  trial %>%
+  select(age, grade, response, trt) %>%
+  tbl_summary(by = trt)
+\end{example}
 
-\hypertarget{tbl_svysummary}{%
-\subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}\label{tbl_svysummary}}
+\subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}
 
-\hypertarget{tbl_cross}{%
-\subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}\label{tbl_cross}}
+\subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}
 
-\hypertarget{tbl_survfit}{%
-\subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}\label{tbl_survfit}}
+\subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}
 
-\hypertarget{customization}{%
-\subsection{Customization}\label{customization}}
+\subsection{Customization}
 
-\hypertarget{model-summaries}{%
-\section{Model Summaries}\label{model-summaries}}
+\section{Model Summaries}
 
-\hypertarget{tbl_regression}{%
-\subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}\label{tbl_regression}}
+\subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}
 
 \hypertarget{tbl_uvregression}{%
 \subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}\label{tbl_uvregression}}
