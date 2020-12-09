@@ -1,17 +1,17 @@
 \captionsetup[table]{labelformat=empty,skip=1pt}
-\begin{longtable}{ll}
-\caption{\label{tab:}tbl_summary() function arguments}\\
+\begin{longtable}{llll}
+\caption{\label{tab:}Example data frame, \texttt{trial}}\\
 \toprule
-Argument & Description \\ 
+colname & label & class & values \\ 
 \midrule
-\texttt{label} & specify the variable labels printed in table \\ 
-\texttt{type} & specify the variable type (e.g. continuous, categorical, etc.) \\ 
-\texttt{statistic} & change the summary statistics presented \\ 
-\texttt{digits} & number of digits the summary statistics will be rounded to \\ 
-\texttt{missing} & whether to display a row with the number of missing observations \\ 
-\texttt{missing\_text} & text label for the missing number row \\ 
-\texttt{sort} & change the sorting of categorical levels by frequency \\ 
-\texttt{percent} & print column, row, or cell percentages \\ 
+\texttt{\textquotedbl{}trt\textquotedbl{}} & Chemotherapy Treatment & character & \texttt{Drug A}, \texttt{Drug B} \\ 
+\texttt{\textquotedbl{}age\textquotedbl{}} & Age & numeric & \texttt{6}, \texttt{9}, \texttt{10}, \texttt{17} , ... \\ 
+\texttt{\textquotedbl{}marker\textquotedbl{}} & Marker Level (ng/mL) & numeric & \texttt{0.003}, \texttt{0.005}, \texttt{0.013}, \texttt{0.015} , ... \\ 
+\texttt{\textquotedbl{}stage\textquotedbl{}} & T Stage & factor & \texttt{T1}, \texttt{T2}, \texttt{T3}, \texttt{T4} \\ 
+\texttt{\textquotedbl{}grade\textquotedbl{}} & Grade & factor & \texttt{I}, \texttt{II}, \texttt{III} \\ 
+\texttt{\textquotedbl{}response\textquotedbl{}} & Tumor Response & integer & \texttt{0}, \texttt{1} \\ 
+\texttt{\textquotedbl{}death\textquotedbl{}} & Patient Died & integer & \texttt{0}, \texttt{1} \\ 
+\texttt{\textquotedbl{}ttdeath\textquotedbl{}} & Months to Death/Censor & numeric & \texttt{3.53}, \texttt{5.33}, \texttt{6.32}, \texttt{7.27} , ... \\ 
 \bottomrule
 \end{longtable}
 
