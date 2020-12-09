@@ -23,11 +23,10 @@ set_gtsummary_theme(list(
 # Data Summaries
 
 ```{r}
-tbl_trial_desc <- 
-  trial %>%
+trial %>%
   imap_dfr(
     ~tibble(
-      colname = .y, 
+      colname = str_glue('`"{.y}"`'), 
       label = attr(.x, "label"), 
       class = class(.x), 
       values = trial %>% select(.y) %>% distinct() %>% 
@@ -39,17 +38,11 @@ tbl_trial_desc <-
                         paste(values, ", ..."),
                         values) 
       )
-  ) 
-
-tbl_trial_desc %>%
-  knitr::kable(caption = "Example data frame, `trial`") 
-
-tbl_trial_desc %>%
+  ) %>%
   gt(caption = "Example data frame, `trial`") %>%
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  cat() %>%
   readr::write_lines("tbl_trial_desc.tex")
 ```
 
@@ -79,8 +72,14 @@ tibble::tribble(
   "`missing_text`","text label for the missing number row",
   "`sort`",        "change the sorting of categorical levels by frequency",
   "`percent`",     "print column, row, or cell percentages"
-) %>%
-  knitr::kable(caption = "`tbl_summary()` function arguments") 
+)  %>%
+  gt(caption = "`tbl_summary()` function arguments") %>%
+  fmt_markdown(everything()) %>%
+  as_latex() %>%
+  as.character() %>%
+  readr::write_lines("tbl_tbl_summary_args.tex")
+
+
 ```
 
 ```{r, echo=TRUE}
