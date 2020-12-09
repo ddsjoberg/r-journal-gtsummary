@@ -23,7 +23,8 @@ set_gtsummary_theme(list(
 # Data Summaries
 
 ```{r}
-trial %>%
+tbl_trial_desc <- 
+  trial %>%
   imap_dfr(
     ~tibble(
       colname = .y, 
@@ -38,8 +39,18 @@ trial %>%
                         paste(values, ", ..."),
                         values) 
       )
-  ) %>%
+  ) 
+
+tbl_trial_desc %>%
   knitr::kable(caption = "Example data frame, `trial`") 
+
+tbl_trial_desc %>%
+  gt(caption = "Example data frame, `trial`") %>%
+  fmt_markdown(everything()) %>%
+  as_latex() %>%
+  as.character() %>%
+  cat() %>%
+  readr::write_lines("tbl_trial_desc.tex")
 ```
 
 ## `tbl_summary()`
