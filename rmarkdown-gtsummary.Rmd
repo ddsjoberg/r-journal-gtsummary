@@ -90,11 +90,14 @@ tbl_summary_2 <-
   select(age, grade, response, trt) %>%
   tbl_summary(
     by = trt,
+    type = all_continuous() ~ "continuous2",
     label = age ~ "Patient Age",
-    statistic = list(all_continuous() ~ "{mean} ({sd})",
+    statistic = list(all_continuous() ~ c("{N_nonmiss}", 
+                                          "{mean} ({sd})", 
+                                          "{median} ({p25}, {p75})", 
+                                          "{min}, {max}"),
                      all_categorical() ~ "{n} / {N} ({p}%)"),
-    digits = list(age ~ 2, 
-                  all_categorical() ~ c(0, 0, 1)),
+    digits = all_categorical() ~ c(0, 0, 1),
     missing = "no"
   )
 ```

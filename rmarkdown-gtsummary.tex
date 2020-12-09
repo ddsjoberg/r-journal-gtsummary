@@ -133,11 +133,14 @@ Zabor, Michael Curry}
 \StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
 \StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}
     \DataTypeTok{by =}\NormalTok{ trt,}
+    \DataTypeTok{type =} \KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "continuous2"}\NormalTok{,}
     \DataTypeTok{label =}\NormalTok{ age }\OperatorTok{\textasciitilde{}}\StringTok{ "Patient Age"}\NormalTok{,}
-    \DataTypeTok{statistic =} \KeywordTok{list}\NormalTok{(}\KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "\{mean\} (\{sd\})"}\NormalTok{,}
+    \DataTypeTok{statistic =} \KeywordTok{list}\NormalTok{(}\KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"\{N\_nonmiss\}"}\NormalTok{, }
+                                          \StringTok{"\{mean\} (\{sd\})"}\NormalTok{, }
+                                          \StringTok{"\{median\} (\{p25\}, \{p75\})"}\NormalTok{, }
+                                          \StringTok{"\{min\}, \{max\}"}\NormalTok{),}
                      \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "\{n\} / \{N\} (\{p\}\%)"}\NormalTok{),}
-    \DataTypeTok{digits =} \KeywordTok{list}\NormalTok{(age }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{2}\NormalTok{, }
-                  \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)),}
+    \DataTypeTok{digits =} \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
     \DataTypeTok{missing =} \StringTok{"no"}
 \NormalTok{  )}
 \end{Highlighting}
