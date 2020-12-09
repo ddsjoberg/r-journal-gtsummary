@@ -39,10 +39,12 @@ trial %>%
                         values) 
       )
   ) %>%
-  gt(caption = "Example data frame, `trial`") %>%
+  gt() %>%
   fmt_markdown(everything()) %>%
+  cols_align("left", everything()) %>%
   as_latex() %>%
   as.character() %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}Example data frame, \\texttt{trial}}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_trial_desc.tex")
 ```
 
@@ -72,13 +74,13 @@ tibble::tribble(
   "`missing_text`","text label for the missing number row",
   "`sort`",        "change the sorting of categorical levels by frequency",
   "`percent`",     "print column, row, or cell percentages"
-)  %>%
-  gt(caption = "`tbl_summary()` function arguments") %>%
+) %>%
+  gt() %>%
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl_summary()} function arguments}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_tbl_summary_args.tex")
-
 
 ```
 
@@ -111,8 +113,14 @@ tibble::tribble(
   "`add_stat_label()`",  "add label for the summary statistics shown in each row",   
   "`add_stat()`",        "generic function to add a column with user-defined values",
   "`add_q()`",           "add a column of q values to control for multiple comparisons"   
-) %>%
-  knitr::kable(caption = "`tbl_summary()` function arguments") 
+)%>%
+  gt(caption = "`tbl_summary()` functions to add information") %>%
+  fmt_markdown(everything()) %>%
+  fmt_markdown(everything()) %>%
+  as_latex() %>%
+  as.character() %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl_summary()} functions to add information}\\\\\n\\toprule")) %>%
+  readr::write_lines("tbl_tbl_summary_family.tex")
 ```
 
 

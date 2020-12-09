@@ -82,15 +82,6 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -123,34 +114,6 @@ Zabor, Michael Curry}
 \hypertarget{data-summaries}{%
 \section{Data Summaries}\label{data-summaries}}
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{Example data frame, \texttt{trial}}\tabularnewline
-\toprule
-colname & label & class & values\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-colname & label & class & values\tabularnewline
-\midrule
-\endhead
-trt & Chemotherapy Treatment & character & \texttt{Drug\ A},
-\texttt{Drug\ B}\tabularnewline
-age & Age & numeric & \texttt{6}, \texttt{9}, \texttt{10}, \texttt{17} ,
-\ldots{}\tabularnewline
-marker & Marker Level (ng/mL) & numeric & \texttt{0.003},
-\texttt{0.005}, \texttt{0.013}, \texttt{0.015} , \ldots{}\tabularnewline
-stage & T Stage & factor & \texttt{T1}, \texttt{T2}, \texttt{T3},
-\texttt{T4}\tabularnewline
-grade & Grade & factor & \texttt{I}, \texttt{II},
-\texttt{III}\tabularnewline
-response & Tumor Response & integer & \texttt{0},
-\texttt{1}\tabularnewline
-death & Patient Died & integer & \texttt{0}, \texttt{1}\tabularnewline
-ttdeath & Months to Death/Censor & numeric & \texttt{3.53},
-\texttt{5.33}, \texttt{6.32}, \texttt{7.27} , \ldots{}\tabularnewline
-\bottomrule
-\end{longtable}
-
 \hypertarget{tbl_summary}{%
 \subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}\label{tbl_summary}}
 
@@ -162,34 +125,6 @@ ttdeath & Months to Death/Censor & numeric & \texttt{3.53},
 \StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{longtable}[]{@{}ll@{}}
-\caption{\texttt{tbl\_summary()} function arguments}\tabularnewline
-\toprule
-Argument & Description\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-Argument & Description\tabularnewline
-\midrule
-\endhead
-\texttt{label} & specify the variable labels printed in
-table\tabularnewline
-\texttt{type} & specify the variable type (e.g.~continuous, categorical,
-etc.)\tabularnewline
-\texttt{statistic} & change the summary statistics
-presented\tabularnewline
-\texttt{digits} & number of digits the summary statistics will be
-rounded to\tabularnewline
-\texttt{missing} & whether to display a row with the number of missing
-observations\tabularnewline
-\texttt{missing\_text} & text label for the missing number
-row\tabularnewline
-\texttt{sort} & change the sorting of categorical levels by
-frequency\tabularnewline
-\texttt{percent} & print column, row, or cell percentages\tabularnewline
-\bottomrule
-\end{longtable}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -205,63 +140,6 @@ frequency\tabularnewline
               \DataTypeTok{missing =} \StringTok{"no"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{longtable}[]{@{}ll@{}}
-\caption{\texttt{tbl\_summary()} function arguments}\tabularnewline
-\toprule
-\begin{minipage}[b]{0.18\columnwidth}\raggedright
-Function\strut
-\end{minipage} & \begin{minipage}[b]{0.76\columnwidth}\raggedright
-Description\strut
-\end{minipage}\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.18\columnwidth}\raggedright
-Function\strut
-\end{minipage} & \begin{minipage}[b]{0.76\columnwidth}\raggedright
-Description\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_p()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add p-values to the output comparing values across groups\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_overall()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add a column with overall summary statistics\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_n()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add a column with N (or N missing) for each variable\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_difference()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add column for difference between two group, confidemce interval, and
-p-value\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_stat\_label()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add label for the summary statistics shown in each row\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_stat()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-generic function to add a column with user-defined values\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.18\columnwidth}\raggedright
-\texttt{add\_q()}\strut
-\end{minipage} & \begin{minipage}[t]{0.76\columnwidth}\raggedright
-add a column of q values to control for multiple comparisons\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
 
 \begin{figure}[h!]
   \caption{Simple `tbl\_summary()` example}
