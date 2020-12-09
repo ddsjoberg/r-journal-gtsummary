@@ -79,7 +79,7 @@ tibble::tribble(
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl_summary()} function arguments}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} function arguments}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_tbl_summary_args.tex")
 
 ```
@@ -119,7 +119,7 @@ tibble::tribble(
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl_summary()} functions to add information}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} functions to add information}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_tbl_summary_family.tex")
 ```
 
