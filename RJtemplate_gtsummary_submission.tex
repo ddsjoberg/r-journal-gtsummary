@@ -20,11 +20,53 @@ An abstract of less than 150 words.
 
 % code for basic tbl_summary()
 \begin{example}
-tbl_summary_1 <-
-  trial %>%
+trial %>%
   select(age, grade, response, trt) %>%
   tbl_summary(by = trt)
 \end{example}
+\begin{figure}[h!]
+  \includegraphics[height=5cm]{summary_basic.png}
+  \centering
+\end{figure}
+
+
+% code for tbl_summary() with arguments
+\input{tbl_tbl_summary_args.tex}
+\begin{example}
+trial %>%
+  select(age, grade, response, trt) %>%
+  tbl_summary(
+    by = trt,
+    type = all_continuous() ~ "continuous2",
+    label = age ~ "Patient Age",
+    statistic = list(all_continuous() ~ c("{N_nonmiss}", 
+                                          "{mean} ({sd})", 
+                                          "{median} ({p25}, {p75})", 
+                                          "{min}, {max}"),
+                     all_categorical() ~ "{n} / {N} ({p}%)"),
+    digits = all_categorical() ~ c(0, 0, 1),
+    missing = "no"
+  )
+\end{example}
+\begin{figure}[h!]
+  \includegraphics[height=5cm]{summary_plus.png}
+  \centering
+\end{figure}
+
+% code for tbl_summary() with arguments
+\input{tbl_tbl_summary_family.tex}
+\begin{example}
+trial %>%
+  select(age, grade, response, trt) %>%
+  tbl_summary(by = trt, missing = "no") %>%
+  add_p(test = all_continuous() ~ "t.test",
+        pvalue_fun = ~style_pvalue(., digits = 2)) %>%
+  add_n()
+\end{example}
+\begin{figure}[h!]
+  \includegraphics[height=5cm]{summary_plus_plus.png}
+  \centering
+\end{figure}
 
 \subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}
 
