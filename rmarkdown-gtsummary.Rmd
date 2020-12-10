@@ -75,7 +75,8 @@ tibble::tribble(
   "`missing=`",     "whether to display a row with the number of missing observations",
   "`missing_text=`","text label for the missing number row",
   "`sort=`",        "change the sorting of categorical levels by frequency",
-  "`percent=`",     "print column, row, or cell percentages"
+  "`percent=`",     "print column, row, or cell percentages",
+  "`include=`",     "list of variables to include in summary table"
 ) %>%
   gt() %>%
   fmt_markdown(everything()) %>%
@@ -200,7 +201,8 @@ tbl_cross_1 %>%
 library(survival)
 
 tbl_survfit_1 <-
-  survfit(Surv(ttdeath, death) ~ trt, trial) %>%
+  list(survfit(Surv(ttdeath, death) ~ trt, trial),
+       survfit(Surv(ttdeath, death) ~ grade, trial)) %>%
   tbl_survfit(times = c(12, 24),
               label_header = "**{time} Month**") %>%
   add_p()
