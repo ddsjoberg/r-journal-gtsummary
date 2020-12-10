@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(gtsummary)
 library(tidyverse)
 library(gt)
@@ -22,7 +22,7 @@ set_gtsummary_theme(list(
 
 # Data Summaries
 
-```{r}
+```{r, results='asis'}
 trial %>%
   imap_dfr(
     ~tibble(
@@ -47,6 +47,8 @@ trial %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}Example data frame, \\texttt{trial}}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_trial_desc.tex")
 ```
+
+% latex comment ?
 
 ## `tbl_summary()`
 
@@ -118,7 +120,7 @@ tibble::tribble(
   "`add_stat_label()`",  "add label for the summary statistics shown in each row",   
   "`add_stat()`",        "generic function to add a column with user-defined values",
   "`add_q()`",           "add a column of q values to control for multiple comparisons"   
-)%>%
+) %>%
   gt(caption = "`tbl_summary()` functions to add information") %>%
   fmt_markdown(everything()) %>%
   fmt_markdown(everything()) %>%
@@ -153,21 +155,153 @@ tbl_summary_3 %>%
 
 ## `tbl_svysummary()`
 
+```{r}
+data(api, package = "survey")
+
+# create weighted survey object, keep only two counties
+svy_api <- 
+  survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) %>%
+  subset(cname %in% c("Alameda", "Los Angeles"))
+
+# summarize data
+tbl_svysummary_1 <-
+  svy_api %>%
+  tbl_svysummary(by = cname, 
+                 include = c(growth, target, cname),
+                 label = list(growth ~ "Growth",
+                              target ~ "Target")) %>%
+  add_p()
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_svysummary_1 %>% 
+  as_gt() %>%
+  gtsave(file = "svysummary.png")
+```
+
 ## `tbl_cross()`
+
+```{r}
+tbl_cross_1 <-
+  trial %>%
+  tbl_cross(row = stage, col = trt, percent = "cell") %>%
+  add_p(source_note = TRUE)
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_cross_1 %>% 
+  as_gt() %>%
+  gtsave(file = "cross.png")
+```
 
 ## `tbl_survfit()`
 
+```{r}
+library(survival)
+
+tbl_survfit_1 <-
+  survfit(Surv(ttdeath, death) ~ trt, trial) %>%
+  tbl_survfit(times = c(12, 24),
+              label_header = "**{time} Month**") %>%
+  add_p()
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_cross_1 %>% 
+  as_gt() %>%
+  gtsave(file = "cross.png")
+```
+
 ## Customization
+
+```{r}
+tibble::tribble(
+  ~Function,                     ~Description,
+  "`modify_header()`",           "update column headers",   
+  "`modify_footnote()`",         "update column footnote",   
+  "`modify_spanning_header()`",  "update spanning headers",   
+  "`bold_labels()`",             "bold variable labels",  
+  "`bold_levels()`",             "bold variable levels",  
+  "`italicize_labels()`",        "italicize variable labels",  
+  "`italicize_levels()`",        "italicize variable levels",  
+  "`bold_p()`",                  "bold significant p-values"
+) %>%
+  gt() %>%
+  fmt_markdown(everything()) %>%
+  fmt_markdown(everything()) %>%
+  as_latex() %>%
+  as.character() %>%
+  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:} Functions to style and modify gtsummary tables}\\\\\n\\toprule")) %>%
+  readr::write_lines("tbl_modify.tex")
+```
 
 # Model Summaries
 
 ## `tbl_regression()`
 
+```{r}
+tbl_regression_1 <-
+  glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE) %>%
+  add_global_p()
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_regression_1 %>% 
+  as_gt() %>%
+  gtsave(file = "regression.png")
+```
+
 ## `tbl_uvregression()`
 
-# In-line Reporting
+```{r}
+tbl_uvregression_1 <-
+  trial %>%
+  select(response, age, grade) %>%
+  tbl_uvregression(
+    y = response, 
+    method = glm,
+    method.args = list(family = binomial),
+    exponentiate = TRUE,
+    pvalue_fun = ~style_pvalue(., digits = 2)
+  ) %>%
+  add_nevent() %>%
+  add_global_p()
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_uvregression_1 %>% 
+  as_gt() %>%
+  gtsave(file = "uvregression.png")
+```
 
 # Merging and Stacking
+
+```{r}
+tbl1 <-
+  glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE) %>%
+  add_global_p()
+
+tbl2 <-
+  coxph(Surv(ttdeath, death) ~ age + grade, trial) %>%
+  tbl_regression(exponentiate = TRUE) %>%
+  add_global_p()
+
+tbl_merge_1 <-
+  tbl_merge(
+    tbls = list(tbl1, tbl2),
+    tab_spanner = c("**Tumor Response**", "**Time to Death**")
+  )
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_merge_1 %>% 
+  as_gt() %>%
+  gtsave(file = "merge.png")
+```
+
+# Inline Reporting
 
 # Themes
 
