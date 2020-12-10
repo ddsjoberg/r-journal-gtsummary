@@ -207,9 +207,9 @@ tbl_survfit_1 <-
 ```
 
 ```{r, echo=FALSE, include = FALSE}
-tbl_cross_1 %>% 
+tbl_survfit_1 %>% 
   as_gt() %>%
-  gtsave(file = "cross.png")
+  gtsave(file = "survfit.png")
 ```
 
 ## Customization
