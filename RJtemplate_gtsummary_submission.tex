@@ -59,9 +59,10 @@ trial %>%
 trial %>%
   select(age, grade, response, trt) %>%
   tbl_summary(by = trt, missing = "no") %>%
+  add_n() %>%
   add_p(test = all_continuous() ~ "t.test",
-        pvalue_fun = ~style_pvalue(., digits = 2)) %>%
-  add_n()
+        pvalue_fun = ~style_pvalue(., digits = 2))
+
 \end{example}
 \begin{figure}[h!]
   \includegraphics[height=5cm]{summary_plus_plus.png}
@@ -70,18 +71,92 @@ trial %>%
 
 \subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}
 
+\begin{example}
+# create weighted survey object, keep only two counties
+data(api, package = "survey")
+svy_api <- 
+  survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) %>%
+  subset(cname %in% c("Alameda", "Los Angeles"))
+
+# summarize data
+svy_api %>%
+  tbl_svysummary(by = cname, 
+                 include = c(growth, target, cname),
+                 label = list(growth ~ "Growth",
+                              target ~ "Target")) %>%
+  add_p()
+\end{example}
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{svysummary.png}
+  \centering
+\end{figure}
+
 \subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}
+
+\begin{example}
+trial %>%
+  tbl_cross(row = stage, col = trt, percent = "cell") %>%
+  add_p(source_note = TRUE)
+\end{example}
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{cross.png}
+  \centering
+\end{figure}
 
 \subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}
 
+\begin{example}
+library(survival)
+
+survfit(Surv(ttdeath, death) ~ trt, trial) %>%
+  tbl_survfit(times = c(12, 24),
+              label_header = "**{time} Month**") %>%
+  add_p()
+\end{example}
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{survfit.png}
+  \centering
+\end{figure}
+
 \subsection{Customization}
+
+% adding table describing fns for customization
+\input{tbl_modify.tex}
 
 \section{Model Summaries}
 
 \subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}
 
-\hypertarget{tbl_uvregression}{%
-\subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}\label{tbl_uvregression}}
+\begin{example}
+glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE) %>%
+  add_global_p()
+\end{example}
+
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{regression.png}
+  \centering
+\end{figure}
+
+\subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}
+\begin{example}
+trial %>%
+  select(response, age, grade) %>%
+  tbl_uvregression(
+    y = response, 
+    method = glm,
+    method.args = list(family = binomial),
+    exponentiate = TRUE,
+    pvalue_fun = ~style_pvalue(., digits = 2)
+  ) %>%
+  add_nevent() %>%
+  add_global_p()
+\end{example}
+
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{uvregression.png}
+  \centering
+\end{figure}
 
 \hypertarget{in-line-reporting}{%
 \section{In-line Reporting}\label{in-line-reporting}}
