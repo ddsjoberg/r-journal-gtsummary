@@ -1,6 +1,6 @@
 % !TeX root = RJwrapper.tex
 \title{Reproducible Summary Tables with gtsummary}
-\author{by Daniel D. Sjoberg, Karissa Whiting, Margie Hannum, Michael Curry}
+\author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry}
 
 \maketitle
 
@@ -12,11 +12,21 @@ An abstract of less than 150 words.
 
 \section{Data Summaries}
 
+To show use of gtsummary functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
+Each variable in the data frame has been assigned an attribute label (i.e. \texttt{attr(trial\$trt, "label") == "Chemotherapy Treatment"}) with the labelled[add ref] package. 
+These labels are displayed in the {gtsummary} tables by default. Using {gtsummary} on a data frame without labels will print variable names in place of variable labels with the option to update the text displayed.
+
 % adding table describing trial dataset
 \input{tbl_trial_desc.tex}
 
-
 \subsection{\texorpdfstring{\texttt{tbl\_summary()}}{tbl\_summary()}}
+
+The default output from \texttt{tbl\_summary()} is meant to be publication ready.
+The \texttt{tbl\_summary()} function can take, at minimum, a data frame as the only input, and returns descriptive statistics for each column in the data frame.
+This is often the first table of clinical manuscripts and describes characteristics of the cohort under study.
+A simple example is shown below.
+Notably, by specifying the \texttt{by=} argument, you can stratify the summary table. 
+In the example below, we have split the table by the treatment a patient received. 
 
 % code for basic tbl_summary()
 \begin{example}
@@ -29,6 +39,16 @@ trial %>%
   \centering
 \end{figure}
 
+Note the sensible defaults with this basic usage.
+
+\begin{itemize}
+\item Variable types are automatically detected so that appropriate descriptive statistics are calculated.
+\item Label attributes from the data set are automatically printed.
+\item Missing values are listed as “Unknown” in the table.
+\item Variable levels are indented and footnotes are added.
+\end{itemize}
+
+Each of the defaults may be customized using the \texttt{tbl\_summary()} function arguments.
 
 % code for tbl_summary() with arguments
 \input{tbl_tbl_summary_args.tex}
@@ -113,6 +133,8 @@ survfit(Surv(ttdeath, death) ~ trt, trial) %>%
               label_header = "**{time} Month**") %>%
   add_p()
 \end{example}
+
+% TODO: I do not understand why this isn't being placed below the code! https://www.overleaf.com/learn/latex/Positioning_of_Figures
 \begin{figure}[h!]
   \includegraphics[height=4cm]{survfit.png}
   \centering
@@ -172,23 +194,23 @@ trial %>%
 
 \bibliography{RJreferences}
 
-\address{Author One\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
-  \email{author1@work}}
+\address{Daniel D. Sjoberg\\
+  Memorial Sloan Kettering Cancer Center\\
+  1275 York Ave., New York, New York 10022\\
+  USA\\
+  ORCID 0000-0003-0862-2018\\
+  \email{sjobergd@mskcc.org}}
 
-\address{Author Two\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
+\address{Karissa Whiting\\
+  Memorial Sloan Kettering Cancer Center\\
+  1275 York Ave., New York, New York 10022\\
+  USA\\
+  ORCID 0000-0002-4683-1868\\
   \email{author2@work}}
 
-\address{Author Three\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
+\address{Michael Curry\\
+  Memorial Sloan Kettering Cancer Center\\
+  1275 York Ave., New York, New York 10022\\
+  USA\\
+  ORCID 0000-0002-0261-4044\\
   \email{author3@work}}
