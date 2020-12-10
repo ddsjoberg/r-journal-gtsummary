@@ -26,7 +26,7 @@ set_gtsummary_theme(list(
 trial %>%
   imap_dfr(
     ~tibble(
-      colname = str_glue('`"{.y}"`'), 
+      colname = str_glue('`{.y}`'), 
       label = attr(.x, "label"), 
       class = class(.x), 
       values = trial %>% select(.y) %>% distinct() %>% 
@@ -68,14 +68,14 @@ tbl_summary_1 %>%
 ```{r}
 tibble::tribble(
   ~Argument,       ~Description,
-  "`label`",       "specify the variable labels printed in table",
-  "`type`",        "specify the variable type (e.g. continuous, categorical, etc.)",
-  "`statistic`",   "change the summary statistics presented",
-  "`digits`",      "number of digits the summary statistics will be rounded to",
-  "`missing`",     "whether to display a row with the number of missing observations",
-  "`missing_text`","text label for the missing number row",
-  "`sort`",        "change the sorting of categorical levels by frequency",
-  "`percent`",     "print column, row, or cell percentages"
+  "`label=`",       "specify the variable labels printed in table",
+  "`type=`",        "specify the variable type (e.g. continuous, categorical, etc.)",
+  "`statistic=`",   "change the summary statistics presented",
+  "`digits=`",      "number of digits the summary statistics will be rounded to",
+  "`missing=`",     "whether to display a row with the number of missing observations",
+  "`missing_text=`","text label for the missing number row",
+  "`sort=`",        "change the sorting of categorical levels by frequency",
+  "`percent=`",     "print column, row, or cell percentages"
 ) %>%
   gt() %>%
   fmt_markdown(everything()) %>%
