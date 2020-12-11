@@ -82,7 +82,7 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -101,8 +101,8 @@
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 
 \title{gtsummary}
-\author{Daniel D. Sjoberg, Karissa Whiting, Margaret Hannum, Emily C. Zabor,
-Michael Curry}
+\author{Daniel D. Sjoberg, Karissa Whiting, Margaret Hannum, Emily C.
+Zabor, Michael Curry}
 \date{}
 
 \begin{document}
@@ -121,28 +121,28 @@ Michael Curry}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tbl_summary_}\DecValTok{1}\NormalTok{ <-}
-\StringTok{  }\NormalTok{trial }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{tbl_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt)}
+\NormalTok{tbl\_summary\_}\DecValTok{1}\NormalTok{ <{-}}
+\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tbl_summary_}\DecValTok{2}\NormalTok{ <-}
-\StringTok{  }\NormalTok{trial }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{tbl_summary}\NormalTok{(}
+\NormalTok{tbl\_summary\_}\DecValTok{2}\NormalTok{ <{-}}
+\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}
     \DataTypeTok{by =}\NormalTok{ trt,}
-    \DataTypeTok{type =} \KeywordTok{all_continuous}\NormalTok{() }\OperatorTok{~}\StringTok{ "continuous2"}\NormalTok{,}
-    \DataTypeTok{label =}\NormalTok{ age }\OperatorTok{~}\StringTok{ "Patient Age"}\NormalTok{,}
-    \DataTypeTok{statistic =} \KeywordTok{list}\NormalTok{(}\KeywordTok{all_continuous}\NormalTok{() }\OperatorTok{~}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"\{N_nonmiss\}"}\NormalTok{, }
+    \DataTypeTok{type =} \KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "continuous2"}\NormalTok{,}
+    \DataTypeTok{label =}\NormalTok{ age }\OperatorTok{\textasciitilde{}}\StringTok{ "Patient Age"}\NormalTok{,}
+    \DataTypeTok{statistic =} \KeywordTok{list}\NormalTok{(}\KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"\{N\_nonmiss\}"}\NormalTok{, }
                                           \StringTok{"\{mean\} (\{sd\})"}\NormalTok{, }
                                           \StringTok{"\{median\} (\{p25\}, \{p75\})"}\NormalTok{, }
                                           \StringTok{"\{min\}, \{max\}"}\NormalTok{),}
-                     \KeywordTok{all_categorical}\NormalTok{() }\OperatorTok{~}\StringTok{ "\{n\} / \{N\} (\{p\}%)"}\NormalTok{),}
-    \DataTypeTok{digits =} \KeywordTok{all_categorical}\NormalTok{() }\OperatorTok{~}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+                     \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "\{n\} / \{N\} (\{p\}\%)"}\NormalTok{),}
+    \DataTypeTok{digits =} \KeywordTok{all\_categorical}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
     \DataTypeTok{missing =} \StringTok{"no"}
 \NormalTok{  )}
 \end{Highlighting}
@@ -150,13 +150,13 @@ Michael Curry}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tbl_summary_}\DecValTok{3}\NormalTok{ <-}
-\StringTok{  }\NormalTok{trial }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{tbl_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt, }\DataTypeTok{missing =} \StringTok{"no"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_p}\NormalTok{(}\DataTypeTok{test =} \KeywordTok{all_continuous}\NormalTok{() }\OperatorTok{~}\StringTok{ "t.test"}\NormalTok{,}
-        \DataTypeTok{pvalue_fun =} \OperatorTok{~}\KeywordTok{style_pvalue}\NormalTok{(., }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_n}\NormalTok{()}
+\NormalTok{tbl\_summary\_}\DecValTok{3}\NormalTok{ <{-}}
+\StringTok{  }\NormalTok{trial }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(age, grade, response, trt) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_summary}\NormalTok{(}\DataTypeTok{by =}\NormalTok{ trt, }\DataTypeTok{missing =} \StringTok{"no"}\NormalTok{) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{add\_p}\NormalTok{(}\DataTypeTok{test =} \KeywordTok{all\_continuous}\NormalTok{() }\OperatorTok{\textasciitilde{}}\StringTok{ "t.test"}\NormalTok{,}
+        \DataTypeTok{pvalue\_fun =} \OperatorTok{\textasciitilde{}}\KeywordTok{style\_pvalue}\NormalTok{(., }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{add\_n}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -209,6 +209,16 @@ Here's how the line will appear in your report.
 
 \hypertarget{themes}{%
 \section{Themes}\label{themes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{theme\_gtsummary\_journal}\NormalTok{(}\StringTok{"nejm"}\NormalTok{)}
+
+\NormalTok{tbl\_nejm <{-}}
+\StringTok{  }\KeywordTok{glm}\NormalTok{(response }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{age }\OperatorTok{+}\StringTok{ }\NormalTok{grade, trial, }\DataTypeTok{family =}\NormalTok{ binomial) }\OperatorTok{\%>\%}
+\StringTok{  }\KeywordTok{tbl\_regression}\NormalTok{(}\DataTypeTok{exponentiate =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{print-engines}{%
 \section{Print Engines}\label{print-engines}}

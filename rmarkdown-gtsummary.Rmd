@@ -237,6 +237,29 @@ tibble::tribble(
   readr::write_lines("tbl_modify.tex")
 ```
 
+```{r,echo=FALSE}
+tbl_custom <-
+  trial %>%
+  select(age, grade, trt) %>%
+  tbl_summary(by = trt, missing = "no") %>%
+  add_overall() %>%
+  add_p() %>%
+  add_stat_label() %>%
+  modify_header(label ~ "**Variable**") %>% 
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Recieved**") %>%
+  as_gt() %>%
+  gt::tab_header(
+    title = gt::md("**Table 1. Patient Characteristics**"),
+    subtitle = gt::md("_Highly Confidential_")
+  ) %>%
+  gt::tab_source_note("Data updated June 26, 2015")
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_custom %>% 
+  gtsave(file = "custom.png")
+```
+
 # Model Summaries
 
 ## `tbl_regression()`
