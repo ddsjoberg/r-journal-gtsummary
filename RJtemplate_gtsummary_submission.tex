@@ -13,7 +13,7 @@ An abstract of less than 150 words.
 \section{Data Summaries}
 
 To show use of gtsummary functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
-Each variable in the data frame has been assigned an attribute label (i.e. \texttt{attr(trial\$trt, "label") == "Chemotherapy Treatment"}) with the labelled[add ref] package. 
+Each variable in the data frame has been assigned an attribute label (i.e. \texttt{attr(trial\$trt, "label") == "Chemotherapy Treatment"}) with the labelled package\citep{labelled}. 
 These labels are displayed in the {gtsummary} tables by default. Using {gtsummary} on a data frame without labels will print variable names in place of variable labels with the option to update the text displayed.
 
 % adding table describing trial dataset
@@ -254,7 +254,7 @@ The default pattern to display for a regression table is \texttt{"\{estimate\} (
 
 \section{Themes}\label{themes}
 
-The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International.[]
+The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International\citep{assel2019guidelines}.
 
 The gtsummary package is unique from other table building packages in the ability to set fine-grained customization defaults controlling virtually every aspect of summary tables. 
 gtsummary themes were created to make these customizations easy to navigate and reuse across documents or projects. 
