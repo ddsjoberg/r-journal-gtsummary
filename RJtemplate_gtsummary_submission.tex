@@ -39,19 +39,21 @@ trial %>%
   \centering
 \end{figure}
 
-Note the sensible defaults with this basic usage.
+The function is highly customizable, and it is initiated with sensible default settings.
+Specifically, \texttt{tbl\_summary} detects variable types of input data and calculates descriptive statistics accordingly.
+For example, variables coded as \texttt{0/1}, \texttt{TRUE/FALSE}, and \texttt{Yes/No} are presented dichotomously.
+Additionally, \texttt{NA} values are recognized as missing and listed as unknown, and if a data set is labelled, the label attributes are automatically utilized. 
 
-\begin{itemize}
-\item Variable types are automatically detected so that appropriate descriptive statistics are calculated.
-\item Label attributes from the data set are automatically printed.
-\item Missing values are listed as “Unknown” in the table.
-\item Variable levels are indented and footnotes are added.
-\end{itemize}
-
-Each of the defaults may be customized using the \texttt{tbl\_summary()} function arguments.
+Default settings may be customized using the \texttt{tbl\_summary()} function arguments.
 
 % code for tbl_summary() with arguments
 \input{tbl_tbl_summary_args.tex}
+
+In the example below, continuous variables are cast to \texttt{"continuous2"}, meaning the continuous summary statistics will appear on two or more rows in the table.
+The \texttt{"age"} variable's label is updated to \texttt{"Patient Age"}.
+Default summary statistics for both continuous and categorical variables are updated using the \texttt{statistic=} argument.
+The \texttt{digits=} argument is used to increase the number of decimal places the statistics are rounded, and the missing row is omitted with \texttt{missing = "no"}.
+
 \begin{example}
 trial %>%
   select(age, grade, response, trt) %>%
@@ -73,8 +75,21 @@ trial %>%
   \centering
 \end{figure}
 
+\textbf{A note about notation:}
+Throughout the gtsummary package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
+In the example above, the label for the age variable was updated using \texttt{label = age $\sim$ "Patient Age"}---equivalently, \texttt{label = list(age $\sim$ "Patient Age")}.
+To select groups of variables, utilize the select helpers from the tidyselect[add ref] and gtsummary.
+Above, \texttt{all\_continuous()} was utilized to change the summary statistics for all continuous variables. 
+Similarly, users may utilize \texttt{all\_categorical()} (from gtsummary), or any of the tidyselect helpers used throughout the tidyverse[add ref] package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
+
+The gtsummary package has several functions to add information or statistics to \texttt{tbl\_summary()} tables.
+
 % code for tbl_summary() with arguments
 \input{tbl_tbl_summary_family.tex}
+
+In the example below the number of non-missing observations is reported for each variable, as well as a p-value comparing the values between the treatment.
+The \texttt{add\_p(pvalue\_fun=)} argument accept both a proper function as well the formula shortcut notation used through the tidyverse packages.
+
 \begin{example}
 trial %>%
   select(age, grade, response, trt) %>%
@@ -90,6 +105,8 @@ trial %>%
 \end{figure}
 
 \subsection{\texorpdfstring{\texttt{tbl\_svysummary()}}{tbl\_svysummary()}}
+
+The \texttt{tbl\_svysummary()} function is very similar to \texttt{tbl\_summary()} except a survey object is supplied rather than a data frame.
 
 \begin{example}
 # create weighted survey object, keep only two counties
@@ -113,6 +130,8 @@ svy_api %>%
 
 \subsection{\texorpdfstring{\texttt{tbl\_cross()}}{tbl\_cross()}}
 
+The \texttt{tbl\_cross()} function continues using similar syntax as the previous functions, resulting in a cross tabulation table ready for publication. 
+
 \begin{example}
 trial %>%
   tbl_cross(row = stage, col = trt, percent = "cell") %>%
@@ -125,10 +144,14 @@ trial %>%
 
 \subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}
 
+The \texttt{tbl\_survfit()} parses and tabulates n-year survival and survival percentile estimates from \texttt{survival::survfit()}.
+
+
 \begin{example}
 library(survival)
 
-survfit(Surv(ttdeath, death) ~ trt, trial) %>%
+list(survfit(Surv(ttdeath, death) ~ trt, trial),
+     survfit(Surv(ttdeath, death) ~ grade, trial)) %>%
   tbl_survfit(times = c(12, 24),
               label_header = "**{time} Month**") %>%
   add_p()
