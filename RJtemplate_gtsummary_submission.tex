@@ -176,11 +176,25 @@ The gt package exports approximately one hundred functions to customize and styl
 When you need to add additional details or styling not available within gtsummary, use the \texttt{as\_gt()} to convert the gtsummary object to gt and continue customization.
 
 \begin{example}
-
+trial %>%
+  select(age, grade, trt) %>%
+  tbl_summary(by = trt, missing = "no") %>%  
+  add_overall() %>%    
+  add_p() %>%      
+  add_stat_label() %>%     
+  modify_header(label ~ "**Variable**") %>%   
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Recieved**") %>%  
+  as_gt() %>% 
+  gt::tab_header(   
+    title = gt::md("**Table 1. Patient Characteristics**"),
+    subtitle = gt::md("_Highly Confidential_")
+  ) %>%
+  gt::tab_source_note("Data updated June 26, 2015")   
 \end{example}
-
-
-ADD SOMETHING ABOUT as\_gt() and using the many fns available to us there.
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{custom.png}
+  \centering
+\end{figure}
 
 \section{Model Summaries}
 
