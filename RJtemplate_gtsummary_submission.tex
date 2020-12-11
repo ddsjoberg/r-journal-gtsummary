@@ -261,6 +261,19 @@ Themes were created to make these customizations easy to navigate and reuse acro
 Several ready built themes are available in the package.
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \texttt{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
 
+For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \texttt{lb to ub} instead of \texttt{lb, ub}.
+
+\begin{example}
+theme_gtsummary_journal("nejm")
+
+glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE)
+\end{example}
+
+\begin{figure}[h!]
+  \includegraphics[height=4cm]{nejm.png}
+  \centering
+\end{figure}
 
 many more advanced or fine-grained customizations. Theme elements fall into two categories: (1) elements that modify internal behavior of the functions that is not directly controllable by function arguments, (2) elements that set function argument defaults. The values of these theme elements must align with the functions’ accepted input for the argument.
 
