@@ -316,4 +316,18 @@ Here's how the line will appear in your report.
 
 # Themes
 
+```{r, echo=TRUE}
+theme_gtsummary_journal("nejm")
+
+tbl_nejm <-
+  glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE)
+```
+
+```{r, echo=FALSE, include = FALSE}
+tbl_nejm %>% 
+  as_gt() %>%
+  gtsave(file = "nejm.png")
+```
+
 # Print Engines
