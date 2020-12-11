@@ -171,6 +171,8 @@ Most common uses are changing the column headers and footnotes.
 % adding table describing fns for customization
 \input{tbl_modify.tex}
 
+ADD SOMETHING ABOUT as\_gt() and using the many fns available to us there.
+
 \section{Model Summaries}
 
 Regression modelling is one of the most common tools of medical researchers.
@@ -182,7 +184,7 @@ The \texttt{tbl\_regression()} function takes a regression model object in R and
 Like \texttt{tbl\_summary()}, \texttt{tbl\_regression()} creates highly customizable analytic tables with sensible defaults.
 Common regression models, such as logistic regression and Cox proportional hazards regression, are automatically identified and the tables headers are pre-filled with appropriate column headers (i.e. Odds Ratio and Hazard Ratio).
 
-In the example below, the logistic regression model is summarized with \texttt{tbl\regression()}.
+In the example below, the logistic regression model is summarized with \texttt{tbl\_regression()}.
 Note that reference row for Grade I has been added, and the variable labels have been carried through into the table.
 Using \texttt{exponentiate = TRUE} exponentiates the regression coefficients yielding the odds ratios.
 The helper function \texttt{add\_global\_p()} was used to replace the p-values for each term with the global p-value for grade.
@@ -252,6 +254,16 @@ The default pattern to display for a regression table is \texttt{"\{estimate\} (
 
 \section{Themes}\label{themes}
 
+The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International.[]
+
+The gtsummary package is unique from other table building packages in the ability to set fine-grained customization defaults controlling virtually every aspect of summary tables. 
+gtsummary themes were created to make these customizations easy to navigate and reuse across documents or projects. 
+Similar to ggplot themes, gtsummary themes are essentially defined sets of customization preferences that can be packaged and set for a single table or an entire document. 
+Several ready built themes are available in the package….
+
+With themes, users can control default settings for existing functions (e.g. always present means instead of medians in tbl_summary()), as well as many more advanced or fine-grained customizations. Theme elements fall into two categories: (1) elements that modify internal behavior of the functions that is not directly controllable by function arguments, (2) elements that set function argument defaults. The values of these theme elements must align with the functions’ accepted input for the argument.
+
+While a full glossary of customizable theme elements is available via the package documentation (http://www.danieldsjoberg.com/gtsummary/articles/themes.html)
 \section{Print Engines}\label{print-engines}
 
 \bibliography{RJreferences}
