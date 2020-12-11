@@ -227,7 +227,7 @@ trial %>%
   \centering
 \end{figure}
 
-\section{Inline Reporting}\label{in-line-reporting}
+\section{Inline Reporting}
 
 Reproducible reports are an important part of good practices.
 We often need to report the results from a table in the text of an R markdown report.
@@ -250,9 +250,9 @@ The odds ratio for age was 1.02 (95\% CI 1.00, 1.04; p=0.091).
 
 The default pattern to display for a regression table is \texttt{"\{estimate\} (\{conf.level*100\}\% CI \{conf.low\}, \{conf.high\}; \{p.value\})"} (again using glue syntax), and can be modified with the \texttt{inline\_text(pattern=)} argument. 
 
-\section{Merging and Stacking}\label{merging-and-stacking}
+\section{Merging and Stacking}
 
-\section{Themes}\label{themes}
+\section{Themes}
 
 The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International\citep{assel2019guidelines}.
 However, you'll likely submit to another journal, or your personal preferences different from the defaults.
@@ -261,7 +261,7 @@ Themes were created to make these customizations easy to navigate and reuse acro
 Several ready built themes are available in the package.
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \texttt{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
 
-For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \texttt{lb to ub} instead of \texttt{lb, ub}.
+For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \texttt{"lb to ub"} instead of \texttt{"lb, ub"}.
 
 \begin{example}
 theme_gtsummary_journal("nejm")
@@ -275,10 +275,10 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-many more advanced or fine-grained customizations. Theme elements fall into two categories: (1) elements that modify internal behavior of the functions that is not directly controllable by function arguments, (2) elements that set function argument defaults. The values of these theme elements must align with the functions’ accepted input for the argument.
+The themes are an evolving feature and we welcome additions of new journals and other useful themes.
+A full glossary of customizable theme elements is available in the package documentation (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
-While a full glossary of customizable theme elements is available via the package documentation (http://www.danieldsjoberg.com/gtsummary/articles/themes.html)
-\section{Print Engines}\label{print-engines}
+\section{Print Engines}
 
 \bibliography{RJreferences}
 
