@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{Reproducible Summary Tables with gtsummary}
+\title{Reproducible Summary Tables with the gtsummary Package}
 \author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry}
 
 \maketitle
@@ -51,7 +51,7 @@ Default settings may be customized using the \texttt{tbl\_summary()} function ar
 
 In the example below, continuous variables are cast to \texttt{"continuous2"}, meaning the continuous summary statistics will appear on two or more rows in the table.
 The \texttt{"age"} variable's label is updated to \texttt{"Patient Age"}.
-Default summary statistics for both continuous and categorical variables are updated using the \texttt{statistic=} argument.
+Default summary statistics for both continuous and categorical variables are updated using the \texttt{statistic=} argument. ADD SOMETHING ABOUT GLUE SYNTAX!
 The \texttt{digits=} argument is used to increase the number of decimal places the statistics are rounded, and the missing row is omitted with \texttt{missing = "no"}.
 
 \begin{example}
@@ -144,8 +144,7 @@ trial %>%
 
 \subsection{\texorpdfstring{\texttt{tbl\_survfit()}}{tbl\_survfit()}}
 
-The \texttt{tbl\_survfit()} parses and tabulates n-year survival and survival percentile estimates from \texttt{survival::survfit()}.
-
+The \texttt{tbl\_survfit()} parses and tabulates n-year survival and survival percentile estimates from \texttt{survival::survfit()} objects.
 
 \begin{example}
 library(survival)
@@ -165,12 +164,28 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
 
 \subsection{Customization}
 
+The gtsummary package includes functions specifically made to modify and format the summary tables.
+These functions work with any table constructed with gtsummary.
+Most common uses are changing the column headers and footnotes.
+
 % adding table describing fns for customization
 \input{tbl_modify.tex}
 
 \section{Model Summaries}
 
+Regression modelling is one of the most common tools of medical researchers.
+The gtsummary has two functions to assist researchers and analysts to prepare tabular summaries of regression models: \texttt{tbl\_regression()} and \texttt{tbl\_uvregression()}.
+
 \subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}
+
+The \texttt{tbl\_regression()} function takes a regression model object in R and returns a formatted table of regression model results. 
+Like \texttt{tbl\_summary()}, \texttt{tbl\_regression()} creates highly customizable analytic tables with sensible defaults.
+Common regression models, such as logistic regression and Cox proportional hazards regression, are automatically identified and the tables headers are pre-filled with appropriate column headers (i.e. Odds Ratio and Hazard Ratio).
+
+In the example below, the logistic regression model is summarized with \texttt{tbl\regression()}.
+Note that reference row for Grade I has been added, and the variable labels have been carried through into the table.
+Using \texttt{exponentiate = TRUE} exponentiates the regression coefficients yielding the odds ratios.
+The helper function \texttt{add\_global\_p()} was used to replace the p-values for each term with the global p-value for grade.
 
 \begin{example}
 glm(response ~ age + grade, trial, family = binomial) %>%
@@ -183,7 +198,14 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
+The \texttt{tbl\_regression()} function leverages the huge effort behind the broom[add ref] package's \texttt{tidy()} function to perform the initial formatting of the regression object.
+Because \texttt{tbl\_regression()} utilizes \texttt{broom::tidy()}, there are many model types that are supported out of the box, such as \texttt{lm()}, \texttt{glm()}, \texttt{lme4::lmer()}, \texttt{lme4::glmer()}, \texttt{geepack::geeglm()}, \texttt{survival::coxph()}, \texttt{survival::survreg()}, \texttt{survival::clogit()}, \texttt{nnet::multinom()}, \texttt{rstanarm::stan\_glm()}, models built with the mice package[add ref]and more. The gtsummary package also contains a handful of custom tidiers to report standardized coefficients and bootstrapped confidence intervals.
+
 \subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}
+
+The \texttt{tbl\_uvregression()} function is a wrapper for \texttt{tbl\_regression()} that is useful when you need a series of univariate regression models.
+The user passes a data frame to \texttt{tbl\_uvregression()}, indicates what the outcome is, what regression model to run, and the function will return a beautifully formatted table of stacked univarate regression models.
+
 \begin{example}
 trial %>%
   select(response, age, grade) %>%
@@ -203,17 +225,34 @@ trial %>%
   \centering
 \end{figure}
 
-\hypertarget{in-line-reporting}{%
-\section{In-line Reporting}\label{in-line-reporting}}
+\section{Inline Reporting}\label{in-line-reporting}
 
-\hypertarget{merging-and-stacking}{%
-\section{Merging and Stacking}\label{merging-and-stacking}}
+Reproducible reports are an important part of good practices.
+We often need to report the results from a table in the text of an R markdown report.
+Inline reporting has been made simple with \texttt{inline\_text()}.
+The function reports statistics from gtsummary tables inline in an R markdown document.
 
-\hypertarget{themes}{%
-\section{Themes}\label{themes}}
+Imagine you need to report the results for age from the univariate table above.
+Typically, the odds ratio, confidence interval, and p-value would be hard-coded into a report, which can lead to reproducibility issues if the data is updated and the hard-coded statistics are not amended.
+A simple call to the \texttt{inline\_text()} function will dynamically add the model results to a an Rmarkdown report.
 
-\hypertarget{print-engines}{%
-\section{Print Engines}\label{print-engines}}
+\begin{quote}
+The odds ratio for age was \texttt{\textasciigrave{}r\ inline\_text(uvreg,\ variable\ =\ age)\textasciigrave{}}.
+\end{quote}
+
+Here's how the line will appear in your report.
+
+\begin{quote}
+The odds ratio for age was 1.02 (95\% CI 1.00, 1.04; p=0.091).
+\end{quote}
+
+The default pattern to display for a regression table is \texttt{"\{estimate\} (\{conf.level*100\}\% CI \{conf.low\}, \{conf.high\}; \{p.value\})"} (again using glue syntax), and can be modified with the \texttt{inline\_text(pattern=)} argument. 
+
+\section{Merging and Stacking}\label{merging-and-stacking}
+
+\section{Themes}\label{themes}
+
+\section{Print Engines}\label{print-engines}
 
 \bibliography{RJreferences}
 
