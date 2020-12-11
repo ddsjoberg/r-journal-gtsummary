@@ -78,9 +78,9 @@ trial %>%
 \textbf{A note about notation:}
 Throughout the gtsummary package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
 In the example above, the label for the age variable was updated using \texttt{label = age $\sim$ "Patient Age"}---equivalently, \texttt{label = list(age $\sim$ "Patient Age")}.
-To select groups of variables, utilize the select helpers from the tidyselect[add ref] and gtsummary.
+To select groups of variables, utilize the select helpers from the tidyselect\citep{tidyselect} and gtsummary.
 Above, \texttt{all\_continuous()} was utilized to change the summary statistics for all continuous variables. 
-Similarly, users may utilize \texttt{all\_categorical()} (from gtsummary), or any of the tidyselect helpers used throughout the tidyverse[add ref] package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
+Similarly, users may utilize \texttt{all\_categorical()} (from gtsummary), or any of the tidyselect helpers used throughout the tidyverse\citep{tidyverse} package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
 
 The gtsummary package has several functions to add information or statistics to \texttt{tbl\_summary()} tables.
 
@@ -200,7 +200,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-The \texttt{tbl\_regression()} function leverages the huge effort behind the broom[add ref] package's \texttt{tidy()} function to perform the initial formatting of the regression object.
+The \texttt{tbl\_regression()} function leverages the huge effort behind the broom package's \texttt{tidy()} function to perform the initial formatting of the regression object\citep{broom}.
 Because \texttt{tbl\_regression()} utilizes \texttt{broom::tidy()}, there are many model types that are supported out of the box, such as \texttt{lm()}, \texttt{glm()}, \texttt{lme4::lmer()}, \texttt{lme4::glmer()}, \texttt{geepack::geeglm()}, \texttt{survival::coxph()}, \texttt{survival::survreg()}, \texttt{survival::clogit()}, \texttt{nnet::multinom()}, \texttt{rstanarm::stan\_glm()}, models built with the mice package[add ref]and more. The gtsummary package also contains a handful of custom tidiers to report standardized coefficients and bootstrapped confidence intervals.
 
 \subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}
@@ -255,13 +255,14 @@ The default pattern to display for a regression table is \texttt{"\{estimate\} (
 \section{Themes}\label{themes}
 
 The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International\citep{assel2019guidelines}.
+However, you'll likely submit to another journal, or your personal preferences different from the defaults.
+The gtsummary package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
+Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
+Several ready built themes are available in the package.
+With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \texttt{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
 
-The gtsummary package is unique from other table building packages in the ability to set fine-grained customization defaults controlling virtually every aspect of summary tables. 
-gtsummary themes were created to make these customizations easy to navigate and reuse across documents or projects. 
-Similar to ggplot themes, gtsummary themes are essentially defined sets of customization preferences that can be packaged and set for a single table or an entire document. 
-Several ready built themes are available in the package….
 
-With themes, users can control default settings for existing functions (e.g. always present means instead of medians in tbl_summary()), as well as many more advanced or fine-grained customizations. Theme elements fall into two categories: (1) elements that modify internal behavior of the functions that is not directly controllable by function arguments, (2) elements that set function argument defaults. The values of these theme elements must align with the functions’ accepted input for the argument.
+many more advanced or fine-grained customizations. Theme elements fall into two categories: (1) elements that modify internal behavior of the functions that is not directly controllable by function arguments, (2) elements that set function argument defaults. The values of these theme elements must align with the functions’ accepted input for the argument.
 
 While a full glossary of customizable theme elements is available via the package documentation (http://www.danieldsjoberg.com/gtsummary/articles/themes.html)
 \section{Print Engines}\label{print-engines}
@@ -280,11 +281,11 @@ While a full glossary of customizable theme elements is available via the packag
   1275 York Ave., New York, New York 10022\\
   USA\\
   ORCID 0000-0002-4683-1868\\
-  \email{author2@work}}
+  \email{whitingk@mskcc.org}}
 
 \address{Michael Curry\\
   Memorial Sloan Kettering Cancer Center\\
   1275 York Ave., New York, New York 10022\\
   USA\\
   ORCID 0000-0002-0261-4044\\
-  \email{author3@work}}
+  \email{currym1@mskcc.org}}
