@@ -305,6 +305,15 @@ tbl_merge_1 %>%
 
 # Inline Reporting
 
+To report the result for `age`, use the following commands inline.
+
+> `` `r
+inline_text(tbl_uvregression_1, variable = age)` `` 
+
+Here's how the line will appear in your report.
+
+> `r inline_text(tbl_uvregression_1, variable = age)`
+
 # Themes
 
 # Print Engines
