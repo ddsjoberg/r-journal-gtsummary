@@ -123,7 +123,7 @@ svy_api %>%
                               target ~ "Target")) %>%
   add_p()
 \end{example}
-\begin{figure}[h!]
+\begin{figure}[H]
   \includegraphics[height=4cm]{svysummary.png}
   \centering
 \end{figure}
@@ -170,6 +170,15 @@ Most common uses are changing the column headers and footnotes.
 
 % adding table describing fns for customization
 \input{tbl_modify.tex}
+
+The gtsummary package utilizes the gt package\citep{gt} to print the summary tables.
+The gt package exports approximately one hundred functions to customize and style tables.
+When you need to add additional details or styling not available within gtsummary, use the \texttt{as\_gt()} to convert the gtsummary object to gt and continue customization.
+
+\begin{example}
+
+\end{example}
+
 
 ADD SOMETHING ABOUT as\_gt() and using the many fns available to us there.
 
@@ -279,6 +288,15 @@ The themes are an evolving feature and we welcome additions of new journals and 
 A full glossary of customizable theme elements is available in the package documentation (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
 \section{Print Engines}
+
+SHOULD WE JUST REMOVE THIS SECTION?!
+
+\begin{figure}[h!]
+  \includegraphics[height=4.5cm]{print_engines.png}
+  \centering
+\end{figure}
+
+\section{Summary}
 
 \bibliography{RJreferences}
 
