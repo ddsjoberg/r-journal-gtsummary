@@ -246,7 +246,7 @@ tbl_custom <-
   add_p() %>%
   add_stat_label() %>%
   modify_header(label ~ "**Variable**") %>% 
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Recieved**") %>%
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
   as_gt() %>%
   gt::tab_header(
     title = gt::md("**Table 1. Patient Characteristics**"),
