@@ -1,23 +1,48 @@
 % !TeX root = RJwrapper.tex
-\title{Reproducible Summary Tables with the gtsummary Package}
+\title{Reproducible Summary Tables with the e \pkg{gtsummary} Package}
 \author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry}
 
 \maketitle
 
 \abstract{
-The gtsummary package provides an elegant and flexible way to create publication-ready summary tables in R. The motivation behind the package stems from the work of statisticians, data scientists, and analysts, where every day, they summarize datasets and regression models in R, share results with collaborators, and eventually include them in published manuscripts or share with stakeholders. The gtsummary streamlines this process creating summaries of data sets, regression models, survey data, and survival data with simple code resulting in beautiful tables suitable for publication--often with a single line of code. The package follows a tidy framework, yielding an interface that is easy to learn that is also highly customizable.
+The \pkg{gtsummary} package provides an elegant and flexible way to create publication-ready summary tables in R. The motivation behind the package stems from the work of statisticians, data scientists, and analysts, where every day, they summarize datasets and regression models in R, share results with collaborators, and eventually include them in published manuscripts or share with stakeholders. The \pkg{gtsummary} streamlines this process creating summaries of data sets, regression models, survey data, and survival data with simple code resulting in beautiful tables suitable for publication--often with a single line of code. The package follows a tidy framework, yielding an interface that is easy to learn that is also highly customizable.
 }
 
 \section{Introduction}
+A common need in research and business analytics is summarizing data and statistical models.
+Table summaries identify patterns in the data that help analysts discover insights and drive action.
+While there are options to create summary tables in R, few, if any packages, have the ability to make tables that are easy to: export, interpret, reproduce, and create. 
 
-\citep{gtsummary}
-include something about we identifed common summaries, data, model, survey data, cross tabs, etc, made them easy to add to tables, and further easy to merge and stack the basic bulding blocks together.
+The \CRANpkg{gtsummary} \citep{gtsummary} package provides an elegant and flexible way to create publication-ready analytical and summary tables in R.
+This package works with existing packages and frameworks to close the loop between reproducible RMarkdown R code and polished, organized statistical reports.
+Specifically, gtsummary allows the users to fully customize the format of tables in R so users do not have to modify any tables after an RMarkdown has rendered or a table has been exported.
+Getting rid of the need to modify tables after the table has been created, reduces an error-prone workflow and increases the chances that your analysis is reproducible. 
+
+Using \pkg{gtsummary}, analysts can easily summarize data frames, present and compare descriptive statistics between groups, summarize the most common types of regression models, and report statistics in line in R markdown reports. 
+Identifying building blocks of tables presented in medical literature (that also are common among all fields), \pkg{gtsummary} seeks to create these tables and their formats so there is no need for further end-user modifications.  
+
+Additionally, \pkg{gtsummary} leverages other data cleaning and analysis packages to create a complete analysis and reporting framework.
+For example, users can take advantage of existing broom tidiers to clean regression results for \texttt{tbl\_regression()} and use \pkg{gt}, \pkg{kable}, \pkg{flextable} or others to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, RTF).
+Furthermore, all \pkg{gtsummary} functions are created to work within a “tidy” framework where a data frame is the first argument and functions can be used with pipes.
+Unquoted variables are used and tidyselect functions can be used to select and manipulate groups of variables within the framework.
+
+While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for all types of statistical tables and offers diverse features to customize content and format of tables to a high degree.
+For example, \pkg{finalfit} only creates regressions outputs and you have to manually specify a printing engine for the table to render.
+Furthermore, \pkg{tableone} reports on general descriptive statistics, it is fundamentally lacking in its ability to produce tables for regression modeling strategies in R. 
+
+\pkg{gtsummary} comes equipped common descriptive summaries for several data types allowing the user to easily aggregate data.
+At first, \pkg{gtsummary} will identify data as continuous or discrete and apply summary methods to each variable. 
+However, any default in identifying data types can be manually overridden. 
+Additionally, if any descriptive statistical method is not inherently in \pkg{gtsummary}, the user can supply their own function to summarise the data. 
+Along with common descriptive summaries, \pkg{gtsummary} has the most common methods to summarise statistical models, survey data, and even perform cross tables for comparing discrete variables. 
+After data summarization, \pkg{gtsummary} allows users to combine tables, either side by side (with \texttt{tbl\_merge()}) , or on top of each other (with \texttt{tbl\_stack()}). 
+This data merging allows users to easily synthesize and compare output from several tables and share a lot of information in a compact format.   
 
 \section{Data Summaries}
 
-To show use of gtsummary functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
+To show use of \pkg{gtsummary} functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcome of tumor response to the treatment.
 Each variable in the data frame has been assigned an attribute label (i.e. \texttt{attr(trial\$trt, "label") == "Chemotherapy Treatment"}) with the labelled package \citep{labelled}. 
-These labels are displayed in the {gtsummary} tables by default. Using {gtsummary} on a data frame without labels will print variable names in place of variable labels with the option to update the text displayed.
+These labels are displayed in the \pkg{gtsummary} tables by default. Using \pkg{gtsummary} on a data frame without labels will print variable names in place of variable labels with the option to update the text displayed.
 
 % adding table describing trial dataset
 \input{tbl_trial_desc.tex}
@@ -79,13 +104,13 @@ trial %>%
 \end{figure}
 
 \textbf{A note about notation:}
-Throughout the gtsummary package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
+Throughout the \pkg{gtsummary} package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
 In the example above, the label for the age variable was updated using \texttt{label = age $\sim$ "Patient Age"}---equivalently, \texttt{label = list(age $\sim$ "Patient Age")}.
-To select groups of variables, utilize the select helpers from the tidyselect \citep{tidyselect} and gtsummary.
+To select groups of variables, utilize the select helpers from the tidyselect \citep{tidyselect} and \pkg{gtsummary}.
 Above, \texttt{all\_continuous()} was utilized to change the summary statistics for all continuous variables. 
-Similarly, users may utilize \texttt{all\_categorical()} (from gtsummary), or any of the tidyselect helpers used throughout the tidyverse \citep{tidyverse} package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
+Similarly, users may utilize \texttt{all\_categorical()} (from \pkg{gtsummary}), or any of the tidyselect helpers used throughout the tidyverse \citep{tidyverse} package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
 
-The gtsummary package has several functions to add information or statistics to \texttt{tbl\_summary()} tables.
+The \pkg{gtsummary} package has several functions to add information or statistics to \texttt{tbl\_summary()} tables.
 
 % code for tbl_summary() with arguments
 \input{tbl_tbl_summary_family.tex}
@@ -167,16 +192,16 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
 
 \subsection{Customization}
 
-The gtsummary package includes functions specifically made to modify and format the summary tables.
-These functions work with any table constructed with gtsummary.
+The \pkg{gtsummary} package includes functions specifically made to modify and format the summary tables.
+These functions work with any table constructed with \pkg{gtsummary}.
 Most common uses are changing the column headers and footnotes.
 
 % adding table describing fns for customization
 \input{tbl_modify.tex}
 
-The gtsummary package utilizes the gt package \citep{gt} to print the summary tables.
+The \pkg{gtsummary} package utilizes the gt package \citep{gt} to print the summary tables.
 The gt package exports approximately one hundred functions to customize and style tables.
-When you need to add additional details or styling not available within gtsummary, use the \texttt{as\_gt()} to convert the gtsummary object to gt and continue customization.
+When you need to add additional details or styling not available within \pkg{gtsummary}, use the \texttt{as\_gt()} to convert the \pkg{gtsummary} object to gt and continue customization.
 
 \begin{example}
 trial %>%
@@ -186,7 +211,7 @@ trial %>%
   add_p() %>%      
   add_stat_label() %>%     
   modify_header(label ~ "**Variable**") %>%   
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Recieved**") %>%  
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%  
   as_gt() %>% 
   gt::tab_header(   
     title = gt::md("**Table 1. Patient Characteristics**"),
@@ -202,7 +227,7 @@ trial %>%
 \section{Model Summaries}
 
 Regression modelling is one of the most common tools of medical researchers.
-The gtsummary has two functions to assist researchers and analysts to prepare tabular summaries of regression models: \texttt{tbl\_regression()} and \texttt{tbl\_uvregression()}.
+The \pkg{gtsummary} has two functions to assist researchers and analysts to prepare tabular summaries of regression models: \texttt{tbl\_regression()} and \texttt{tbl\_uvregression()}.
 
 \subsection{\texorpdfstring{\texttt{tbl\_regression()}}{tbl\_regression()}}
 
@@ -227,7 +252,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{figure}
 
 The \texttt{tbl\_regression()} function leverages the huge effort behind the broom package's \texttt{tidy()} function \citep{broom} to perform the initial formatting of the regression object.
-Because \texttt{tbl\_regression()} utilizes \texttt{broom::tidy()}, there are many model types that are supported out of the box, such as \texttt{lm()}, \texttt{glm()}, \texttt{lme4::lmer()}, \texttt{lme4::glmer()}, \texttt{geepack::geeglm()}, \texttt{survival::coxph()}, \texttt{survival::survreg()}, \texttt{survival::clogit()}, \texttt{nnet::multinom()}, \texttt{rstanarm::stan\_glm()}, models built with the mice package[add ref]and more. The gtsummary package also contains a handful of custom tidiers to report standardized coefficients and bootstrapped confidence intervals.
+Because \texttt{tbl\_regression()} utilizes \texttt{broom::tidy()}, there are many model types that are supported out of the box, such as \texttt{lm()}, \texttt{glm()}, \texttt{lme4::lmer()}, \texttt{lme4::glmer()}, \texttt{geepack::geeglm()}, \texttt{survival::coxph()}, \texttt{survival::survreg()}, \texttt{survival::clogit()}, \texttt{nnet::multinom()}, \texttt{rstanarm::stan\_glm()}, models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains a handful of custom tidiers to report standardized coefficients and bootstrapped confidence intervals.
 
 \subsection{\texorpdfstring{\texttt{tbl\_uvregression()}}{tbl\_uvregression()}}
 
@@ -258,7 +283,7 @@ trial %>%
 Reproducible reports are an important part of good practices.
 We often need to report the results from a table in the text of an R markdown report.
 Inline reporting has been made simple with \texttt{inline\_text()}.
-The function reports statistics from gtsummary tables inline in an R markdown document.
+The function reports statistics from \pkg{gtsummary} tables inline in an R markdown document.
 
 Imagine you need to report the results for age from the univariate table above.
 Typically, the odds ratio, confidence interval, and p-value would be hard-coded into a report, which can lead to reproducibility issues if the data is updated and the hard-coded statistics are not amended.
@@ -282,7 +307,7 @@ The default pattern to display for a regression table is \texttt{"\{estimate\} (
 
 The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International \citep{assel2019guidelines}.
 However, you'll likely submit to another journal, or your personal preferences different from the defaults.
-The gtsummary package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
+The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
 Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
 Several ready built themes are available in the package.
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \texttt{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
@@ -306,6 +331,7 @@ A full glossary of customizable theme elements is available in the package docum
 
 \section{Print Engines}
 
+The \pkg{gtsummary} package 
 SHOULD WE JUST REMOVE THIS SECTION?!
 
 \begin{figure}[h!]
@@ -321,19 +347,19 @@ SHOULD WE JUST REMOVE THIS SECTION?!
   Memorial Sloan Kettering Cancer Center\\
   1275 York Ave., New York, New York 10022\\
   USA\\
-  ORCID 0000-0003-0862-2018\\
+  ORCiD: 0000-0003-0862-2018\\
   \email{sjobergd@mskcc.org}}
 
 \address{Karissa Whiting\\
   Memorial Sloan Kettering Cancer Center\\
   1275 York Ave., New York, New York 10022\\
   USA\\
-  ORCID 0000-0002-4683-1868\\
+  ORCiD: 0000-0002-4683-1868\\
   \email{whitingk@mskcc.org}}
 
 \address{Michael Curry\\
   Memorial Sloan Kettering Cancer Center\\
   1275 York Ave., New York, New York 10022\\
   USA\\
-  ORCID 0000-0002-0261-4044\\
+  ORCiD: 0000-0002-0261-4044\\
   \email{currym1@mskcc.org}}
