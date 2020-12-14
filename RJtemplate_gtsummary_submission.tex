@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{Reproducible Summary Tables with the e \pkg{gtsummary} Package}
+\title{Reproducible Summary Tables with the \pkg{gtsummary} Package}
 \author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry}
 
 \maketitle
@@ -26,7 +26,7 @@ For example, users can take advantage of existing broom tidiers to clean regress
 Furthermore, all \pkg{gtsummary} functions are created to work within a “tidy” framework where a data frame is the first argument and functions can be used with pipes.
 Unquoted variables are used and tidyselect functions can be used to select and manipulate groups of variables within the framework.
 
-While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for all types of statistical tables and offers diverse features to customize content and format of tables to a high degree.
+While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique https://www.overleaf.com/project/5fd126ae12e0e68e74c14832in that it is a one-stop-shop for all types of statistical tables and offers diverse features to customize content and format of tables to a high degree.
 For example, \pkg{finalfit} only creates regressions outputs and you have to manually specify a printing engine for the table to render.
 Furthermore, \pkg{tableone} reports on general descriptive statistics, it is fundamentally lacking in its ability to produce tables for regression modeling strategies in R. 
 
@@ -303,16 +303,45 @@ The default pattern to display for a regression table is \texttt{"\{estimate\} (
 
 \section{Merging and Stacking}
 
+The \pkg{gtsummary} tables shown above are often ready for publication as they are.
+It is, however, common that higher quality tables can be constructed by merging or stacking simple tables.
+For example in cancer research, we often report on models about both a tumor's response to a treatment, and if that treatment reduces the risk of death.
+These two models are often reported side-by-side, and it's simple to construct this table using  the \texttt{tbl\_merge()} function.
+Simply, build a table for each regression model using \texttt{tbl\_regression()}, then merge the to tables with \texttt{tbl\_merge()}: any number of \pkg{gtsummary} tables can be merged with this function.
+
+\begin{example}
+tbl1 <- 
+  glm(response ~ age + grade, trial, family = binomial) %>%
+  tbl_regression(exponentiate = TRUE)
+
+tbl2 <-
+  coxph(Surv(ttdeath, death) ~ age + grade, trial) %>%
+  tbl_regression(exponentiate = TRUE) 
+
+tbl_merge_1 <-
+  tbl_merge(
+    tbls = list(tbl1, tbl2),
+    tab_spanner = c("**Tumor Response**", "**Time to Death**")
+  )
+\end{example}
+
+\begin{figure}[h!]
+  \includegraphics[scale=0.28]{merge.png}
+  \centering
+\end{figure}
+
+Similarly, any number of \pkg{gtsummary} tables may be stacked on top of one another using the \texttt{tbl\_stack()} function.
+
 \section{Themes}
 
 The default styling (e.g. statistics displayed in \texttt{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International \citep{assel2019guidelines}.
-However, you'll likely submit to another journal, or your personal preferences different from the defaults.
+However, you'll likely submit to another journal, or your personal preferences differ from the defaults.
 The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
 Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
-Several ready built themes are available in the package.
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \texttt{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
+Several themes are available in the package that follow various journals' reporting guidelines, reduce cell padding, and recently language themes were introduced and the output of \pkg{gtsummary} tables can be translated into more than 10 languages.
 
-For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \texttt{"lb to ub"} instead of \texttt{"lb, ub"}. A theme was used to construct the tables shown in this manuscript to change the font to match the \emph{R Journal} font.
+For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \texttt{"lb to ub"} instead of \texttt{"lb, ub"} (ampong other modifications). 
 
 \begin{example}
 theme_gtsummary_journal("nejm")
@@ -326,8 +355,9 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-The themes are an evolving feature and we welcome additions of new journals and other useful themes.
-A full glossary of customizable theme elements is available in the package documentation (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
+A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font. 
+Themes are an evolving feature and we welcome additions of new journals' reporting guidelines and other themes useful to users.
+A full glossary of customizable theme elements is available in the package's themes vignette (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
 \section{Print Engines}
 
