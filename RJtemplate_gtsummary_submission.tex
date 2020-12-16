@@ -4,6 +4,10 @@
 
 \maketitle
 
+% TO DO
+% - change all code refs from \texttt{} to \code{}
+% - update all references to packages to use \CRANpkg{} and \pkg{}
+
 \abstract{
 The \pkg{gtsummary} package provides an elegant and flexible way to create publication-ready summary tables in R. The motivation behind the package stems from the work of statisticians, data scientists, and analysts, where every day, they summarize datasets and regression models in R, share results with collaborators, and eventually include them in published manuscripts or share with stakeholders. The \pkg{gtsummary} streamlines this process creating summaries of data sets, regression models, survey data, and survival data with simple code resulting in beautiful tables suitable for publication--often with a single line of code. The package follows a tidy framework, yielding an interface that is easy to learn that is also highly customizable.
 }
@@ -22,13 +26,13 @@ Using \pkg{gtsummary}, analysts can easily summarize data frames, present and co
 Identifying building blocks of tables presented in medical literature (that also are common among all fields), \pkg{gtsummary} seeks to create these tables and their formats so there is no need for further end-user modifications.  
 
 Additionally, \pkg{gtsummary} leverages other data cleaning and analysis packages to create a complete analysis and reporting framework.
-For example, users can take advantage of existing broom tidiers to clean regression results for \texttt{tbl\_regression()} and use \pkg{gt}, \pkg{kable}, \pkg{flextable} or others to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, RTF).
+For example, users can take advantage of existing \CRANpkg{broom} tidiers to clean regression results for \texttt{tbl\_regression()} and use \CRANpkg{gt}, \CRANpkg{kable}, \CRANpkg{flextable} or others to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
 Furthermore, all \pkg{gtsummary} functions are created to work within a “tidy” framework where a data frame is the first argument and functions can be used with pipes.
 Unquoted variables are used and tidyselect functions can be used to select and manipulate groups of variables within the framework.
 
-While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique https://www.overleaf.com/project/5fd126ae12e0e68e74c14832in that it is a one-stop-shop for all types of statistical tables and offers diverse features to customize content and format of tables to a high degree.
-For example, \pkg{finalfit} only creates regressions outputs and you have to manually specify a printing engine for the table to render.
-Furthermore, \pkg{tableone} reports on general descriptive statistics, it is fundamentally lacking in its ability to produce tables for regression modeling strategies in R. 
+While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for all types of statistical tables and offers diverse features to customize content and format of tables to a high degree.
+For example with \CRANpkg{finalfit}, you have to manually specify a printing engine for the table to render.
+Furthermore, \CRANpkg{tableone} reports on general descriptive statistics, it is fundamentally lacking in its ability to produce tables for regression modeling strategies in R. 
 
 \pkg{gtsummary} comes equipped common descriptive summaries for several data types allowing the user to easily aggregate data.
 At first, \pkg{gtsummary} will identify data as continuous or discrete and apply summary methods to each variable. 
@@ -79,7 +83,9 @@ Default settings may be customized using the \texttt{tbl\_summary()} function ar
 
 In the example below, continuous variables are cast to \texttt{"continuous2"}, meaning the continuous summary statistics will appear on two or more rows in the table.
 The \texttt{"age"} variable's label is updated to \texttt{"Patient Age"}.
-Default summary statistics for both continuous and categorical variables are updated using the \texttt{statistic=} argument. ADD SOMETHING ABOUT GLUE SYNTAX!
+Default summary statistics for both continuous and categorical variables are updated using the \texttt{statistic=} argument. 
+\pkg{gtsummary} uses \CRANpkg{glue} to help interpret string literals. Glue embeds R expressions (functions or objects) in curly braces which are then evaluated and inserted into the argument string. 
+ADD SOMETHING ABOUT GLUE SYNTAX!
 The \texttt{digits=} argument is used to increase the number of decimal places the statistics are rounded, and the missing row is omitted with \texttt{missing = "no"}.
 
 \begin{example}
@@ -363,6 +369,8 @@ A full glossary of customizable theme elements is available in the package's the
 
 The \pkg{gtsummary} package 
 SHOULD WE JUST REMOVE THIS SECTION?!
+
+Keep this section (or add it somewhere else).  We'll say that the other print engines are available. We won't even mention the defaults since they are will be changing in the future.
 
 \begin{figure}[h!]
   \includegraphics[scale=0.28]{print_engines.png}
