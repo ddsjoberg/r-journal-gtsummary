@@ -154,20 +154,12 @@ tbl_summary_3 %>%
 ## `tbl_svysummary()`
 
 ```{r}
-data(api, package = "survey")
+# convert trial data frame to survey object
+svy_trial <- survey::svydesign(data = trial, ids = ~ 1, weights = ~ 1)
 
-# create weighted survey object, keep only two counties
-svy_api <- 
-  survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) %>%
-  subset(cname %in% c("Alameda", "Los Angeles"))
-
-# summarize data
 tbl_svysummary_1 <-
-  svy_api %>%
-  tbl_svysummary(by = cname, 
-                 include = c(growth, target, cname),
-                 label = list(growth ~ "Growth",
-                              target ~ "Target")) %>%
+  svy_trial %>%
+  tbl_svysummary(by = trt, include = c(trt, age, grade)) %>%
   add_p()
 ```
 
@@ -237,11 +229,14 @@ tibble::tribble(
 ```{r,echo=FALSE}
 tbl_custom <-
   trial %>%
-  select(age, grade, trt) %>%
+  select(marker, grade, trt) %>%
   tbl_summary(by = trt, missing = "no") %>%
   add_overall() %>%
   add_p() %>%
+  add_q() %>%
   add_stat_label() %>%
+  bold_p(t = 0.10) %>%
+  bold_labels() %>%
   modify_header(label ~ "**Variable**") %>% 
   modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
   as_gt() %>%
