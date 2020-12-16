@@ -9,7 +9,7 @@
 % - update all references to packages to use \CRANpkg{} and \pkg{}
 
 \abstract{
-The \pkg{gtsummary} package provides an elegant and flexible way to create publication-ready summary tables in R. The motivation behind the package stems from the work of statisticians, data scientists, and analysts, where every day, they summarize datasets and regression models in R, share results with collaborators, and eventually include them in published manuscripts or share with stakeholders. The \pkg{gtsummary} streamlines this process creating summaries of data sets, regression models, survey data, and survival data with simple code resulting in beautiful tables suitable for publication--often with a single line of code. The package follows a tidy framework, yielding an interface that is easy to learn that is also highly customizable.
+The \pkg{gtsummary} package provides an elegant and flexible way to create publication-ready summary tables in R. A critical part of the work of statisticians, data scientists, and analysts is summarizing data sets and regression models in R and publishing or sharing polished summary tables to describe analysis results. The \pkg{gtsummary} package was created to streamline these everyday analysis tasks by allowing users to easily create reproducible summaries of data sets, regression models, survey data, and survival data with a simple interface and very little code.  The package follows a tidy framework, making it easy to integrate in standard data workflows, and offers many table customization features through function arguments, helper functions and custom themes.
 }
 
 \section{Introduction}
@@ -93,14 +93,11 @@ trial %>%
   select(age, grade, response, trt) %>%
   tbl_summary(
     by = trt,
-    type = all_continuous() ~ "continuous2",
+    type = age ~ "continuous2",
     label = age ~ "Patient Age",
-    statistic = list(all_continuous() ~ c("{N_nonmiss}", 
-                                          "{mean} ({sd})", 
-                                          "{median} ({p25}, {p75})", 
-                                          "{min}, {max}"),
-                     all_categorical() ~ "{n} / {N} ({p}%)"),
-    digits = all_categorical() ~ c(0, 0, 1),
+    statistic = list(age ~ c("{N_nonmiss}", "{mean} ({sd})"),
+                     c(grade, response) ~ "{n} / {N} ({p}%)"),
+    digits = c(grade, response) ~ c(0, 0, 1),
     missing = "no"
   )
 \end{example}
