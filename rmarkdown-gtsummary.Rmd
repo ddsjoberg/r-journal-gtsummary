@@ -12,10 +12,17 @@ library(gtsummary)
 library(tidyverse)
 library(gt)
 
-theme_gtsummary_compact()
-set_gtsummary_theme(list(
-  "as_gt-lst:addl_cmds" = list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino")))
-))
+# theme_gtsummary_compact()
+# set_gtsummary_theme(list(
+#   "as_gt-lst:addl_cmds" = list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino")))
+# ))
+
+my_r_journal_theme <- theme_gtsummary_compact(set_theme = FALSE)
+my_r_journal_theme$`as_gt-lst:addl_cmds` <-
+  my_r_journal_theme$`as_gt-lst:addl_cmds` %>% 
+  c(list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino"))))
+
+set_gtsummary_theme(my_r_journal_theme)
 ```
 
 # Introduction
