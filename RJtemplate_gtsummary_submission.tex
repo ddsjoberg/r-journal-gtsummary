@@ -5,9 +5,7 @@
 \maketitle
 
 % TO DO
-% - change all code refs from \code{} to \code{}
-% - update all references to packages to use \CRANpkg{} and \pkg{}
-% - scale the images appropriately (they are too small now)
+% - add/remove the page breaks as needed (when it's ready to be submitted)
 
 \abstract{
 The \pkg{gtsummary} package provides an elegant and flexible way to create publication-ready summary tables in R.
@@ -66,7 +64,7 @@ trial %>%
   tbl_summary(by = trt)
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{summary_basic.png}
+  \includegraphics[scale=0.49]{summary_basic.png}
   \centering
 \end{figure}
 
@@ -105,7 +103,7 @@ trial %>%
   )
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{summary_plus.png}
+  \includegraphics[scale=0.49]{summary_plus.png}
   \centering
 \end{figure}
 
@@ -137,7 +135,7 @@ trial %>%
 
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{summary_plus_plus.png}
+  \includegraphics[scale=0.49]{summary_plus_plus.png}
   \centering
 \end{figure}
 
@@ -157,7 +155,7 @@ tbl_svysummary_1 <-
   add_p()
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{svysummary.png}
+  \includegraphics[scale=0.49]{svysummary.png}
   \centering
 \end{figure}
 
@@ -172,7 +170,7 @@ trial %>%
   add_p(source_note = TRUE)
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{cross.png}
+  \includegraphics[scale=0.49]{cross.png}
   \centering
 \end{figure}
 
@@ -191,9 +189,8 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
   add_p()
 \end{example}
 
-% TODO: I do not understand why this isn't being placed below the code! https://www.overleaf.com/learn/latex/Positioning_of_Figures
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{survfit.png}
+  \includegraphics[scale=0.49]{survfit.png}
   \centering
 \end{figure}
 
@@ -235,7 +232,7 @@ tbl_summary(by = trt, missing = "no") %>%
   gt::tab_source_note("Data updated June 26, 2015")
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{custom.png}
+  \includegraphics[scale=0.49]{custom.png}
   \centering
 \end{figure}
 
@@ -263,7 +260,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{regression.png}
+  \includegraphics[scale=0.49]{regression.png}
   \centering
 \end{figure}
 
@@ -293,7 +290,7 @@ trial %>%
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{uvregression.png}
+  \includegraphics[scale=0.49]{uvregression.png}
   \centering
 \end{figure}
 
@@ -345,7 +342,7 @@ tbl_merge_1 <-
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{merge.png}
+  \includegraphics[scale=0.49]{merge.png}
   \centering
 \end{figure}
 
@@ -372,23 +369,26 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.35]{nejm.png}
+  \includegraphics[scale=0.49]{nejm.png}
   \centering
 \end{figure}
 
-A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font. 
+A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font and reduce default cell padding. 
 Themes are an evolving feature and we welcome additions of new journals' reporting guidelines and other themes useful to users.
 A full glossary of customizable theme elements is available in the package's themes vignette (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
 \section{Print Engines}
 
 Tables printed with \pkg{gtsummary} can be seamlessly integrated into R markdown documents and knitted into various output types using a number of print engines.
-The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()}, \pkg{flextable}, \pkg{huxtable} and more.
+The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()}, \pkg{flextable}, \pkg{huxtable} and \pkg{kableExtra}.
 While \pkg{gt} is used as default for most outputs, you can easily convert to using your print engine of choice using several conversion helper functions provided in the package (e.g. \code{as\_kable()}).
-The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations (eg. example X with \code{tab\_header}). The default print engine can be systematically set using \pkg{gtsummary} themes.
-
+The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations (eg. example X with \code{tab\_header}).
+The default print engine can be systematically set using \pkg{gtsummary} themes.
 
 \section{Summary}
+
+The functions in the \pkg{gtsummary} package were designed to reduce the burden of reporting, and to work together to easily construct both simple and complex tables.
+It is our hope that the user-friendly syntax and publication-ready tables will aid analysts in preparing reproducible and high-quality findings.
 
 \bibliography{RJreferences}
 
