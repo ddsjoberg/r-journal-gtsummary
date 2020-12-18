@@ -110,7 +110,8 @@ trial %>%
 Throughout the \pkg{gtsummary} package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
 In the example above, the label for the age variable was updated using \texttt{label = age $\sim$ "Patient Age"}---equivalently, \texttt{label = list(age $\sim$ "Patient Age")}.
 To select groups of variables, utilize the select helpers from the tidyselect \citep{tidyselect} and \pkg{gtsummary}.
-Above, \texttt{all\_continuous()} was utilized to change the summary statistics for all continuous variables. 
+The \texttt{all\_continuous()} selector is a convenient way to select all continuous variables.
+In the example above it could have been used to change the summary statistics for all continuous variables---\code{all\_continuous() ~ c("\{N\_nonmiss\}", "\{mean\} (\{sd\})")}. 
 Similarly, users may utilize \texttt{all\_categorical()} (from \pkg{gtsummary}), or any of the tidyselect helpers used throughout the tidyverse \citep{tidyverse} package, such as \texttt{starts\_with()}, \texttt{contains()}, etc.
 
 The \pkg{gtsummary} package has several functions to add information or statistics to \texttt{tbl\_summary()} tables.
@@ -140,18 +141,12 @@ trial %>%
 The \texttt{tbl\_svysummary()} function is very similar to \texttt{tbl\_summary()} except a survey object is supplied rather than a data frame.
 
 \begin{example}
-# create weighted survey object, keep only two counties
-data(api, package = "survey")
-svy_api <- 
-  survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) %>%
-  subset(cname %in% c("Alameda", "Los Angeles"))
+# convert trial data frame to survey object
+svy_trial <- survey::svydesign(data = trial, ids = ~ 1, weights = ~ 1)
 
-# summarize data
-svy_api %>%
-  tbl_svysummary(by = cname, 
-                 include = c(growth, target, cname),
-                 label = list(growth ~ "Growth",
-                              target ~ "Target")) %>%
+tbl_svysummary_1 <-
+  svy_trial %>%
+  tbl_svysummary(by = trt, include = c(trt, age, grade)) %>%
   add_p()
 \end{example}
 \begin{figure}[h!]
@@ -206,21 +201,27 @@ The \pkg{gtsummary} package utilizes the gt package \citep{gt} to print the summ
 The gt package exports approximately one hundred functions to customize and style tables.
 When you need to add additional details or styling not available within \pkg{gtsummary}, use the \texttt{as\_gt()} to convert the \pkg{gtsummary} object to gt and continue customization.
 
+The example below includes customization using both gtsummary and gt functions.
+The gtsummary functions are utilized to bold p-values below a threshold, bold the variable labels,  update the column header, and add a spanning header
+
 \begin{example}
 trial %>%
   select(age, grade, trt) %>%
-  tbl_summary(by = trt, missing = "no") %>%  
-  add_overall() %>%    
-  add_p() %>%      
-  add_stat_label() %>%     
-  modify_header(label ~ "**Variable**") %>%   
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%  
-  as_gt() %>% 
-  gt::tab_header(   
+tbl_summary(by = trt, missing = "no") %>%
+  add_overall() %>%
+  add_p() %>%
+  add_q() %>%
+  add_stat_label() %>%
+  bold_p(t = 0.10) %>%
+  bold_labels() %>%
+  modify_header(label ~ "**Variable**") %>% 
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
+  as_gt() %>%
+  gt::tab_header(
     title = gt::md("**Table 1. Patient Characteristics**"),
     subtitle = gt::md("_Highly Confidential_")
   ) %>%
-  gt::tab_source_note("Data updated June 26, 2015")   
+  gt::tab_source_note("Data updated June 26, 2015")
 \end{example}
 \begin{figure}[h!]
   \includegraphics[scale=0.28]{custom.png}
