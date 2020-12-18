@@ -114,7 +114,7 @@ tibble::tribble(
   "`add_p()`",           "add p-values to the output comparing values across groups",   
   "`add_overall()`",     "add a column with overall summary statistics",   
   "`add_n()`",           "add a column with N (or N missing) for each variable",
-  "`add_difference()`",  "add column for difference between two group, confidemce interval, and p-value",
+  "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
   "`add_stat_label()`",  "add label for the summary statistics shown in each row",   
   "`add_stat()`",        "generic function to add a column with user-defined values",
   "`add_q()`",           "add a column of q values to control for multiple comparisons"   
