@@ -297,13 +297,11 @@ tbl_uvregression_1 %>%
 ```{r}
 tbl1 <-
   glm(response ~ age + grade, trial, family = binomial) %>%
-  tbl_regression(exponentiate = TRUE) %>%
-  add_global_p()
+  tbl_regression(exponentiate = TRUE) 
 
 tbl2 <-
   coxph(Surv(ttdeath, death) ~ age + grade, trial) %>%
-  tbl_regression(exponentiate = TRUE) %>%
-  add_global_p()
+  tbl_regression(exponentiate = TRUE) 
 
 tbl_merge_1 <-
   tbl_merge(
