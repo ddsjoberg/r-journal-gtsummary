@@ -267,8 +267,10 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-The \code{tbl\_regression()} function leverages the huge effort behind the broom package's \code{tidy()} function \citep{broom} to perform the initial formatting of the regression object.
-Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains built in tidiers to report standardized coefficients and bootstrapped confidence intervals, as well as the ability to provide your own custom tidiers.
+The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} package's \code{tidy()} function to perform the initial formatting of the regression object \citep{broom}.
+Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, and models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains built in tidying functions to report standardized coefficients and bootstrapped confidence intervals.
+We may pass a custom tidier as well.
+This is helpful when need to present non-standard modifications to your model results, such as reporting Wald confidence intervals, or presenting results with modified variance-covariance regression coefficients.
 
 \subsection{\texorpdfstring{\code{tbl\_uvregression()}}{tbl\_uvregression()}}
 
@@ -299,11 +301,11 @@ trial %>%
 
 Reproducible reports are an important part of good analysis practices.
 We often need to report the results from a table in the text of an R markdown report.
-The\code{inline\_text()}  function reports statistics from \pkg{gtsummary} tables inline in an R markdown document.
+The \code{inline\_text()}  function reports statistics from \pkg{gtsummary} tables inline in an R markdown document.
 
 Imagine you need to report the results for age from the univariate table above.
 Typically, the odds ratio, confidence interval, and p-value would be hard-coded into a report, which can lead to reproducibility issues if the data is updated and the hard-coded statistics are not amended.
-A simple call to the \code{inline\_text()} function will dynamically add the model results to a an Rmarkdown report.
+A simple call to the \code{inline\_text()} function will dynamically add the model results to an RMarkdown report.
 
 \begin{quote}
 The odds ratio for age was \code{\textasciigrave{}r\ inline\_text(uvreg,\ variable\ =\ age)\textasciigrave{}}.
@@ -319,10 +321,11 @@ The default pattern to display for a regression table is \code{"\{estimate\} (\{
 
 \section{Merging and Stacking}
 
-The \pkg{gtsummary} tables shown above are often ready for publication as they are, however it is common that higher quality tables can be constructed by merging or stacking simple tables.
-For example in cancer research, we often report on models about both a tumor's response to a treatment, and a treatment efficacy in reducing the risk of death.
-These two models are often reported side-by-side, and it's simple to construct this table using  the \code{tbl\_merge()} function.
-First, build a table for each regression model using \code{tbl\_regression()}, then merge the two tables with \code{tbl\_merge()}. Any number of \pkg{gtsummary} tables can be merged with this function.
+The \pkg{gtsummary} tables shown above are often ready for publication as they are; however, it is common that more complex tables need to be constructed, which can be achieved by merging or stacking \pkg{gtsummary} tables.
+For example in cancer research, we often report two model for predicting a tumor's response to treatment and risk of death.
+These two models are often reported side-by-side, and it's simple to construct using \code{tbl\_merge()}.
+First, build a table for each regression model using \code{tbl\_regression()}, then merge the two tables with \code{tbl\_merge()}.
+Any number of \pkg{gtsummary} tables can be merged with this function.
 
 \newpage
 \begin{example}
@@ -346,16 +349,17 @@ tbl_merge_1 <-
   \centering
 \end{figure}
 
-Similarly, any number of \pkg{gtsummary} tables may be stacked on top of one another using the \code{tbl\_stack()} function.
+Similarly, any number of \pkg{gtsummary} tables may be stacked using the \code{tbl\_stack()} function.
 
 \section{Themes}
 
+We love themes.
 The default styling (e.g. statistics displayed in \code{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International \citep{assel2019guidelines}.
 However, you'll likely submit to another journal, or your personal preferences differ from the defaults.
 The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
 Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \code{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
-Several themes are available in the package that follow various journals' reporting guidelines, reduce cell padding, and recently language themes were introduced and the output of \pkg{gtsummary} tables can be translated into more than 10 languages.
+Several themes are available to follow various journals' reporting guidelines, reduce cell padding and font size, and recently language themes were introduced translating \pkg{gtsummary} tables to more than 10 languages.
 
 For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"} (among other modifications). 
 
