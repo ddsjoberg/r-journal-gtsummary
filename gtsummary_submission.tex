@@ -45,7 +45,7 @@ Each variable in the data frame has been assigned an attribute label with the \p
 These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned the variable name would have been shown.
 
 % adding table describing trial dataset
-\input{tbl_trial_desc.tex}
+\input{tex_tables/tbl_trial_desc.tex}
 
 \subsection{\texorpdfstring{\code{tbl\_summary()}}{tbl\_summary()}}
 
@@ -76,7 +76,7 @@ Additionally, \code{NA} values are recognized as missing and listed as unknown, 
 Default settings may be customized using the \code{tbl\_summary()} function arguments.
 
 % code for tbl_summary() with arguments
-\input{tbl_tbl_summary_args.tex}
+\input{tex_tables/tbl_tbl_summary_args.tex}
 
 For continuous variables, tables display one row of statistics per variable by default.
 This can be customized, and in the example below the age variable is cast to \code{"continuous2"} type, meaning the continuous summary statistics will appear on two or more rows in the table. 
@@ -118,7 +118,7 @@ Similarly, users may utilize \code{all\_categorical()} (from \pkg{gtsummary}), o
 In addition to summary statistics, the \pkg{gtsummary} package has several functions to add additional information or statistics to \code{tbl\_summary()} tables.
 
 % code for tbl_summary() with arguments
-\input{tbl_tbl_summary_family.tex}
+\input{tex_tables/tbl_tbl_summary_family.tex}
 
 In the example below the number of non-missing observations is reported for each variable, as well as a p-value comparing the values between the treatment.
 Default statistical tests are chosen based on data type, and the statistical test performed can be customized in the \code{add\_p()} function.
@@ -201,7 +201,7 @@ These functions work with any table constructed with \pkg{gtsummary}.
 Most common uses are changing the column headers and footnotes, or modifying the look of tables through bolding and italicization. 
 
 % adding table describing fns for customization
-\input{tbl_modify.tex}
+\input{tex_tables/tbl_modify.tex}
 
 The \pkg{gtsummary} package utilizes the \pkg{gt} package to print the summary tables.
 The \pkg{gt} package exports approximately one hundred functions to customize and style tables.
