@@ -215,7 +215,7 @@ Additional \pkg{gt} customization was utilized to add table captions and source 
 \begin{example}
 trial %>%
   select(age, grade, trt) %>%
-tbl_summary(by = trt, missing = "no") %>%
+  tbl_summary(by = trt, missing = "no") %>%
   add_overall() %>%
   add_p() %>%
   add_q() %>%
