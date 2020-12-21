@@ -16,12 +16,12 @@ The package follows a tidy framework, making it easy to integrate in standard da
 
 \section{Introduction}
 
-Table summaries are a fundamental tool in an analyst's toolbox that help us understand and communicate patterns in our data,
+Table summaries are a fundamental tool in an analyst's toolbox that help us understand and communicate patterns in our data.
 The ability to easily create and export polished and reproducible tables is essential.
 The \CRANpkg{gtsummary} \citep{gtsummary} package provides an elegant and flexible framework to create publication-ready analytical and summary tables in R.
-This package works to gap the loop between a reproducible RMarkdown report and the final report.
+This package works to close the gap between a reproducible RMarkdown report and the final report.
 Specifically, \pkg{gtsummary} allows the us to fully customize and format summary tables with code, eliminating the need to modify any tables by hand after the table has been exported.
-Removing the need to modify tables after the table has been created, eliminates an error-prone step in our workflow and increases the reproducibility of our analyses and reports. 
+Removing the need to modify tables after the table has been created eliminates an error-prone step in our workflow, and increases the reproducibility of our analyses and reports. 
 
 Using \pkg{gtsummary}, analysts can easily summarize data frames, present and compare descriptive statistics between groups, summarize regression models, and report statistics inline in RMarkdown reports. 
 After identifying these basic structures of most tables presented in medical literature (and other fields), we created \pkg{gtsummary} to ease creation of fully-formatted, ready to publish tables.
@@ -30,18 +30,18 @@ Additionally, \pkg{gtsummary} leverages other analysis and tidying R packages to
 For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepare regression results for \code{tbl\_regression()} and use \CRANpkg{gt} \citep{gt} to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
 Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
-While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables,offers diverse features to customize content of tables to a high degree, and includes the ability to report statistics from the tables inline in an RMarkdown report.
+While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. It also includes the ability to report statistics from the tables inline in an RMarkdown report.
 %For example with \CRANpkg{finalfit}, you have to manually specify a printing engine for the table to render.
 %Furthermore, \CRANpkg{tableone} reports on general descriptive statistics, but it is lacking in its ability to produce tables for regression modeling strategies in R. 
 
-Along with descriptive summaries, \pkg{gtsummary} summarises statistical models, survey data, and build cross tabulations. 
+Along with descriptive summaries, \pkg{gtsummary} summarises statistical models, survey data, and builds cross tabulations. 
 After data are summarized in a table, \pkg{gtsummary} allows users to combine tables, either side-by-side (with \code{tbl\_merge()}) , or on top of each other (with \code{tbl\_stack()}). 
 This table merging and stacking allows us to easily synthesize and compare output from several tables and share information in a compact format.   
 
 \section{Data Summaries}
 
-To showcase \pkg{gtsummary} functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B as well as the outcomes of tumor response and death.
-Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")}, that will be shown in the summary tables. 
+To showcase \pkg{gtsummary} functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B, as well as the outcomes of tumor response and death.
+Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")} that will be shown in the summary tables. 
 These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned the variable name would have been shown.
 
 % adding table describing trial dataset
@@ -57,7 +57,7 @@ Notably, by specifying the \code{by=} argument, you can stratify the summary tab
 In the example below, we have split the table by the treatment a patient received. 
 
 % code for basic tbl_summary()
-\newpage
+% \newpage
 \begin{example}
 trial %>%
   select(age, grade, response, trt) %>%
@@ -79,16 +79,16 @@ Default settings may be customized using the \code{tbl\_summary()} function argu
 \input{tbl_tbl_summary_args.tex}
 
 For continuous variables, tables display one row of statistics per variable by default.
-This can be customized, and in the example below, the age variable is cast to \code{"continuous2"} type, meaning the continuous summary statistics will appear on two or more rows in the table. 
+This can be customized, and in the example below the age variable is cast to \code{"continuous2"} type, meaning the continuous summary statistics will appear on two or more rows in the table. 
 This allows the number of non-missing observations and the mean to be displayed on separate lines.
 
 In the example below, the \code{"age"} variable's label is updated to \code{"Patient Age"}.
 Default summary statistics for both continuous and categorical variables are updated using the \code{statistic=} argument. 
-\pkg{gtsummary} uses \CRANpkg{glue} syntax construct the statistics displayed in the table.
+\pkg{gtsummary} uses \CRANpkg{glue} \citep{glue} syntax construct the statistics displayed in the table.
 Function names appearing in curly brackets will be replaced by the evaluated value.
-The \code{digits=} argument is used to increase the number of decimal places the statistics are rounded, and the missing row is omitted with \code{missing = "no"}.
+The \code{digits=} argument is used to increase the number of decimal places to which the statistics are rounded, and the missing row is omitted with \code{missing = "no"}.
 
-\newpage
+% \newpage
 \begin{example}
 trial %>%
   select(age, grade, response, trt) %>%
@@ -141,10 +141,10 @@ trial %>%
 
 \subsection{\texorpdfstring{\code{tbl\_svysummary()}}{tbl\_svysummary()}}
 
-The \code{tbl\_svysummary()} function is analagous to \code{tbl\_summary()} except an \CRANpkg{survey} object is supplied rather than a data frame.
+The \code{tbl\_svysummary()} function is analagous to \code{tbl\_summary()} except an \CRANpkg{survey} \citep{survey} object is supplied rather than a data frame.
 The summary statistics presented take into account the survey weights, as do any p-values presented.
 
-\newpage
+% \newpage
 \begin{example}
 # convert trial data frame to survey object
 svy_trial <- survey::svydesign(data = trial, ids = ~ 1, weights = ~ 1)
@@ -178,7 +178,7 @@ trial %>%
 
 The \code{tbl\_survfit()} function parses and tabulates \code{survival::survfit()} objects presenting survival percentile estimates and survival probabilities at specified times. 
 
-\newpage
+% \newpage
 \begin{example}
 library(survival)
 
@@ -198,20 +198,20 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
 
 The \pkg{gtsummary} package includes functions specifically made to modify and format the summary tables.
 These functions work with any table constructed with \pkg{gtsummary}.
-Most common uses are changing the column headers and footnotes.
+Most common uses are changing the column headers and footnotes, or modifying the look of tables through bolding and italicization. 
 
 % adding table describing fns for customization
 \input{tbl_modify.tex}
 
 The \pkg{gtsummary} package utilizes the \pkg{gt} package to print the summary tables.
 The \pkg{gt} package exports approximately one hundred functions to customize and style tables.
-When you need to add additional details or styling not available within \pkg{gtsummary}, use the \code{as\_gt()} to convert the \pkg{gtsummary} object to gt and continue customization.
+When you need to add additional details or styling not available within \pkg{gtsummary}, use the \code{as\_gt()} function to convert the \pkg{gtsummary} object to gt and continue customization.
 
 The example below includes customization using both \pkg{gtsummary} and \pkg{gt} functions.
 The \pkg{gtsummary} functions are utilized to bold p-values below a threshold, bold the variable labels,  update the column header, and add a spanning header.
 Additional \pkg{gt} customization was utilized to add table captions and source notes.
 
-\newpage
+% \newpage
 \begin{example}
 trial %>%
   select(age, grade, trt) %>%
@@ -231,15 +231,15 @@ tbl_summary(by = trt, missing = "no") %>%
   ) %>%
   gt::tab_source_note("Data updated June 26, 2015")
 \end{example}
-\begin{figure}[h!]
+\begin{widefigure}[h!]
   \includegraphics[scale=0.49]{custom.png}
   \centering
-\end{figure}
+\end{widefigure}
 
 \section{Model Summaries}
 
-Regression modelling is one of the most common tools of medical researchers.
-The \pkg{gtsummary} has two functions to assist researchers and analysts prepare tabular summaries of regression models: \code{tbl\_regression()} and \code{tbl\_uvregression()}.
+Regression modelling is one of the most common tools of medical research.
+The \pkg{gtsummary} package has two functions to help analysts prepare tabular summaries of regression models: \code{tbl\_regression()} and \code{tbl\_uvregression()}.
 
 \subsection{\texorpdfstring{\code{tbl\_regression()}}{tbl\_regression()}}
 
@@ -252,7 +252,7 @@ Note that a reference row for Grade I has been added, and the variable labels ha
 Using \code{exponentiate = TRUE}  we exponentiate the regression coefficients, yielding the odds ratios.
 The helper function \code{add\_global\_p()} was used to replace the p-values for each term with the global p-value for grade.
 
-\newpage
+% \newpage
 \begin{example}
 glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE) %>%
@@ -265,16 +265,14 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{figure}
 
 The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} package's \code{tidy()} function to perform the initial formatting of the regression object \citep{broom}.
-Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, and models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains built in tidying functions to report standardized coefficients and bootstrapped confidence intervals.
-We may pass a custom tidier as well.
-This is helpful when need to present non-standard modifications to your model results, such as reporting Wald confidence intervals, or presenting results with modified variance-covariance regression coefficients.
+Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, and models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains built-in tidying functions to report standardized coefficients and bootstrapped confidence intervals.
+A custom tidier may be specified as well, which is helpful when you need to present non-standard modifications to your model results such as Wald confidence intervals, or results with modified variance-covariance regression coefficients.
 
 \subsection{\texorpdfstring{\code{tbl\_uvregression()}}{tbl\_uvregression()}}
 
 The \code{tbl\_uvregression()} function is a wrapper for \code{tbl\_regression()} that is useful when you need a series of univariate regression models.
 The user passes a data frame to \code{tbl\_uvregression()}, indicates what the outcome is, what regression model to run, and the function will return a formatted table of stacked univariate regression models.
 
-\newpage
 \begin{example}
 trial %>%
   select(response, age, grade) %>%
@@ -288,7 +286,7 @@ trial %>%
   add_nevent() %>%
   add_global_p()
 \end{example}
-
+\newpage
 \begin{figure}[h!]
   \includegraphics[scale=0.49]{uvregression.png}
   \centering
@@ -318,13 +316,12 @@ The default pattern to display for a regression table is \code{"\{estimate\} (\{
 
 \section{Merging and Stacking}
 
-The \pkg{gtsummary} tables shown above are often ready for publication as they are; however, it is common that more complex tables need to be constructed, which can be achieved by merging or stacking \pkg{gtsummary} tables.
+The \pkg{gtsummary} tables shown above are often ready for publication as they are; however, it is common that more complex tables need to be constructed. This can be achieved by merging or stacking \pkg{gtsummary} tables using the \code{tbl\_merge()} and \code{tbl\_stack()} functions.
 For example in cancer research, we often report two model for predicting a tumor's response to treatment and risk of death.
 These two models are often reported side-by-side, and it's simple to construct using \code{tbl\_merge()}.
 First, build a table for each regression model using \code{tbl\_regression()}, then merge the two tables with \code{tbl\_merge()}.
 Any number of \pkg{gtsummary} tables can be merged with this function.
 
-\newpage
 \begin{example}
 tbl1 <- 
   glm(response ~ age + grade, trial, family = binomial) %>%
@@ -340,6 +337,7 @@ tbl_merge_1 <-
     tab_spanner = c("**Tumor Response**", "**Time to Death**")
   )
 \end{example}
+\newpage
 
 \begin{figure}[h!]
   \includegraphics[scale=0.49]{merge.png}
@@ -360,7 +358,7 @@ Several themes are available to follow various journals' reporting guidelines, r
 
 For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"} (among other modifications). 
 
-\newpage
+% \newpage
 \begin{example}
 theme_gtsummary_journal("nejm")
 
@@ -373,16 +371,16 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font and reduce default cell padding. 
-Themes are an evolving feature and we welcome additions of new journals' reporting guidelines and other themes useful to users.
+A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font and reduce the default cell padding. 
+Themes are an evolving feature and we welcome additions of new journals' reporting guidelines or other themes useful to users.
 A full glossary of customizable theme elements is available in the package's themes vignette (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
 \section{Print Engines}
 
 Tables printed with \pkg{gtsummary} can be seamlessly integrated into R markdown documents and knitted into various output types using a number of print engines.
-The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()}, \pkg{flextable}, \pkg{huxtable} and \pkg{kableExtra}.
+The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()} \citep{kable}, \CRANpkg{flextable}  \citep{flextable}, \CRANpkg{huxtable} \citep{huxtable}, and \CRANpkg{kableExtra} \citep{kableExtra}.
 While \pkg{gt} is used as default for most outputs, you can easily convert to using your print engine of choice using several conversion helper functions provided in the package (e.g. \code{as\_kable()}).
-The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations (eg. example X with \code{tab\_header}).
+The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations.
 The default print engine can be systematically set using \pkg{gtsummary} themes.
 
 \section{Summary}
