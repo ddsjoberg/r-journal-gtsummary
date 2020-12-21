@@ -1,13 +1,3 @@
----
-title: "gtsummary"
-author: "Daniel D. Sjoberg, Karissa Whiting, Margaret Hannum, Emily C. Zabor, Michael Curry"
-output:
-  pdf_document:
-    keep_tex: true
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(gtsummary)
 library(tidyverse)
 library(gt)
@@ -19,31 +9,27 @@ library(gt)
 
 my_r_journal_theme <- theme_gtsummary_compact(set_theme = FALSE)
 my_r_journal_theme$`as_gt-lst:addl_cmds` <-
-  my_r_journal_theme$`as_gt-lst:addl_cmds` %>% 
+  my_r_journal_theme$`as_gt-lst:addl_cmds` %>%
   c(list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino"))))
 
 set_gtsummary_theme(my_r_journal_theme)
-```
 
-# Introduction
+# Data Summaries ---------------------------------------------------------------
 
-# Data Summaries
-
-```{r, results='asis'}
 trial %>%
   imap_dfr(
     ~tibble(
-      colname = str_glue('`{.y}`'), 
-      label = attr(.x, "label"), 
-      class = class(.x), 
-      values = trial %>% select(.y) %>% distinct() %>% 
-        arrange(!!rlang::sym(.y)) %>% slice(1:4) %>% pull(.y) %>% 
+      colname = str_glue('`{.y}`'),
+      label = attr(.x, "label"),
+      class = class(.x),
+      values = trial %>% select(.y) %>% distinct() %>%
+        arrange(!!rlang::sym(.y)) %>% slice(1:4) %>% pull(.y) %>%
         na.omit() %>% {paste("`", ., "`", collapse = ", ")}
     ) %>%
       mutate(
         values = ifelse(length(unique(na.omit(trial[[.y]]))) > 4,
                         paste(values, ", ..."),
-                        values) 
+                        values)
       )
   ) %>%
   gt() %>%
@@ -53,26 +39,18 @@ trial %>%
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}Example data frame, \\texttt{trial}}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_trial_desc.tex")
-```
 
-% latex comment ?
+## `tbl_summary()` -------------------------------------------------------------
 
-## `tbl_summary()`
-
-```{r, echo=TRUE}
 tbl_summary_1 <-
   trial %>%
   select(age, grade, response, trt) %>%
   tbl_summary(by = trt)
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_summary_1 %>% 
+tbl_summary_1 %>%
   as_gt() %>%
-  gtsave(file = "summary_basic.png")
-```
+  gtsave(file = "images/summary_basic.png")
 
-```{r}
 tibble::tribble(
   ~Argument,       ~Description,
   "`label=`",       "specify the variable labels printed in table",
@@ -92,9 +70,6 @@ tibble::tribble(
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} function arguments}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_tbl_summary_args.tex")
 
-```
-
-```{r, echo=TRUE}
 tbl_summary_2 <-
   trial %>%
   select(age, grade, response, trt) %>%
@@ -107,24 +82,20 @@ tbl_summary_2 <-
     digits = c(grade, response) ~ c(0, 0, 1),
     missing = "no"
   )
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_summary_2 %>% 
+tbl_summary_2 %>%
   as_gt() %>%
-  gtsave(file = "summary_plus.png")
-```
+  gtsave(file = "images/summary_plus.png")
 
-```{r}
 tibble::tribble(
   ~Function,             ~Description,
-  "`add_p()`",           "add p-values to the output comparing values across groups",   
-  "`add_overall()`",     "add a column with overall summary statistics",   
+  "`add_p()`",           "add p-values to the output comparing values across groups",
+  "`add_overall()`",     "add a column with overall summary statistics",
   "`add_n()`",           "add a column with N (or N missing) for each variable",
   "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
-  "`add_stat_label()`",  "add label for the summary statistics shown in each row",   
+  "`add_stat_label()`",  "add label for the summary statistics shown in each row",
   "`add_stat()`",        "generic function to add a column with user-defined values",
-  "`add_q()`",           "add a column of q values to control for multiple comparisons"   
+  "`add_q()`",           "add a column of q values to control for multiple comparisons"
 ) %>%
   gt(caption = "`tbl_summary()` functions to add information") %>%
   fmt_markdown(everything()) %>%
@@ -133,9 +104,7 @@ tibble::tribble(
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} functions to add information}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_tbl_summary_family.tex")
-```
 
-```{r, echo=TRUE}
 tbl_summary_3 <-
   trial %>%
   select(age, grade, response, trt) %>%
@@ -143,24 +112,14 @@ tbl_summary_3 <-
   add_p(test = all_continuous() ~ "t.test",
         pvalue_fun = ~style_pvalue(., digits = 2)) %>%
   add_n()
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_summary_3 %>% 
+tbl_summary_3 %>%
   as_gt() %>%
-  gtsave(file = "summary_plus_plus.png")
-```
+  gtsave(file = "images/summary_plus_plus.png")
 
-\begin{figure}[h!]
-  \caption{Simple `tbl\_summary()` example}
-  \label{fig:summary_basic}
-  \includegraphics[height=5cm]{summary_basic.png}
-  \centering
-\end{figure}
 
-## `tbl_svysummary()`
+## `tbl_svysummary()` ----------------------------------------------------------
 
-```{r}
 # convert trial data frame to survey object
 svy_trial <- survey::svydesign(data = trial, ids = ~ 1, weights = ~ 1)
 
@@ -168,32 +127,24 @@ tbl_svysummary_1 <-
   svy_trial %>%
   tbl_svysummary(by = trt, include = c(trt, age, grade)) %>%
   add_p()
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_svysummary_1 %>% 
+tbl_svysummary_1 %>%
   as_gt() %>%
-  gtsave(file = "svysummary.png")
-```
+  gtsave(file = "images/svysummary.png")
 
-## `tbl_cross()`
+## `tbl_cross()` ---------------------------------------------------------------
 
-```{r}
 tbl_cross_1 <-
   trial %>%
   tbl_cross(row = stage, col = trt, percent = "cell") %>%
   add_p(source_note = TRUE)
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_cross_1 %>% 
+tbl_cross_1 %>%
   as_gt() %>%
-  gtsave(file = "cross.png")
-```
+  gtsave(file = "images/cross.png")
 
-## `tbl_survfit()`
+## `tbl_survfit()` -------------------------------------------------------------
 
-```{r}
 library(survival)
 
 tbl_survfit_1 <-
@@ -202,26 +153,22 @@ tbl_survfit_1 <-
   tbl_survfit(times = c(12, 24),
               label_header = "**{time} Month**") %>%
   add_p()
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_survfit_1 %>% 
+tbl_survfit_1 %>%
   as_gt() %>%
-  gtsave(file = "survfit.png")
-```
+  gtsave(file = "images/survfit.png")
 
-## Customization
+## Customization ---------------------------------------------------------------
 
-```{r}
 tibble::tribble(
   ~Function,                     ~Description,
-  "`modify_header()`",           "update column headers",   
-  "`modify_footnote()`",         "update column footnote",   
-  "`modify_spanning_header()`",  "update spanning headers",   
-  "`bold_labels()`",             "bold variable labels",  
-  "`bold_levels()`",             "bold variable levels",  
-  "`italicize_labels()`",        "italicize variable labels",  
-  "`italicize_levels()`",        "italicize variable levels",  
+  "`modify_header()`",           "update column headers",
+  "`modify_footnote()`",         "update column footnote",
+  "`modify_spanning_header()`",  "update spanning headers",
+  "`bold_labels()`",             "bold variable labels",
+  "`bold_levels()`",             "bold variable levels",
+  "`italicize_labels()`",        "italicize variable labels",
+  "`italicize_levels()`",        "italicize variable levels",
   "`bold_p()`",                  "bold significant p-values"
 ) %>%
   gt() %>%
@@ -231,9 +178,7 @@ tibble::tribble(
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:} Functions to style and modify gtsummary tables}\\\\\n\\toprule")) %>%
   readr::write_lines("tbl_modify.tex")
-```
 
-```{r,echo=FALSE}
 tbl_custom <-
   trial %>%
   select(marker, grade, trt) %>%
@@ -244,7 +189,7 @@ tbl_custom <-
   add_stat_label() %>%
   bold_p(t = 0.10) %>%
   bold_labels() %>%
-  modify_header(label ~ "**Variable**") %>% 
+  modify_header(label ~ "**Variable**") %>%
   modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
   as_gt() %>%
   gt::tab_header(
@@ -252,38 +197,30 @@ tbl_custom <-
     subtitle = gt::md("_Highly Confidential_")
   ) %>%
   gt::tab_source_note("Data updated June 26, 2015")
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_custom %>% 
-  gtsave(file = "custom.png")
-```
+tbl_custom %>%
+  gtsave(file = "images/custom.png")
 
-# Model Summaries
+# Model Summaries --------------------------------------------------------------
 
-## `tbl_regression()`
+## `tbl_regression()` ----------------------------------------------------------
 
-```{r}
 tbl_regression_1 <-
   glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE) %>%
   add_global_p()
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_regression_1 %>% 
+tbl_regression_1 %>%
   as_gt() %>%
-  gtsave(file = "regression.png")
-```
+  gtsave(file = "images/regression.png")
 
-## `tbl_uvregression()`
+## `tbl_uvregression()` --------------------------------------------------------
 
-```{r}
 tbl_uvregression_1 <-
   trial %>%
   select(response, age, grade) %>%
   tbl_uvregression(
-    y = response, 
+    y = response,
     method = glm,
     method.args = list(family = binomial),
     exponentiate = TRUE,
@@ -291,63 +228,45 @@ tbl_uvregression_1 <-
   ) %>%
   add_nevent() %>%
   add_global_p()
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_uvregression_1 %>% 
+tbl_uvregression_1 %>%
   as_gt() %>%
-  gtsave(file = "uvregression.png")
-```
+  gtsave(file = "images/uvregression.png")
 
-# Merging and Stacking
+# Merging and Stacking ---------------------------------------------------------
 
-```{r}
 tbl1 <-
   glm(response ~ age + grade, trial, family = binomial) %>%
-  tbl_regression(exponentiate = TRUE) 
+  tbl_regression(exponentiate = TRUE)
 
 tbl2 <-
   coxph(Surv(ttdeath, death) ~ age + grade, trial) %>%
-  tbl_regression(exponentiate = TRUE) 
+  tbl_regression(exponentiate = TRUE)
 
 tbl_merge_1 <-
   tbl_merge(
     tbls = list(tbl1, tbl2),
     tab_spanner = c("**Tumor Response**", "**Time to Death**")
   )
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_merge_1 %>% 
+tbl_merge_1 %>%
   as_gt() %>%
-  gtsave(file = "merge.png")
-```
+  gtsave(file = "images/merge.png")
 
-# Inline Reporting
+# Inline Reporting -------------------------------------------------------------
 
-To report the result for `age`, use the following commands inline.
+# Themes -----------------------------------------------------------------------
 
-> `` `r
-inline_text(tbl_uvregression_1, variable = age)` `` 
-
-Here's how the line will appear in your report.
-
-> `r inline_text(tbl_uvregression_1, variable = age)`
-
-# Themes
-
-```{r, echo=TRUE}
 theme_gtsummary_journal("nejm")
 
 tbl_nejm <-
   glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE)
-```
 
-```{r, echo=FALSE, include = FALSE}
-tbl_nejm %>% 
+tbl_nejm %>%
   as_gt() %>%
-  gtsave(file = "nejm.png")
-```
+  gtsave(file = "images/nejm.png")
 
-# Print Engines
+# Print Engines ----------------------------------------------------------------
+
+# Summary ----------------------------------------------------------------------
