@@ -257,15 +257,16 @@ tbl_merge_1 %>%
 
 # Themes -----------------------------------------------------------------------
 
-theme_gtsummary_journal("nejm")
+theme_gtsummary_journal("jama")
 
-tbl_nejm <-
+tbl_jama <-
   glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE)
 
-tbl_nejm %>%
+
+tbl_jama %>%
   as_gt() %>%
-  gtsave(file = "images/nejm.png")
+  gtsave(file = "images/jama.png")
 
 # Print Engines ----------------------------------------------------------------
 

@@ -1,0 +1,88 @@
+---
+title: "gtsummary Reviewer Responses"
+author: "Daniel Sjoberg, Karissa Whiting, Mike Curry"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_float: yes
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(gtsummary)
+library(gt)
+
+```
+
+Thank you for your reviews and for your consideration of our paper. We believe we have adequately addressed the reviewer's issues and have responded to the comments below. 
+
+# Reviewer 1
+
+1. The authors didn’t provide any background review. Generating summary stats tables is such a common task that many people have tried to solve this problem before. I hope the authors could provide a background review of at least a few of the following packages
+
+> We agree that a section in the paper mentioning capabilities of other similar table making packages will help contextualize gtsummary's value. We have added this in the revised paper. 
+
+2. It seems that gtsummary has very limited support on generating LaTeX tables....It is okay to have limited support on some features but in terms of article writing, I would like to see the author mention it as a limitation in the discussion section.
+
+> The original submission did not make reference specically to the availability of LaTeX output. We've added text to the *Print Engine* section of the manuscript explicicty listing the output options, including LaTeX.
+
+
+3. The package is well written with solid documentation. I only have one question here. In `tbl_summary`, why let it have its own `by` argument instead of using `dplyr`’s `group_by`?
+
+> One important difference between `dplyr`’s `group_by` and `tbl_summary`'s `by` argument is that you can group by many variables using `group_by`, but only one variable using `by`. Since `tbl_summary()` cannot support all the uses of `group_by`, we wanted to make a clear distinction that these have different functionalities.
+
+# Reviewer 2
+
+1. The article is very heavy in tables, which is understandable given the nature of the package. But maybe there is a way to rationalize? For instance, the `tbl_svysummary_1` table is essentially identical to the previous one. Do we need to see it in such a short exposition, or is it sufficient to discuss survey support?
+
+> We have discovered many of gtsummary's most active users require support for survey data, so would like to keep this example in, unless the editor feels otherwise. 
+
+
+2. I’m not sure I understand the motivation for the table customization functions (e.g., bold_levels). Isn’t the whole point of building a package on top of {gt} that we can leverage its functions directly?
+
+> The reviewer raises a great point. One of the great features of gtsummary is teh accessabitily of every gt function to produce a highly customized table, when needed. We have included functions to assist in common formatting to make them more accessible to users. For example, to re-created the functionality of the `bold_labels()` function, the user would need to pass `as_gt() %>% gt::tab_style(style = gt::cell_text(weight = "bold"), locations = gt::cells_body(columns = gt::vars(label), rows = row_type == "label"))`. The helper function is much easier to read, and moreover, the gt version requires knowledge of hidden columns (e.g. `"row_type"`) to correctly select the label rows. Without these formatting helper functions, most passive users of the package would not have the knowledge to create the formatting on their own.
+
+
+3. Package Testing
+
+> As noted by the reviewer, many of the unit tests check for specific error/warnings/messages, which in some cases, may not be considered best practices. The {gtsummary} package, however, currently has 1100 unit tests with hundreds of tests that check for quite specific output. The sum total of the tests, in our opinion, provides great unit testing coverege testing a wide variety of options possible in the package.
+
+
+4. tbl_summary: the continuous/categorical cutoff seems to be 10. can this be changed?
+
+> Although you can't currently adjust the default cutoff, tidyselect helper functions and the `type=`  argument make it very easy to specify what type you want your variables to be.
+
+
+5. tbl_summary: Is there a way to set the number of digits for all variables at the same time? This can be onerous when there are many variables.
+
+> tbl_summary() works with all tidyselect functions (in addition to tidyselect-like functions exported by {gtsummary}), and you can specify all variables using the `everything()` selector. For example,
+
+```{r}
+trial %>% 
+  select(age, marker, ttdeath) %>%
+  tbl_summary(digits = everything() ~ 2)
+```
+
+
+6. tbl_summary: Can we give a manual sort order?
+
+> The ordering of the variable in `tbl_summary()` aligns with the order the variables appear in the input data frame. To re-arrange the variables, use `select()` before passing the data frame to `tbl_summary()`, e.g. `trial %>% select(age, grade) %>% tbl_summary()`
+
+
+7. tbl_summary: Is it possible to use custom/arbitrary functions in the statistic argument, or are we limited to those explicitly defined by the package? 
+
+> Yes! Any function in base R, another package, or user-defined can be used to summarize the continuos data in `tbl_summary()`. The only restriction is the first argument of the function must accept a vector, and return a scalar.
+
+
+8. tbl_regression: How do I manually reorder terms?
+
+> The terms appear in the same order as regression function. The simplest way to reorder the terms to order them in, for example, the `lm()` call. If for some reason that is not possible, they can be re-ordered after the `tbl_regression()` table has been built using `modify_table_body()` with `dplyr::arrange()`.
+
+
