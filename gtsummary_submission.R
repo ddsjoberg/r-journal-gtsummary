@@ -39,7 +39,7 @@ trial %>%
   as_latex() %>%
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}Example data frame, \\texttt{trial}}\\\\\n\\toprule")) %>%
-  readr::write_lines("tbl_trial_desc.tex")
+  readr::write_lines("tex_tables/tbl_trial_desc.tex")
 
 ## `tbl_summary()` -------------------------------------------------------------
 
@@ -69,7 +69,7 @@ tibble::tribble(
   as_latex() %>%
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} function arguments}\\\\\n\\toprule")) %>%
-  readr::write_lines("tbl_tbl_summary_args.tex")
+  readr::write_lines("tex_tables/tbl_tbl_summary_args.tex")
 
 tbl_summary_2 <-
   trial %>%
@@ -104,7 +104,7 @@ tibble::tribble(
   as_latex() %>%
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} functions to add information}\\\\\n\\toprule")) %>%
-  readr::write_lines("tbl_tbl_summary_family.tex")
+  readr::write_lines("tex_tables/tbl_tbl_summary_family.tex")
 
 tbl_summary_3 <-
   trial %>%
@@ -179,7 +179,7 @@ tibble::tribble(
   as_latex() %>%
   as.character() %>%
   str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:} Functions to style and modify gtsummary tables}\\\\\n\\toprule")) %>%
-  readr::write_lines("tbl_modify.tex")
+  readr::write_lines("tex_tables/tbl_modify.tex")
 
 tbl_custom <-
   trial %>%
