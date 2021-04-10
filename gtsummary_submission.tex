@@ -31,6 +31,9 @@ For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepar
 Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
 While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. It also includes the ability to report statistics from the tables inline in an RMarkdown report.
+For example other summary statistics packages such as \CRANpkg{skimr}, \CRANpkg{summarytools}, and \CRANpkg{tableone} provide detailed descriptive statistics, but at least one major advantage of \CRANpkg{gtsummary} is the ability to also provide these same descriptive statistics that are publication ready in a scientific journal with little or no additional formatting.
+Additionally \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, unlike  \CRANpkg{tableone}.
+However, it is possible to override \CRANpkg{gtsummary} variable selection defaults if the users chooses too. 
 %For example with \CRANpkg{finalfit}, you have to manually specify a printing engine for the table to render.
 %Furthermore, \CRANpkg{tableone} reports on general descriptive statistics, but it is lacking in its ability to produce tables for regression modeling strategies in R. 
 
