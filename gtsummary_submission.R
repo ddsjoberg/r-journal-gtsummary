@@ -2,6 +2,7 @@ library(gtsummary)
 library(tidyverse)
 library(gt)
 
+reset_gtsummary_theme()
 # theme_gtsummary_compact()
 # set_gtsummary_theme(list(
 #   "as_gt-lst:addl_cmds" = list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino")))
@@ -165,6 +166,7 @@ tibble::tribble(
   "`modify_header()`",           "update column headers",
   "`modify_footnote()`",         "update column footnote",
   "`modify_spanning_header()`",  "update spanning headers",
+  "`modify_caption()`",          "update table caption/title",
   "`bold_labels()`",             "bold variable labels",
   "`bold_levels()`",             "bold variable levels",
   "`italicize_labels()`",        "italicize variable labels",
