@@ -30,12 +30,9 @@ Additionally, \pkg{gtsummary} leverages other analysis and tidying R packages to
 For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepare regression results for \code{tbl\_regression()} and use \CRANpkg{gt} \citep{gt} to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
 Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
-While other R packages are available to clean and present summary statistics and regression results in statistical reports, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. It also includes the ability to report statistics from the tables inline in an RMarkdown report.
-For example other summary statistics packages such as \CRANpkg{skimr}, \CRANpkg{summarytools}, and \CRANpkg{tableone} provide detailed descriptive statistics, but at least one major advantage of \CRANpkg{gtsummary} is the ability to also provide these same descriptive statistics that are publication ready in a scientific journal with little or no additional formatting.
-Additionally \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, unlike  \CRANpkg{tableone}.
-However, it is possible to override \CRANpkg{gtsummary} variable selection defaults if the users chooses too. 
-%For example with \CRANpkg{finalfit}, you have to manually specify a printing engine for the table to render.
-%Furthermore, \CRANpkg{tableone} reports on general descriptive statistics, but it is lacking in its ability to produce tables for regression modeling strategies in R. 
+While other R packages are available to present data and regression model summary tables, such as such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. 
+The default \CRANpkg{gtsummary} table is suitable to be published in a scientific journal with little or no additional formatting.
+For example, \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, which yields the summary table with minimal code.
 
 Along with descriptive summaries, \pkg{gtsummary} summarises statistical models, survey data, and builds cross tabulations. 
 After data are summarized in a table, \pkg{gtsummary} allows users to combine tables, either side-by-side (with \code{tbl\_merge()}) , or on top of each other (with \code{tbl\_stack()}). 
@@ -363,14 +360,14 @@ For example, using the theme for New England Journal of Medicine, large p-values
 
 % \newpage
 \begin{example}
-theme_gtsummary_journal("nejm")
+theme_gtsummary_journal("jama")
 
 glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE)
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{nejm.png}
+  \includegraphics[scale=0.49]{jama.png}
   \centering
 \end{figure}
 
@@ -383,8 +380,9 @@ A full glossary of customizable theme elements is available in the package's the
 Tables printed with \pkg{gtsummary} can be seamlessly integrated into R markdown documents and knitted into various output types using a number of print engines.
 The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()} \citep{knitr}, \CRANpkg{flextable}  \citep{flextable}, \CRANpkg{huxtable} \citep{huxtable}, and \CRANpkg{kableExtra} \citep{kableExtra}.
 While \pkg{gt} is used as default for most outputs, you can easily convert to using your print engine of choice using several conversion helper functions provided in the package (e.g. \code{as\_kable()}).
+It's possible to get results in HTML, PDF (via \LaTeX), RTF, Microsoft Word, PowerPoint, Excel and others, utilizing the various print engines.
 The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations.
-The default print engine can be systematically set using \pkg{gtsummary} themes.
+A default print engine can be assigned using \pkg{gtsummary} themes.
 
 \section{Summary}
 
