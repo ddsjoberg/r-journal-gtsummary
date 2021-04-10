@@ -249,8 +249,8 @@ div.tocify {
 
 
 <p>Thank you for your reviews and for your consideration of our paper. We believe we have adequately addressed the reviewer’s issues and have responded to the comments below.</p>
-<div id="reviewer-1" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Reviewer 1</h1>
+<div id="reviewer-1" class="section level1">
+<h1>Reviewer 1</h1>
 <ol style="list-style-type: decimal">
 <li>The authors didn’t provide any background review. Generating summary stats tables is such a common task that many people have tried to solve this problem before. I hope the authors could provide a background review of at least a few of the following packages</li>
 </ol>
@@ -270,8 +270,8 @@ div.tocify {
 <p>One important difference between <code>dplyr</code>’s <code>group_by</code> and <code>tbl_summary</code>’s <code>by</code> argument is that you can group by many variables using <code>group_by</code>, but only one variable using <code>by</code>. Since <code>tbl_summary()</code> cannot support all the uses of <code>group_by</code>, we wanted to make a clear distinction that these have different functionalities.</p>
 </blockquote>
 </div>
-<div id="reviewer-2" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Reviewer 2</h1>
+<div id="reviewer-2" class="section level1">
+<h1>Reviewer 2</h1>
 <ol style="list-style-type: decimal">
 <li>The article is very heavy in tables, which is understandable given the nature of the package. But maybe there is a way to rationalize? For instance, the <code>tbl_svysummary_1</code> table is essentially identical to the previous one. Do we need to see it in such a short exposition, or is it sufficient to discuss survey support?</li>
 </ol>
@@ -285,7 +285,7 @@ div.tocify {
 <p>The reviewer raises a great point. One of the great features of gtsummary is teh accessabitily of every gt function to produce a highly customized table, when needed. We have included functions to assist in common formatting to make them more accessible to users. For example, to re-created the functionality of the <code>bold_labels()</code> function, the user would need to pass <code>as_gt() %&gt;% gt::tab_style(style = gt::cell_text(weight = &quot;bold&quot;), locations = gt::cells_body(columns = gt::vars(label), rows = row_type == &quot;label&quot;))</code>. The helper function is much easier to read, and moreover, the gt version requires knowledge of hidden columns (e.g. <code>&quot;row_type&quot;</code>) to correctly select the label rows. Without these formatting helper functions, most passive users of the package would not have the knowledge to create the formatting on their own.</p>
 </blockquote>
 <ol start="3" style="list-style-type: decimal">
-<li>Package Testing</li>
+<li>The gtsummary developers use testthat as their testing suite, and codecov to measure and report their test coverage. On Github, they report a 93% test coverage which, at first glance, is very impressive. Unfortunately, I do not think that those tests follow best practices, and I am not convinced that the 93% tells us much. After looking at a few tests I did a quick grep and found that about 75% of expectations in the test folder were either expect_message, expect_error, or expect_warning (please correct me if this is wrong!). Most of the time, the tests only seem to make sure that no error is produced.</li>
 </ol>
 <blockquote>
 <p>As noted by the reviewer, many of the unit tests check for specific error/warnings/messages, which in some cases, may not be considered best practices. The {gtsummary} package, however, currently has 1100 unit tests with hundreds of tests that check for quite specific output. The sum total of the tests, in our opinion, provides great unit testing coverege testing a wide variety of options possible in the package.</p>
@@ -305,26 +305,12 @@ div.tocify {
 <pre class="r"><code>trial %&gt;% 
   select(age, marker, ttdeath) %&gt;%
   tbl_summary(digits = everything() ~ 2)</code></pre>
-<pre><code>## Warning: `columns = vars(...)` has been deprecated in gt 0.3.0:
-## * please use `columns = c(...)` instead
-
-## Warning: `columns = vars(...)` has been deprecated in gt 0.3.0:
-## * please use `columns = c(...)` instead
-
-## Warning: `columns = vars(...)` has been deprecated in gt 0.3.0:
-## * please use `columns = c(...)` instead
-
-## Warning: `columns = vars(...)` has been deprecated in gt 0.3.0:
-## * please use `columns = c(...)` instead
-
-## Warning: `columns = vars(...)` has been deprecated in gt 0.3.0:
-## * please use `columns = c(...)` instead</code></pre>
-<div id="lxsyrpobug" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gnrbakwazy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lxsyrpobug .gt_table {
+#gnrbakwazy .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -349,7 +335,7 @@ div.tocify {
   border-left-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_heading {
+#gnrbakwazy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -361,7 +347,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_title {
+#gnrbakwazy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -371,7 +357,7 @@ div.tocify {
   border-bottom-width: 0;
 }
 
-#lxsyrpobug .gt_subtitle {
+#gnrbakwazy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -381,13 +367,13 @@ div.tocify {
   border-top-width: 0;
 }
 
-#lxsyrpobug .gt_bottom_border {
+#gnrbakwazy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_col_headings {
+#gnrbakwazy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -402,7 +388,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_col_heading {
+#gnrbakwazy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -422,7 +408,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#lxsyrpobug .gt_column_spanner_outer {
+#gnrbakwazy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -434,15 +420,15 @@ div.tocify {
   padding-right: 4px;
 }
 
-#lxsyrpobug .gt_column_spanner_outer:first-child {
+#gnrbakwazy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lxsyrpobug .gt_column_spanner_outer:last-child {
+#gnrbakwazy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lxsyrpobug .gt_column_spanner {
+#gnrbakwazy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -454,7 +440,7 @@ div.tocify {
   width: 100%;
 }
 
-#lxsyrpobug .gt_group_heading {
+#gnrbakwazy .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -476,7 +462,7 @@ div.tocify {
   vertical-align: middle;
 }
 
-#lxsyrpobug .gt_empty_group_heading {
+#gnrbakwazy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -491,15 +477,15 @@ div.tocify {
   vertical-align: middle;
 }
 
-#lxsyrpobug .gt_from_md > :first-child {
+#gnrbakwazy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lxsyrpobug .gt_from_md > :last-child {
+#gnrbakwazy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lxsyrpobug .gt_row {
+#gnrbakwazy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -518,7 +504,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#lxsyrpobug .gt_stub {
+#gnrbakwazy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -530,7 +516,7 @@ div.tocify {
   padding-left: 12px;
 }
 
-#lxsyrpobug .gt_summary_row {
+#gnrbakwazy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -540,7 +526,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#lxsyrpobug .gt_first_summary_row {
+#gnrbakwazy .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -550,7 +536,7 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_grand_summary_row {
+#gnrbakwazy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -560,7 +546,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#lxsyrpobug .gt_first_grand_summary_row {
+#gnrbakwazy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -570,11 +556,11 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_striped {
+#gnrbakwazy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lxsyrpobug .gt_table_body {
+#gnrbakwazy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -583,7 +569,7 @@ div.tocify {
   border-bottom-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_footnotes {
+#gnrbakwazy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -597,13 +583,13 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_footnote {
+#gnrbakwazy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#lxsyrpobug .gt_sourcenotes {
+#gnrbakwazy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -617,41 +603,41 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#lxsyrpobug .gt_sourcenote {
+#gnrbakwazy .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#lxsyrpobug .gt_left {
+#gnrbakwazy .gt_left {
   text-align: left;
 }
 
-#lxsyrpobug .gt_center {
+#gnrbakwazy .gt_center {
   text-align: center;
 }
 
-#lxsyrpobug .gt_right {
+#gnrbakwazy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lxsyrpobug .gt_font_normal {
+#gnrbakwazy .gt_font_normal {
   font-weight: normal;
 }
 
-#lxsyrpobug .gt_font_bold {
+#gnrbakwazy .gt_font_bold {
   font-weight: bold;
 }
 
-#lxsyrpobug .gt_font_italic {
+#gnrbakwazy .gt_font_italic {
   font-style: italic;
 }
 
-#lxsyrpobug .gt_super {
+#gnrbakwazy .gt_super {
   font-size: 65%;
 }
 
-#lxsyrpobug .gt_footnote_marks {
+#gnrbakwazy .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;

@@ -7,13 +7,12 @@ output:
     theme: sandstone
     toc: yes
     toc_float: yes
-    number_sections: true
 editor_options: 
   chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 library(tidyverse)
 library(gtsummary)
@@ -50,7 +49,7 @@ Thank you for your reviews and for your consideration of our paper. We believe w
 > The reviewer raises a great point. One of the great features of gtsummary is teh accessabitily of every gt function to produce a highly customized table, when needed. We have included functions to assist in common formatting to make them more accessible to users. For example, to re-created the functionality of the `bold_labels()` function, the user would need to pass `as_gt() %>% gt::tab_style(style = gt::cell_text(weight = "bold"), locations = gt::cells_body(columns = gt::vars(label), rows = row_type == "label"))`. The helper function is much easier to read, and moreover, the gt version requires knowledge of hidden columns (e.g. `"row_type"`) to correctly select the label rows. Without these formatting helper functions, most passive users of the package would not have the knowledge to create the formatting on their own.
 
 
-3. Package Testing
+3. The gtsummary developers use testthat as their testing suite, and codecov to measure and report their test coverage. On Github, they report a 93% test coverage which, at first glance, is very impressive. Unfortunately, I do not think that those tests follow best practices, and I am not convinced that the 93% tells us much. After looking at a few tests I did a quick grep and found that about 75% of expectations in the test folder were either expect_message, expect_error, or expect_warning (please correct me if this is wrong!). Most of the time, the tests only seem to make sure that no error is produced.
 
 > As noted by the reviewer, many of the unit tests check for specific error/warnings/messages, which in some cases, may not be considered best practices. The {gtsummary} package, however, currently has 1100 unit tests with hundreds of tests that check for quite specific output. The sum total of the tests, in our opinion, provides great unit testing coverege testing a wide variety of options possible in the package.
 
