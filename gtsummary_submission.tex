@@ -248,7 +248,7 @@ Like \code{tbl\_summary()}, \code{tbl\_regression()} creates highly customizable
 Common regression models, such as logistic regression and Cox proportional hazards regression, are automatically identified and the tables headers are pre-filled with appropriate column headers (i.e. Odds Ratio and Hazard Ratio).
 
 In the example below, the logistic regression model is summarized with \code{tbl\_regression()}.
-Note that a reference row for Grade I has been added, and the variable labels have been carried through into the table.
+Note that a reference row for Grade has been added, and the variable labels have been carried through into the table.
 Using \code{exponentiate = TRUE}  we exponentiate the regression coefficients, yielding the odds ratios.
 The helper function \code{add\_global\_p()} was used to replace the p-values for each term with the global p-value for grade.
 
@@ -265,7 +265,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{figure}
 
 The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} package's \code{tidy()} function to perform the initial formatting of the regression object \citep{broom}.
-Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, and models built with the mice package[add ref]and more. The \pkg{gtsummary} package also contains built-in tidying functions to report standardized coefficients and bootstrapped confidence intervals.
+Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, models built with the \pkg{mice} package \citep{mice}, and more. The \pkg{gtsummary} package also contains built-in tidying functions to report standardized coefficients and bootstrapped confidence intervals.
 A custom tidier may be specified as well, which is helpful when you need to present non-standard modifications to your model results such as Wald confidence intervals, or results with modified variance-covariance regression coefficients.
 
 \subsection{\texorpdfstring{\code{tbl\_uvregression()}}{tbl\_uvregression()}}
@@ -294,7 +294,7 @@ trial %>%
 
 \section{Inline Reporting}
 
-Reproducible reports are an important part of good analysis practices.
+Reproducible reports are an important part of good analytic practices.
 We often need to report the results from a table in the text of an R markdown report.
 The \code{inline\_text()}  function reports statistics from \pkg{gtsummary} tables inline in an R markdown document.
 
@@ -354,9 +354,9 @@ However, you'll likely submit to another journal, or your personal preferences d
 The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
 Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \code{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
-Several themes are available to follow various journals' reporting guidelines, reduce cell padding and font size, and recently language themes were introduced translating \pkg{gtsummary} tables to more than 10 languages.
+Several themes are available to follow various journals' reporting guidelines, reduce cell padding and font size, and language themes to translate \pkg{gtsummary} tables to more than 14 languages.
 
-For example, using the theme for New England Journal of Medicine, large p-values are rounded to two decimal places and confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"} (among other modifications). 
+For example, using the theme for \textit{The Journal of the American Medical Association} (\textit{JAMA}), large p-values are rounded to two decimal places, confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"}, and the confidence internal is displayed in the same column as the model coefficient. 
 
 % \newpage
 \begin{example}
@@ -379,7 +379,7 @@ A full glossary of customizable theme elements is available in the package's the
 
 Tables printed with \pkg{gtsummary} can be seamlessly integrated into R markdown documents and knitted into various output types using a number of print engines.
 The package was written to be a companion to the \pkg{gt} package from RStudio and is optimized to leverage the advanced customization features of this print engine, but offers compatibility with a variety of popular printing methods including \code{knitr::kable()} \citep{knitr}, \CRANpkg{flextable}  \citep{flextable}, \CRANpkg{huxtable} \citep{huxtable}, and \CRANpkg{kableExtra} \citep{kableExtra}.
-While \pkg{gt} is used as default for most outputs, you can easily convert to using your print engine of choice using several conversion helper functions provided in the package (e.g. \code{as\_kable()}).
+While \pkg{gt} is used as default for most outputs, you can easily use your print engine of choice with the conversion helper functions provided in the package (e.g. \code{as\_flex\_table()}).
 It's possible to get results in HTML, PDF (via \LaTeX), RTF, Microsoft Word, PowerPoint, Excel and others, utilizing the various print engines.
 The package is designed to interact with these print engines behind the scenes to reduce burden on users, and you generally only need to be aware of them if you want to add advanced customizations.
 A default print engine can be assigned using \pkg{gtsummary} themes.
