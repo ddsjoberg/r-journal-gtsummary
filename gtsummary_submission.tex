@@ -30,9 +30,9 @@ Additionally, \pkg{gtsummary} leverages other analysis and tidying R packages to
 For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepare regression results for \code{tbl\_regression()} and use \CRANpkg{gt} \citep{gt} to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
 Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
-While other R packages are available to present data and regression model summary tables, such as such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. 
+While other R packages are available to present data and regression model summary tables, such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. 
 The default \CRANpkg{gtsummary} table is suitable to be published in a scientific journal with little or no additional formatting.
-For example, \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, which yields the summary table with minimal code.
+For example, \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, which yields summary tables with minimal code.
 
 Along with descriptive summaries, \pkg{gtsummary} summarises statistical models, survey data, and builds cross tabulations. 
 After data are summarized in a table, \pkg{gtsummary} allows users to combine tables, either side-by-side (with \code{tbl\_merge()}) , or on top of each other (with \code{tbl\_stack()}). 
@@ -42,7 +42,7 @@ This table merging and stacking allows us to easily synthesize and compare outpu
 
 To showcase \pkg{gtsummary} functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B, as well as the outcomes of tumor response and death.
 Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")} that will be shown in the summary tables. 
-These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned the variable name would have been shown.
+These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned, the variable name would have been shown.
 
 % adding table describing trial dataset
 \input{tex_tables/tbl_trial_desc.tex}
@@ -214,19 +214,18 @@ Additional \pkg{gt} customization was utilized to add table captions and source 
 % \newpage
 \begin{example}
 trial %>%
-  select(age, grade, trt) %>%
-  tbl_summary(by = trt, missing = "no") %>%
+  select(marker, response, trt) %>%
+  tbl_summary(by = trt, missing = "no", 
+              statistic = list(marker ~ "{mean} ({sd})")) %>%
   add_overall() %>%
-  add_p() %>%
-  add_q() %>%
+  add_difference() %>%
   add_stat_label() %>%
-  bold_p(t = 0.10) %>%
   bold_labels() %>%
-  modify_header(label ~ "**Variable**") %>% 
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
+  modify_header(label ~ "**Variable**") %>%
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Randomization Assignment**") %>%
   as_gt() %>%
   gt::tab_header(
-    title = gt::md("**Table 1. Patient Characteristics**"),
+    title = gt::md("**Table 1. Treatment Differences**"),
     subtitle = gt::md("_Highly Confidential_")
   ) %>%
   gt::tab_source_note("Data updated June 26, 2015")
