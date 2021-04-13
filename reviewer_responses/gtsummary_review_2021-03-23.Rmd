@@ -46,7 +46,7 @@ Thank you for your reviews and for your consideration of our paper. We believe w
 
 2. I’m not sure I understand the motivation for the table customization functions (e.g., bold_levels). Isn’t the whole point of building a package on top of {gt} that we can leverage its functions directly?
 
-> The reviewer raises a great point. One of the great features of gtsummary is teh accessabitily of every gt function to produce a highly customized table, when needed. We have included functions to assist in common formatting to make them more accessible to users. For example, to re-created the functionality of the `bold_labels()` function, the user would need to pass `as_gt() %>% gt::tab_style(style = gt::cell_text(weight = "bold"), locations = gt::cells_body(columns = gt::vars(label), rows = row_type == "label"))`. The helper function is much easier to read, and moreover, the gt version requires knowledge of hidden columns (e.g. `"row_type"`) to correctly select the label rows. Without these formatting helper functions, most passive users of the package would not have the knowledge to create the formatting on their own.
+> The reviewer raises a great point. One of the great features of gtsummary is the accessibility of every gt function to produce a highly customized table, when needed. We have included functions to assist in common formatting to make them more accessible to users. For example, to re-created the functionality of the `bold_labels()` function, the user would need to pass `as_gt() %>% gt::tab_style(style = gt::cell_text(weight = "bold"), locations = gt::cells_body(columns = gt::vars(label), rows = row_type == "label"))`. The helper function is much easier to read, and moreover, the gt version requires knowledge of hidden columns (e.g. `"row_type"`) to correctly select the label rows. Without these formatting helper functions, most passive users of the package would not have the knowledge to create the formatting on their own.
 
 
 3. The gtsummary developers use testthat as their testing suite, and codecov to measure and report their test coverage. On Github, they report a 93% test coverage which, at first glance, is very impressive. Unfortunately, I do not think that those tests follow best practices, and I am not convinced that the 93% tells us much. After looking at a few tests I did a quick grep and found that about 75% of expectations in the test folder were either expect_message, expect_error, or expect_warning (please correct me if this is wrong!). Most of the time, the tests only seem to make sure that no error is produced.
@@ -72,16 +72,15 @@ trial %>%
 
 6. tbl_summary: Can we give a manual sort order?
 
-> The ordering of the variable in `tbl_summary()` aligns with the order the variables appear in the input data frame. To re-arrange the variables, use `select()` before passing the data frame to `tbl_summary()`, e.g. `trial %>% select(age, grade) %>% tbl_summary()`
-
+> The ordering of the variable in `tbl_summary()` aligns with the order the variables appear in the input data frame. To re-arrange the variables, use `select()` before passing the data frame to `tbl_summary()`, e.g. `trial %>% select(age, grade) %>% tbl_summary()`. Custom ordering of categorical variable levels can be done manually, or using forcats convenience functions (e.g. `forcats:fct_relevel()`) before passing data. 
 
 7. tbl_summary: Is it possible to use custom/arbitrary functions in the statistic argument, or are we limited to those explicitly defined by the package? 
 
-> Yes! Any function in base R, another package, or user-defined can be used to summarize the continuos data in `tbl_summary()`. The only restriction is the first argument of the function must accept a vector, and return a scalar.
+> Yes! Any function in base R, another package, or user-defined can be used to summarize the continuous data in `tbl_summary()`. The only restriction is the first argument of the function must accept a vector and return a scalar.
 
 
 8. tbl_regression: How do I manually reorder terms?
 
-> The terms appear in the same order as regression function. The simplest way to reorder the terms to order them in, for example, the `lm()` call. If for some reason that is not possible, they can be re-ordered after the `tbl_regression()` table has been built using `modify_table_body()` with `dplyr::arrange()`.
+> The terms appear in the same order as in regression function. The simplest way to reorder the terms is to order them directly in call, for example, in the `lm()` call. If for some reason that is not possible, they can be re-ordered after the `tbl_regression()` table has been built using `modify_table_body()` with `dplyr::arrange()`.
 
 
