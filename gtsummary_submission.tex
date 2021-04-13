@@ -219,8 +219,9 @@ Additional \pkg{gt} customization was utilized to add table captions and source 
 \begin{example}
 trial %>%
   select(marker, response, trt) %>%
-  tbl_summary(by = trt, missing = "no",
-              statistic = list(marker ~ "{mean} ({sd})")) %>%
+  tbl_summary(by = trt, 
+              missing = "no",
+              statistic = marker ~ "{mean} ({sd})") %>%
   add_difference() %>%
   add_n() %>%
   add_stat_label() %>%
