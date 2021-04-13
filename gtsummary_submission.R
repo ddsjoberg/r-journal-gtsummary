@@ -110,9 +110,9 @@ tbl_summary_3 <-
   trial %>%
   select(age, grade, response, trt) %>%
   tbl_summary(by = trt) %>%
+  add_overall() %>%
   add_p(test = all_continuous() ~ "t.test",
-        pvalue_fun = ~style_pvalue(., digits = 2)) %>%
-  add_overall()
+        pvalue_fun = ~style_pvalue(., digits = 2))
 
 tbl_summary_3 %>%
   as_gt() %>%
