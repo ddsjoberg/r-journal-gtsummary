@@ -44,6 +44,7 @@ To showcase \pkg{gtsummary} functions, we will use a simulated clinical trial da
 Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")} that will be shown in the summary tables. 
 These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned, the variable name would have been shown.
 
+\newpage
 % adding table describing trial dataset
 \input{tex_tables/tbl_trial_desc.tex}
 
@@ -200,6 +201,7 @@ The \pkg{gtsummary} package includes functions specifically made to modify and f
 These functions work with any table constructed with \pkg{gtsummary}.
 Most common uses are changing the column headers and footnotes, or modifying the look of tables through bolding and italicization. 
 
+\newpage
 % adding table describing fns for customization
 \input{tex_tables/tbl_modify.tex}
 
@@ -208,14 +210,15 @@ The \pkg{gt} package exports approximately one hundred functions to customize an
 When you need to add additional details or styling not available within \pkg{gtsummary}, use the \code{as\_gt()} function to convert the \pkg{gtsummary} object to gt and continue customization.
 
 The example below includes customization using both \pkg{gtsummary} and \pkg{gt} functions.
-The \pkg{gtsummary} functions are utilized to bold p-values below a threshold, bold the variable labels,  update the column header, and add a spanning header.
+The \pkg{gtsummary} functions are utilized to bold the variable labels,  update the column headers, and add a spanning header.
 Additional \pkg{gt} customization was utilized to add table captions and source notes.
 
 % \newpage
 \begin{example}
 trial %>%
   select(marker, response, trt) %>%
-  tbl_summary(by = trt, missing = "no", 
+  tbl_summary(by = trt, 
+              missing = "no", 
               statistic = list(marker ~ "{mean} ({sd})")) %>%
   add_overall() %>%
   add_difference() %>%
@@ -355,7 +358,7 @@ Themes were created to make these customizations easy to navigate and reuse acro
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \code{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
 Several themes are available to follow various journals' reporting guidelines, reduce cell padding and font size, and language themes to translate \pkg{gtsummary} tables to more than 14 languages.
 
-For example, using the theme for \textit{The Journal of the American Medical Association} (\textit{JAMA}), large p-values are rounded to two decimal places, confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"}, and the confidence internal is displayed in the same column as the model coefficient. 
+For example, using the theme for \textit{The Journal of the American Medical Association} (\textit{JAMA}), large p-values are rounded to two decimal places, confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"}, and the confidence internal is displayed in the same column as the model coefficients. 
 
 % \newpage
 \begin{example}
