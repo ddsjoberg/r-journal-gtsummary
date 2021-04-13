@@ -9,6 +9,13 @@
     ]
   },
   "Packages": {
+    "AsioHeaders": {
+      "Package": "AsioHeaders",
+      "Version": "1.16.1-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9305444d113b052089eba3694047d42d"
+    },
     "BH": {
       "Package": "BH",
       "Version": "1.75.0-0",
@@ -198,6 +205,18 @@
       "Repository": "CRAN",
       "Hash": "a667800d5f0350371bedeb8b8b950289"
     },
+    "chromote": {
+      "Package": "chromote",
+      "Version": "0.0.0.9003",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "chromote",
+      "RemoteRef": "master",
+      "RemoteSha": "ba9bffc291be468c48e658f95fa2bc952a1dbff5",
+      "RemoteHost": "api.github.com",
+      "Hash": "463e6672046ad22c5795727604b4afab"
+    },
     "class": {
       "Package": "class",
       "Version": "7.3-18",
@@ -331,6 +350,13 @@
       "Repository": "CRAN",
       "Hash": "c98eb5133d9cb9e1622b8691487f11bb"
     },
+    "fastmap": {
+      "Package": "fastmap",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "77bd60a6157420d4ffa93b27cf6a58b8"
+    },
     "forcats": {
       "Package": "forcats",
       "Version": "0.5.1",
@@ -394,15 +420,10 @@
     },
     "gtsummary": {
       "Package": "gtsummary",
-      "Version": "1.3.7.9022",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "ddsjoberg",
-      "RemoteRepo": "gtsummary",
-      "RemoteRef": "master",
-      "RemoteSha": "b9159e6d558f2231a083d30eaf867583bdd6557d",
-      "Hash": "16a954e8821f40f9de109615765bf5c4"
+      "Version": "1.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6f08839f37de0f122a8ed6845a33942e"
     },
     "haven": {
       "Package": "haven",
@@ -473,6 +494,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "41e3b9df8e07dba367a58462cc328721"
+    },
+    "later": {
+      "Package": "later",
+      "Version": "1.1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d0a62b247165aabf397fded504660d8a"
     },
     "lattice": {
       "Package": "lattice",
@@ -655,6 +683,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+    },
+    "promises": {
+      "Package": "promises",
+      "Version": "1.2.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4ab2c43adb4d4699cf3690acd378d75d"
     },
     "ps": {
       "Package": "ps",
@@ -900,6 +935,25 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "e99d80ad34457a4853674e89d5e806de"
+    },
+    "webshot2": {
+      "Package": "webshot2",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "webshot2",
+      "RemoteRef": "master",
+      "RemoteSha": "f62e743c9fee3dea313677ee061c041a8bbccb19",
+      "Hash": "54dffb169fd079449ba6201c11525c3e"
+    },
+    "websocket": {
+      "Package": "websocket",
+      "Version": "1.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c38a93baf963628fcf2212bb3d811600"
     },
     "withr": {
       "Package": "withr",
