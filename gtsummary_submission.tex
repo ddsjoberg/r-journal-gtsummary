@@ -111,7 +111,7 @@ trial %>%
 \textbf{A note about notation:}
 Throughout the \pkg{gtsummary} package, you'll find function arguments that accept a list of formulas (or a single formula) as the input.
 In the example above, the label for the age variable was updated using \code{label = age $\sim$ "Patient Age"}---equivalently, \code{label = list(age $\sim$ "Patient Age")}.
-To select groups of variables, utilize the select helpers from the \pkg{tidyselect} and \pkg{gtsummary}.
+To select groups of variables, utilize the select helpers from the \pkg{tidyselect} and \pkg{gtsummary} packages.
 The \code{all\_continuous()} selector is a convenient way to select all continuous variables.
 In the example above it could have been used to change the summary statistics for all continuous variables---\code{all\_continuous() $\sim$ c("\{N\_nonmiss\}", "\{mean\} (\{sd\})")}. 
 Similarly, users may utilize \code{all\_categorical()} (from \pkg{gtsummary}), or any of the \pkg{tidyselect} helpers used throughout the \pkg{tidyverse} package, such as \code{starts\_with()}, \code{contains()}, etc.
