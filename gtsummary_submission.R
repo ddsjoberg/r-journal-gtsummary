@@ -96,7 +96,7 @@ tibble::tribble(
   "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
   "`add_stat_label()`",  "add label for the summary statistics shown in each row",
   "`add_stat()`",        "generic function to add a column with user-defined values",
-  "`add_q()`",           "add a column of q values to control for multiple comparisons"
+  "`add_q()`",           "add a column of q-values to control for multiple comparisons"
 ) %>%
   gt(caption = "`tbl_summary()` functions to add information") %>%
   fmt_markdown(everything()) %>%
@@ -112,7 +112,7 @@ tbl_summary_3 <-
   tbl_summary(by = trt, missing = "no") %>%
   add_p(test = all_continuous() ~ "t.test",
         pvalue_fun = ~style_pvalue(., digits = 2)) %>%
-  add_n()
+  add_overall()
 
 tbl_summary_3 %>%
   as_gt() %>%
@@ -187,10 +187,12 @@ tbl_custom <-
   tbl_summary(by = trt, missing = "no",
               statistic = list(marker ~ "{mean} ({sd})")) %>%
   add_difference() %>%
-  add_overall() %>%
+  add_n() %>%
   add_stat_label() %>%
   bold_labels() %>%
-  modify_header(label ~ "**Variable**") %>%
+  modify_header(
+    list(label ~ "**Variable**",
+         all_stat_cols() ~ "**{level}**")) %>%
   modify_spanning_header(c(stat_1, stat_2) ~ "**Randomization Assignment**") %>%
   as_gt() %>%
   gt::tab_header(
