@@ -183,19 +183,18 @@ tibble::tribble(
 
 tbl_custom <-
   trial %>%
-  select(marker, grade, trt) %>%
-  tbl_summary(by = trt, missing = "no") %>%
+  select(marker, response, trt) %>%
+  tbl_summary(by = trt, missing = "no",
+              statistic = list(marker ~ "{mean} ({sd})")) %>%
+  add_difference() %>%
   add_overall() %>%
-  add_p() %>%
-  add_q() %>%
   add_stat_label() %>%
-  bold_p(t = 0.10) %>%
   bold_labels() %>%
   modify_header(label ~ "**Variable**") %>%
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Randomization Assignment**") %>%
   as_gt() %>%
   gt::tab_header(
-    title = gt::md("**Table 1. Patient Characteristics**"),
+    title = gt::md("**Table 1. Treatment Differences**"),
     subtitle = gt::md("_Highly Confidential_")
   ) %>%
   gt::tab_source_note("Data updated June 26, 2015")
