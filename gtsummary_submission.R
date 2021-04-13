@@ -109,7 +109,7 @@ tibble::tribble(
 tbl_summary_3 <-
   trial %>%
   select(age, grade, response, trt) %>%
-  tbl_summary(by = trt, missing = "no") %>%
+  tbl_summary(by = trt) %>%
   add_p(test = all_continuous() ~ "t.test",
         pvalue_fun = ~style_pvalue(., digits = 2)) %>%
   add_overall()
@@ -193,7 +193,7 @@ tbl_custom <-
   modify_header(
     list(label ~ "**Variable**",
          all_stat_cols() ~ "**{level}**")) %>%
-  modify_spanning_header(c(stat_1, stat_2) ~ "**Randomization Assignment**") %>%
+  modify_spanning_header(all_stat_cols() ~ "**Randomization Assignment**") %>%
   as_gt() %>%
   gt::tab_header(
     title = gt::md("**Table 1. Treatment Differences**"),
