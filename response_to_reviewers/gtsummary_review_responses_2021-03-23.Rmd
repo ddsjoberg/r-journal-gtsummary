@@ -17,10 +17,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(tidyverse)
 library(gtsummary)
 library(gt)
-
 ```
 
-Thank you for your reviews and for your consideration of our paper. We believe we have adequately addressed the reviewer's issues and have responded to the comments below. 
+Thank you for your reviews and for your consideration of our paper. We believe we have adequately addressed the comments and have responded below. 
 
 # Reviewer 1
 
