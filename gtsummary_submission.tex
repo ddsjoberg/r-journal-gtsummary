@@ -24,11 +24,11 @@ Specifically, \pkg{gtsummary} allows the us to fully customize and format summar
 Removing the need to modify tables after the table has been created eliminates an error-prone step in our workflow, and increases the reproducibility of our analyses and reports. 
 
 Using \pkg{gtsummary}, analysts can easily summarize data frames, present and compare descriptive statistics between groups, summarize regression models, and report statistics inline in RMarkdown reports. 
-After identifying these basic structures of most tables presented in medical literature (and other fields), we created \pkg{gtsummary} to ease creation of fully-formatted, ready to publish tables.
+After identifying these basic structures of most tables presented in medical literature (and other fields), we wrote \pkg{gtsummary} to ease creation of fully-formatted, ready to publish tables.
 
 Additionally, \pkg{gtsummary} leverages other analysis and tidying R packages to create a complete analysis and reporting framework.
 For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepare regression results for \code{tbl\_regression()} and use \CRANpkg{gt} \citep{gt} to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
-Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
+Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} \citep{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
 While other R packages are available to present data and regression model summary tables, such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. 
 The default \CRANpkg{gtsummary} table is suitable to be published in a scientific journal with little or no additional formatting.
