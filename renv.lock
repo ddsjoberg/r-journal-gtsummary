@@ -210,11 +210,11 @@
       "Version": "0.0.0.9003",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "chromote",
       "RemoteRef": "master",
       "RemoteSha": "ba9bffc291be468c48e658f95fa2bc952a1dbff5",
-      "RemoteHost": "api.github.com",
       "Hash": "463e6672046ad22c5795727604b4afab"
     },
     "class": {
@@ -712,6 +712,13 @@
       "Repository": "CRAN",
       "Hash": "d41a5849071941c6c269b57324515398"
     },
+    "ragg": {
+      "Package": "ragg",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3f0ac98597bebdc31b747def3eb9b6ca"
+    },
     "rappdirs": {
       "Package": "rappdirs",
       "Version": "0.3.3",
@@ -872,6 +879,20 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "b227d13e29222b4574486cfcbde077fa"
+    },
+    "systemfonts": {
+      "Package": "systemfonts",
+      "Version": "1.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f2e17ba09737e2e7e2ec40fc1f9b6e08"
+    },
+    "textshaping": {
+      "Package": "textshaping",
+      "Version": "0.3.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b47ec0c0b55d1cf4d5b8f2da3fe2024e"
     },
     "tibble": {
       "Package": "tibble",
