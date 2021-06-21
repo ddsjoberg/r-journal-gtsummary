@@ -2,22 +2,22 @@ library(gtsummary)
 library(tidyverse)
 library(gt)
 
+# set gtsummary theme for the R journal ----------------------------------------
 reset_gtsummary_theme()
-# theme_gtsummary_compact()
-# set_gtsummary_theme(list(
-#   "as_gt-lst:addl_cmds" = list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino")))
-# ))
-
 my_r_journal_theme <- theme_gtsummary_compact(set_theme = FALSE)
 my_r_journal_theme$`as_gt-lst:addl_cmds` <-
   my_r_journal_theme$`as_gt-lst:addl_cmds` %>%
   c(list("cols_hide" = rlang::expr(gt::tab_options(table.font.names = "palatino"))))
-
 set_gtsummary_theme(my_r_journal_theme)
+
+# set to TRUE to re-render all tables (gt images and latex tables)
+# if you're at the R Journal, please leave this as FALSE
+save_tables <- FALSE
 
 # Data Summaries ---------------------------------------------------------------
 
-trial %>%
+if (save_tables)
+  trial %>%
   imap_dfr(
     ~tibble(
       colname = str_glue('`{.y}`'),
@@ -48,22 +48,24 @@ tbl_summary_1 <-
   select(age, grade, response, trt) %>%
   tbl_summary(by = trt)
 
-tbl_summary_1 %>%
+if (save_tables)
+  tbl_summary_1 %>%
   as_gt() %>%
   gtsave(file = "images/summary_basic.png")
 
-tibble::tribble(
-  ~Argument,       ~Description,
-  "`label=`",       "specify the variable labels printed in table",
-  "`type=`",        "specify the variable type (e.g. continuous, categorical, etc.)",
-  "`statistic=`",   "change the summary statistics presented",
-  "`digits=`",      "number of digits the summary statistics will be rounded to",
-  "`missing=`",     "whether to display a row with the number of missing observations",
-  "`missing_text=`","text label for the missing number row",
-  "`sort=`",        "change the sorting of categorical levels by frequency",
-  "`percent=`",     "print column, row, or cell percentages",
-  "`include=`",     "list of variables to include in summary table"
-) %>%
+if (save_tables)
+  tibble::tribble(
+    ~Argument,       ~Description,
+    "`label=`",       "specify the variable labels printed in table",
+    "`type=`",        "specify the variable type (e.g. continuous, categorical, etc.)",
+    "`statistic=`",   "change the summary statistics presented",
+    "`digits=`",      "number of digits the summary statistics will be rounded to",
+    "`missing=`",     "whether to display a row with the number of missing observations",
+    "`missing_text=`","text label for the missing number row",
+    "`sort=`",        "change the sorting of categorical levels by frequency",
+    "`percent=`",     "print column, row, or cell percentages",
+    "`include=`",     "list of variables to include in summary table"
+  ) %>%
   gt() %>%
   fmt_markdown(everything()) %>%
   as_latex() %>%
@@ -84,20 +86,22 @@ tbl_summary_2 <-
     missing = "no"
   )
 
-tbl_summary_2 %>%
+if (save_tables)
+  tbl_summary_2 %>%
   as_gt() %>%
   gtsave(file = "images/summary_plus.png")
 
-tibble::tribble(
-  ~Function,             ~Description,
-  "`add_p()`",           "add p-values to the output comparing values across groups",
-  "`add_overall()`",     "add a column with overall summary statistics",
-  "`add_n()`",           "add a column with N (or N missing) for each variable",
-  "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
-  "`add_stat_label()`",  "add label for the summary statistics shown in each row",
-  "`add_stat()`",        "generic function to add a column with user-defined values",
-  "`add_q()`",           "add a column of q-values to control for multiple comparisons"
-) %>%
+if (save_tables)
+  tibble::tribble(
+    ~Function,             ~Description,
+    "`add_p()`",           "add p-values to the output comparing values across groups",
+    "`add_overall()`",     "add a column with overall summary statistics",
+    "`add_n()`",           "add a column with N (or N missing) for each variable",
+    "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
+    "`add_stat_label()`",  "add label for the summary statistics shown in each row",
+    "`add_stat()`",        "generic function to add a column with user-defined values",
+    "`add_q()`",           "add a column of q-values to control for multiple comparisons"
+  ) %>%
   gt(caption = "`tbl_summary()` functions to add information") %>%
   fmt_markdown(everything()) %>%
   fmt_markdown(everything()) %>%
@@ -114,7 +118,8 @@ tbl_summary_3 <-
   add_p(test = all_continuous() ~ "t.test",
         pvalue_fun = ~style_pvalue(., digits = 2))
 
-tbl_summary_3 %>%
+if (save_tables)
+  tbl_summary_3 %>%
   as_gt() %>%
   gtsave(file = "images/summary_plus_plus.png")
 
@@ -129,7 +134,8 @@ tbl_svysummary_1 <-
   tbl_svysummary(by = trt, include = c(trt, age, grade)) %>%
   add_p()
 
-tbl_svysummary_1 %>%
+if (save_tables)
+  tbl_svysummary_1 %>%
   as_gt() %>%
   gtsave(file = "images/svysummary.png")
 
@@ -155,24 +161,26 @@ tbl_survfit_1 <-
               label_header = "**{time} Month**") %>%
   add_p()
 
-tbl_survfit_1 %>%
+if (save_tables)
+  tbl_survfit_1 %>%
   as_gt() %>%
   gtsave(file = "images/survfit.png")
 
 ## Customization ---------------------------------------------------------------
 
-tibble::tribble(
-  ~Function,                     ~Description,
-  "`modify_header()`",           "update column headers",
-  "`modify_footnote()`",         "update column footnote",
-  "`modify_spanning_header()`",  "update spanning headers",
-  "`modify_caption()`",          "update table caption/title",
-  "`bold_labels()`",             "bold variable labels",
-  "`bold_levels()`",             "bold variable levels",
-  "`italicize_labels()`",        "italicize variable labels",
-  "`italicize_levels()`",        "italicize variable levels",
-  "`bold_p()`",                  "bold significant p-values"
-) %>%
+if (save_tables)
+  tibble::tribble(
+    ~Function,                     ~Description,
+    "`modify_header()`",           "update column headers",
+    "`modify_footnote()`",         "update column footnote",
+    "`modify_spanning_header()`",  "update spanning headers",
+    "`modify_caption()`",          "update table caption/title",
+    "`bold_labels()`",             "bold variable labels",
+    "`bold_levels()`",             "bold variable levels",
+    "`italicize_labels()`",        "italicize variable labels",
+    "`italicize_levels()`",        "italicize variable levels",
+    "`bold_p()`",                  "bold significant p-values"
+  ) %>%
   gt() %>%
   fmt_markdown(everything()) %>%
   fmt_markdown(everything()) %>%
@@ -201,7 +209,8 @@ tbl_custom <-
   ) %>%
   gt::tab_source_note("Data updated June 26, 2015")
 
-tbl_custom %>%
+if (save_tables)
+  tbl_custom %>%
   gtsave(file = "images/custom.png")
 
 # Model Summaries --------------------------------------------------------------
@@ -213,7 +222,8 @@ tbl_regression_1 <-
   tbl_regression(exponentiate = TRUE) %>%
   add_global_p()
 
-tbl_regression_1 %>%
+if (save_tables)
+  tbl_regression_1 %>%
   as_gt() %>%
   gtsave(file = "images/regression.png")
 
@@ -232,7 +242,8 @@ tbl_uvregression_1 <-
   add_nevent() %>%
   add_global_p()
 
-tbl_uvregression_1 %>%
+if (save_tables)
+  tbl_uvregression_1 %>%
   as_gt() %>%
   gtsave(file = "images/uvregression.png")
 
@@ -252,7 +263,8 @@ tbl_merge_1 <-
     tab_spanner = c("**Tumor Response**", "**Time to Death**")
   )
 
-tbl_merge_1 %>%
+if (save_tables)
+  tbl_merge_1 %>%
   as_gt() %>%
   gtsave(file = "images/merge.png")
 
@@ -267,7 +279,8 @@ tbl_jama <-
   tbl_regression(exponentiate = TRUE)
 
 
-tbl_jama %>%
+if (save_tables)
+  tbl_jama %>%
   as_gt() %>%
   gtsave(file = "images/jama.png")
 

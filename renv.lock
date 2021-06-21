@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.0.5",
+    "Version": "4.1.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -401,15 +401,10 @@
     },
     "gt": {
       "Package": "gt",
-      "Version": "0.2.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "gt",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "7929072221b059901a1649fe7f83d725521fb02a",
-      "RemoteHost": "api.github.com",
-      "Hash": "227061a8f62acc1bfd3551acd39f8967"
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b232ba5fd27ac7ad4ac7f892f3e94796"
     },
     "gtable": {
       "Package": "gtable",
@@ -420,10 +415,10 @@
     },
     "gtsummary": {
       "Package": "gtsummary",
-      "Version": "1.4.0",
+      "Version": "1.4.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6f08839f37de0f122a8ed6845a33942e"
+      "Hash": "b3f0a3ca24cd7f8b7d6eac8bd8269d9e"
     },
     "haven": {
       "Package": "haven",
@@ -967,7 +962,8 @@
       "RemoteRepo": "webshot2",
       "RemoteRef": "master",
       "RemoteSha": "f62e743c9fee3dea313677ee061c041a8bbccb19",
-      "Hash": "54dffb169fd079449ba6201c11525c3e"
+      "Remotes": "rstudio/chromote",
+      "Hash": "bbdac4ec2b8beceb9d286e8e81d85693"
     },
     "websocket": {
       "Package": "websocket",

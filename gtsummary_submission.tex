@@ -21,28 +21,28 @@ The ability to easily create and export polished and reproducible tables is esse
 The \CRANpkg{gtsummary} \citep{gtsummary} package provides an elegant and flexible framework to create publication-ready analytical and summary tables in R.
 This package works to close the gap between a reproducible RMarkdown report and the final report.
 Specifically, \pkg{gtsummary} allows the us to fully customize and format summary tables with code, eliminating the need to modify any tables by hand after the table has been exported.
-Removing the need to modify tables after the table has been created eliminates an error-prone step in our workflow, and increases the reproducibility of our analyses and reports. 
+Removing the need to modify tables after the table has been created eliminates an error-prone step in our workflow, and increases the reproducibility of our analyses and reports.
 
-Using \pkg{gtsummary}, analysts can easily summarize data frames, present and compare descriptive statistics between groups, summarize regression models, and report statistics inline in RMarkdown reports. 
+Using \pkg{gtsummary}, analysts can easily summarize data frames, present and compare descriptive statistics between groups, summarize regression models, and report statistics inline in RMarkdown reports.
 After identifying these basic structures of most tables presented in medical literature (and other fields), we wrote \pkg{gtsummary} to ease creation of fully-formatted, ready to publish tables.
 
 Additionally, \pkg{gtsummary} leverages other analysis and tidying R packages to create a complete analysis and reporting framework.
 For example, we take advantage of the existing \CRANpkg{broom} tidiers to prepare regression results for \code{tbl\_regression()} and use \CRANpkg{gt} \citep{gt} to print \pkg{gtsummary} tables to various output formats (e.g. HTML, PDF, Word, or RTF).
 Furthermore, \pkg{gtsummary} functions are designed to work within a "tidy" framework, utilizing the \CRANpkg{magrittr} \citep{magrittr} pipe operator and \CRANpkg{tidyselect} \citep{tidyselect} functions used throughout the \CRANpkg{tidyverse} \citep{tidyverse}.
 
-While other R packages are available to present data and regression model summary tables, such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree. 
+While other R packages are available to present data and regression model summary tables, such as \CRANpkg{skimr}, \CRANpkg{stargazer}, \CRANpkg{finalfit}, and \CRANpkg{tableone}, \pkg{gtsummary} is unique in that it is a one-stop-shop for most types of statistical tables and offers diverse features to customize content of tables to a high degree.
 The default \CRANpkg{gtsummary} table is suitable to be published in a scientific journal with little or no additional formatting.
 For example, \CRANpkg{gtsummary} has specific internal algorithms to identify variable data types so the user does not have to specify if a variable should be displayed with categorical or continuous summaries, which yields summary tables with minimal code.
 
-Along with descriptive summaries, \pkg{gtsummary} summarizes statistical models, survey data, and builds cross tabulations. 
-After data are summarized in a table, \pkg{gtsummary} allows users to combine tables, either side-by-side (with \code{tbl\_merge()}) , or on top of each other (with \code{tbl\_stack()}). 
+Along with descriptive summaries, \pkg{gtsummary} summarizes statistical models, survey data, and builds cross tabulations.
+After data are summarized in a table, \pkg{gtsummary} allows users to combine tables, either side-by-side (with \code{tbl\_merge()}) , or on top of each other (with \code{tbl\_stack()}).
 The table merging and stacking abilities allows analysts to easily synthesize and compare output from several tables and share information in a compact format.
-All tables in this manuscript were created using \pkg{gtsummary} v1.4.0.
+All tables in this manuscript were created using \pkg{gtsummary} v1.4.1.
 
 \section{Data Summaries}
 
 To showcase \pkg{gtsummary} functions, we will use a simulated clinical trial data set containing baseline characteristics of 200 patients who received Drug A or Drug B, as well as the outcomes of tumor response and death.
-Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")}, that will be shown in the summary tables. 
+Each variable in the data frame has been assigned an attribute label with the \pkg{labelled} package \citep{labelled}, e.g. \code{trial \%>\% set\_variable\_labels(age = "Age")}, that will be shown in the summary tables.
 These labels are displayed in the \pkg{gtsummary} tables by default, and had labels not been assigned, the variable name would have been shown.
 
 \newpage
@@ -55,8 +55,8 @@ The default output from \code{tbl\_summary()} is meant to be publication-ready.
 The \code{tbl\_summary()} function can take, at minimum, a data frame as the only input, and returns descriptive statistics for each column in the data frame.
 This is often the first table of clinical manuscripts and describes characteristics of the study cohort.
 A simple example is shown below.
-Notably, by specifying the \code{by=} argument, you can stratify the summary table. 
-In the example below, we have split the table by the treatment a patient received. 
+Notably, by specifying the \code{by=} argument, you can stratify the summary table.
+In the example below, we have split the table by the treatment a patient received.
 
 % code for basic tbl_summary()
 % \newpage
@@ -73,7 +73,7 @@ trial %>%
 The function is highly customizable, and it is initiated with sensible default settings.
 Specifically, \code{tbl\_summary} detects variable types of input data and calculates descriptive statistics accordingly.
 For example, variables coded as \code{0/1}, \code{TRUE/FALSE}, and \code{Yes/No} are presented dichotomously.
-Additionally, \code{NA} values are recognized as missing and listed as unknown, and if a data set is labelled, the label attributes are utilized. 
+Additionally, \code{NA} values are recognized as missing and listed as unknown, and if a data set is labelled, the label attributes are utilized.
 
 Default settings may be customized using the \code{tbl\_summary()} function arguments.
 
@@ -81,11 +81,11 @@ Default settings may be customized using the \code{tbl\_summary()} function argu
 \input{tex_tables/tbl_tbl_summary_args.tex}
 
 For continuous variables, tables display one row of statistics per variable by default.
-This can be customized, and in the example below the age variable is cast to \code{"continuous2"} type, meaning the continuous summary statistics will appear on two or more rows in the table. 
+This can be customized, and in the example below the age variable is cast to \code{"continuous2"} type, meaning the continuous summary statistics will appear on two or more rows in the table.
 This allows the number of non-missing observations and the mean to be displayed on separate lines.
 
 In the example below, the \code{"age"} variable's label is updated to \code{"Patient Age"}.
-Default summary statistics for both continuous and categorical variables are updated using the \code{statistic=} argument. 
+Default summary statistics for both continuous and categorical variables are updated using the \code{statistic=} argument.
 \pkg{gtsummary} uses \CRANpkg{glue} \citep{glue} syntax to construct the statistics displayed in the table.
 Function names appearing in curly brackets will be replaced by the evaluated value.
 The \code{digits=} argument is used to increase the number of decimal places to which the statistics are rounded, and the missing row is omitted with \code{missing = "no"}.
@@ -114,7 +114,7 @@ Throughout the \pkg{gtsummary} package, you'll find function arguments that acce
 In the example above, the label for the age variable was updated using \code{label = age $\sim$ "Patient Age"}---equivalently, \code{label = list(age $\sim$ "Patient Age")}.
 To select groups of variables, utilize the select helpers from the \pkg{tidyselect} and \pkg{gtsummary} packages.
 The \code{all\_continuous()} selector is a convenient way to select all continuous variables.
-In the example above it could have been used to change the summary statistics for all continuous variables---\code{all\_continuous() $\sim$ c("\{N\_nonmiss\}", "\{mean\} (\{sd\})")}. 
+In the example above it could have been used to change the summary statistics for all continuous variables---\code{all\_continuous() $\sim$ c("\{N\_nonmiss\}", "\{mean\} (\{sd\})")}.
 Similarly, users may utilize \code{all\_categorical()} (from \pkg{gtsummary}), or any of the \pkg{tidyselect} helpers used throughout the \pkg{tidyverse} package, such as \code{starts\_with()}, \code{contains()}, etc.
 
 In addition to summary statistics, the \pkg{gtsummary} package has several functions to add additional information or statistics to \code{tbl\_summary()} tables.
@@ -178,7 +178,7 @@ trial %>%
 
 \subsection{\texorpdfstring{\code{tbl\_survfit()}}{tbl\_survfit()}}
 
-The \code{tbl\_survfit()} function parses and tabulates \code{survival::survfit()} objects presenting survival percentile estimates and survival probabilities at specified times. 
+The \code{tbl\_survfit()} function parses and tabulates \code{survival::survfit()} objects presenting survival percentile estimates and survival probabilities at specified times.
 
 % \newpage
 \begin{example}
@@ -200,7 +200,7 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
 
 The \pkg{gtsummary} package includes functions specifically made to modify and format the summary tables.
 These functions work with any table constructed with \pkg{gtsummary}.
-Most common uses are changing the column headers and footnotes, or modifying the look of tables through bolding and italicization. 
+Most common uses are changing the column headers and footnotes, or modifying the look of tables through bolding and italicization.
 
 \newpage
 % adding table describing fns for customization
@@ -220,7 +220,7 @@ Additional \pkg{gt} customization was utilized to add table captions and source 
 \begin{example}
 trial %>%
   select(marker, response, trt) %>%
-  tbl_summary(by = trt, 
+  tbl_summary(by = trt,
               missing = "no",
               statistic = marker ~ "{mean} ({sd})") %>%
   add_difference() %>%
@@ -248,7 +248,7 @@ The \pkg{gtsummary} package has two functions to help analysts prepare tabular s
 
 \subsection{\texorpdfstring{\code{tbl\_regression()}}{tbl\_regression()}}
 
-The \code{tbl\_regression()} function takes a regression model object in R and returns a formatted table of regression model results. 
+The \code{tbl\_regression()} function takes a regression model object in R and returns a formatted table of regression model results.
 Like \code{tbl\_summary()}, \code{tbl\_regression()} creates highly customizable analytic tables with sensible defaults.
 Common regression models, such as logistic regression and Cox proportional hazards regression, are automatically identified and the tables headers are pre-filled with appropriate column headers (i.e. Odds Ratio and Hazard Ratio).
 
@@ -270,7 +270,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{figure}
 
 The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} package's \code{tidy()} function to perform the initial formatting of the regression object \citep{broom}.
-Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, models built with the \pkg{mice} package \citep{mice} and many more. 
+Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, models built with the \pkg{mice} package \citep{mice} and many more.
 A custom tidier may be specified as well, which is helpful when you need to present non-standard modifications to your model results such as Wald confidence intervals, or results with modified variance-covariance standard errors.
 
 \subsection{\texorpdfstring{\code{tbl\_uvregression()}}{tbl\_uvregression()}}
@@ -282,7 +282,7 @@ The user passes a data frame to \code{tbl\_uvregression()}, indicates what the o
 trial %>%
   select(response, age, grade) %>%
   tbl_uvregression(
-    y = response, 
+    y = response,
     method = glm,
     method.args = list(family = binomial),
     exponentiate = TRUE,
@@ -317,7 +317,7 @@ Here's how the line will appear in your report.
 The odds ratio for age was 1.02 (95\% CI 1.00, 1.04; p=0.091).
 \end{quote}
 
-The default pattern to display for a regression table is \code{"\{estimate\} (\{conf.level*100\}\% CI \{conf.low\}, \{conf.high\}; \{p.value\})"} (again using glue syntax), and can be modified with the \code{inline\_text(pattern=)} argument. 
+The default pattern to display for a regression table is \code{"\{estimate\} (\{conf.level*100\}\% CI \{conf.low\}, \{conf.high\}; \{p.value\})"} (again using glue syntax), and can be modified with the \code{inline\_text(pattern=)} argument.
 
 \section{Merging and Stacking}
 
@@ -328,13 +328,13 @@ First, build a table for each regression model using \code{tbl\_regression()}, t
 Any number of \pkg{gtsummary} tables can be merged with this function.
 
 \begin{example}
-tbl1 <- 
+tbl1 <-
   glm(response ~ age + grade, trial, family = binomial) %>%
   tbl_regression(exponentiate = TRUE)
 
 tbl2 <-
   coxph(Surv(ttdeath, death) ~ age + grade, trial) %>%
-  tbl_regression(exponentiate = TRUE) 
+  tbl_regression(exponentiate = TRUE)
 
 tbl_merge_1 <-
   tbl_merge(
@@ -356,12 +356,12 @@ Similarly, any number of \pkg{gtsummary} tables may be stacked using the \code{t
 We love themes.
 The default styling (e.g. statistics displayed in \code{tbl\_summary()}, how p-values are rounded, decimal separator, and more) follow the reporting guidelines from European Urology, The Journal of Urology, Urology, and the British Journal of Urology International \citep{assel2019guidelines}.
 However, you'll likely submit to another journal, or your personal preferences differ from the defaults.
-The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes. 
-Themes were created to make these customizations easy to navigate and reuse across documents or projects. 
+The \pkg{gtsummary} package is unique from other table building packages in the ability to set fine-grained customization defaults with themes.
+Themes were created to make these customizations easy to navigate and reuse across documents or projects.
 With themes, users can control default settings for existing functions (e.g. always present means instead of medians in \code{tbl\_summary()}), as well as other changes that are not modifiable with function arguments.
 Several themes are available to follow various journals' reporting guidelines, reduce cell padding and font size, and language themes to translate \pkg{gtsummary} tables to more than 14 languages.
 
-For example, using the theme for \textit{The Journal of the American Medical Association} (\textit{JAMA}), large p-values are rounded to two decimal places, confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"}, and the confidence internal is displayed in the same column as the model coefficients. 
+For example, using the theme for \textit{The Journal of the American Medical Association} (\textit{JAMA}), large p-values are rounded to two decimal places, confidence intervals are shown as \code{"lb to ub"} instead of \code{"lb, ub"}, and the confidence internal is displayed in the same column as the model coefficients.
 
 % \newpage
 \begin{example}
@@ -376,7 +376,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font and reduce the default cell padding. 
+A custom theme was used to construct the \pkg{gtsummary} tables shown in this manuscript to match the \emph{R Journal} font and reduce the default cell padding.
 Themes are an evolving feature and we welcome additions of new journals' reporting guidelines or other themes useful to users.
 A full glossary of customizable theme elements is available in the package's themes vignette (\url{http://www.danieldsjoberg.com/gtsummary/articles/themes.html}).
 
