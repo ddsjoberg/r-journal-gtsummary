@@ -25,11 +25,11 @@ if (save_tables)
       class = class(.x),
       values = trial %>% select(.y) %>% distinct() %>%
         arrange(!!rlang::sym(.y)) %>% slice(1:4) %>% pull(.y) %>%
-        na.omit() %>% {paste("`", ., "`", collapse = ", ")}
+        na.omit() %>% {paste0("`", ., "`", collapse = ", ")}
     ) %>%
       mutate(
         values = ifelse(length(unique(na.omit(trial[[.y]]))) > 4,
-                        paste(values, ", ..."),
+                        paste0(values, ", ..."),
                         values)
       )
   ) %>%
