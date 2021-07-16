@@ -1,6 +1,6 @@
 % !TeX root = RJwrapper.tex
 \title{Reproducible Summary Tables with the \pkg{gtsummary} Package}
-\author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry}
+\author{by Daniel D. Sjoberg, Karissa Whiting, Michael Curry, Jessica A. Lavery, Joseph Larmarange}
 
 \maketitle
 
@@ -269,7 +269,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
   \centering
 \end{figure}
 
-The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} package's \code{tidy()} function to perform the initial formatting of the regression object \citep{broom}.
+The \code{tbl\_regression()} function leverages the huge effort behind the \pkg{broom} and \CRANpkg{broom.helpers} packages to perform the initial formatting of the regression object \citep{broom}\citep{broom.helpers}.
 Because \code{tbl\_regression()} utilizes \code{broom::tidy()}, there are many model types that are supported out of the box, such as \code{lm()}, \code{glm()}, \code{lme4::lmer()}, \code{lme4::glmer()}, \code{geepack::geeglm()}, \code{survival::coxph()}, \code{survival::survreg()}, \code{survival::clogit()}, \code{nnet::multinom()}, \code{rstanarm::stan\_glm()}, models built with the \pkg{mice} package \citep{mice}, and many more.
 A custom tidier may be specified as well, which is helpful when you need to present non-standard modifications to your model results such as Wald confidence intervals or results with modified variance-covariance standard errors.
 
@@ -415,3 +415,17 @@ It is our hope that the user-friendly syntax and publication-ready tables will a
   USA\\
   ORCiD: 0000-0002-0261-4044\\
   \email{currym1@mskcc.org}}
+  
+ \address{Jessica A. Lavery\\
+  Memorial Sloan Kettering Cancer Center\\
+  1275 York Ave., New York, New York 10022\\
+  USA\\
+  ORCiD: 0000-0002-2746-5647\\
+  \email{laveryj@mskcc.org}}
+
+\address{Joseph Larmarange\\
+  Centre Population \& Développement, IRD, Université de Paris, Inserm\\
+  45 rue des Saints-Pères 75006 PARIS\\
+  France\\
+  ORCID: 0000-0001-7097-700X\\
+  \email{joseph.larmarange@ceped.org}}
