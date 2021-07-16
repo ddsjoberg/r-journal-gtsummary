@@ -12,7 +12,7 @@ set_gtsummary_theme(my_r_journal_theme)
 
 # set to TRUE to re-render all tables (gt images and latex tables)
 # if you're at the R Journal, please leave this as FALSE
-save_tables <- TRUE
+save_tables <- FALSE
 
 # Data Summaries ---------------------------------------------------------------
 
