@@ -66,7 +66,7 @@ trial %>%
   tbl_summary(by = trt)
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{summary_basic.png}
+  \includegraphics[scale=0.73]{summary_basic.png}
   \centering
 \end{figure}
 
@@ -105,7 +105,7 @@ trial %>%
   )
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{summary_plus.png}
+  \includegraphics[scale=0.73]{summary_plus.png}
   \centering
 \end{figure}
 
@@ -137,7 +137,7 @@ trial %>%
 
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{summary_plus_plus.png}
+  \includegraphics[scale=0.73]{summary_plus_plus.png}
   \centering
 \end{figure}
 
@@ -157,7 +157,7 @@ tbl_svysummary_1 <-
   add_p()
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{svysummary.png}
+  \includegraphics[scale=0.73]{svysummary.png}
   \centering
 \end{figure}
 
@@ -172,7 +172,7 @@ trial %>%
   add_p(source_note = TRUE)
 \end{example}
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{cross.png}
+  \includegraphics[scale=0.73]{cross.png}
   \centering
 \end{figure}
 
@@ -192,7 +192,7 @@ list(survfit(Surv(ttdeath, death) ~ trt, trial),
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{survfit.png}
+  \includegraphics[scale=0.73]{survfit.png}
   \centering
 \end{figure}
 
@@ -237,7 +237,7 @@ trial %>%
   gt::tab_source_note("Data updated June 26, 2015")
 \end{example}
 \begin{widefigure}[h!]
-  \includegraphics[scale=0.49]{custom.png}
+  \includegraphics[scale=0.73]{custom.png}
   \centering
 \end{widefigure}
 
@@ -265,7 +265,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{regression.png}
+  \includegraphics[scale=0.73]{regression.png}
   \centering
 \end{figure}
 
@@ -293,7 +293,7 @@ trial %>%
 \end{example}
 \newpage
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{uvregression.png}
+  \includegraphics[scale=0.73]{uvregression.png}
   \centering
 \end{figure}
 
@@ -345,7 +345,7 @@ tbl_merge_1 <-
 \newpage
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{merge.png}
+  \includegraphics[scale=0.73]{merge.png}
   \centering
 \end{figure}
 
@@ -372,7 +372,7 @@ glm(response ~ age + grade, trial, family = binomial) %>%
 \end{example}
 
 \begin{figure}[h!]
-  \includegraphics[scale=0.49]{jama.png}
+  \includegraphics[scale=0.73]{jama.png}
   \centering
 \end{figure}
 
@@ -415,4 +415,3 @@ It is our hope that the user-friendly syntax and publication-ready tables will a
   USA\\
   ORCiD: 0000-0002-0261-4044\\
   \email{currym1@mskcc.org}}
-
