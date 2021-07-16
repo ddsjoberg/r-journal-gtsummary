@@ -1,6 +1,5 @@
 \captionsetup[table]{labelformat=empty,skip=1pt}
 \begin{longtable}{llll}
-\caption{\label{tab:}Example data frame, \texttt{trial}}\\
 \toprule
 colname & label & class & values \\ 
 \midrule
@@ -12,6 +11,7 @@ colname & label & class & values \\
 \texttt{response} & Tumor Response & integer & \texttt{0}, \texttt{1} \\ 
 \texttt{death} & Patient Died & integer & \texttt{0}, \texttt{1} \\ 
 \texttt{ttdeath} & Months to Death/Censor & numeric & \texttt{3.53}, \texttt{5.33}, \texttt{6.32}, \texttt{7.27}, ... \\ 
-\bottomrule
+\bottomrule\caption{\label{tab:caption}Table 1. Example data frame, \texttt{trial}}\\
+
 \end{longtable}
 

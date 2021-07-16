@@ -12,7 +12,7 @@ set_gtsummary_theme(my_r_journal_theme)
 
 # set to TRUE to re-render all tables (gt images and latex tables)
 # if you're at the R Journal, please leave this as FALSE
-save_tables <- FALSE
+save_tables <- TRUE
 
 # Data Summaries ---------------------------------------------------------------
 
@@ -38,7 +38,7 @@ if (save_tables)
   cols_align("left", everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}Example data frame, \\texttt{trial}}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\bottomrule"), fixed("\\bottomrule\\caption{\\label{tab:caption}Table 1. Example data frame, \\texttt{trial}}\\\\\n")) %>%
   readr::write_lines("tex_tables/tbl_trial_desc.tex")
 
 ## `tbl_summary()` -------------------------------------------------------------
@@ -57,7 +57,7 @@ if (save_tables)
   tibble::tribble(
     ~Argument,       ~Description,
     "`label=`",       "specify the variable labels printed in table",
-    "`type=`",        "specify the variable type (e.g. continuous, categorical, etc.)",
+    "`type=`",        "specify the variable type (e.g., continuous, categorical, etc.)",
     "`statistic=`",   "change the summary statistics presented",
     "`digits=`",      "number of digits the summary statistics will be rounded to",
     "`missing=`",     "whether to display a row with the number of missing observations",
@@ -70,7 +70,7 @@ if (save_tables)
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} function arguments}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\bottomrule"), fixed("\\bottomrule\\caption{\\label{tab:caption}Table 2. \\texttt{tbl\\_summary()} function arguments}\\\\\n")) %>%
   readr::write_lines("tex_tables/tbl_tbl_summary_args.tex")
 
 tbl_summary_2 <-
@@ -94,20 +94,19 @@ if (save_tables)
 if (save_tables)
   tibble::tribble(
     ~Function,             ~Description,
-    "`add_p()`",           "add p-values to the output comparing values across groups",
+    "`add_p()`",           "add *p*-values to the output comparing values across groups",
     "`add_overall()`",     "add a column with overall summary statistics",
     "`add_n()`",           "add a column with N (or N missing) for each variable",
-    "`add_difference()`",  "add column for difference between two group, confidence interval, and p-value",
+    "`add_difference()`",  "add column for difference between two group, confidence interval, and *p*-value",
     "`add_stat_label()`",  "add label for the summary statistics shown in each row",
     "`add_stat()`",        "generic function to add a column with user-defined values",
-    "`add_q()`",           "add a column of q-values to control for multiple comparisons"
+    "`add_q()`",           "add a column of *q*-values to control for multiple comparisons"
   ) %>%
   gt(caption = "`tbl_summary()` functions to add information") %>%
   fmt_markdown(everything()) %>%
-  fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:}\\texttt{tbl\\_summary()} functions to add information}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\bottomrule"), fixed("\\bottomrule\\caption{\\label{tab:caption}Table 3. \\texttt{tbl\\_summary()} functions to add information}\\\\\n")) %>%
   readr::write_lines("tex_tables/tbl_tbl_summary_family.tex")
 
 tbl_summary_3 <-
@@ -179,14 +178,14 @@ if (save_tables)
     "`bold_levels()`",             "bold variable levels",
     "`italicize_labels()`",        "italicize variable labels",
     "`italicize_levels()`",        "italicize variable levels",
-    "`bold_p()`",                  "bold significant p-values"
+    "`bold_p()`",                  "bold significant *p*-values"
   ) %>%
   gt() %>%
   fmt_markdown(everything()) %>%
   fmt_markdown(everything()) %>%
   as_latex() %>%
   as.character() %>%
-  str_replace(fixed("\\toprule"), fixed("\\caption{\\label{tab:} Functions to style and modify gtsummary tables}\\\\\n\\toprule")) %>%
+  str_replace(fixed("\\bottomrule"), fixed("\\bottomrule\\caption{\\label{tab:caption}Table 4. Functions to style and modify gtsummary tables}\\\\\n")) %>%
   readr::write_lines("tex_tables/tbl_modify.tex")
 
 tbl_custom <-
